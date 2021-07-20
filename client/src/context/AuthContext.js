@@ -4,8 +4,8 @@ export const AuthContext = createContext();
 
 const AuthContextProvider = (props) => {
     const [isAuth, setIsAuth] = useState({
-        userDetails: '',
-        token: '12345',
+        user: null,
+        token: null,
         loading: false,
         errorMessage: null
     })
