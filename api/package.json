@@ -6,14 +6,16 @@
   "dependencies": {
     "express": "^4.17.1",
     "knex": "^0.21.18",
+    "knex-dump": "^1.0.11",
     "morgan": "^1.10.0",
     "pg": "^8.5.1"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "node server.js",
     "migrate": "node scripts/migrate.js",
-    "seed": "node scripts/seed.js"
+    "rentify": "node scripts/rentify.js",
+    "seed": "node scripts/seed.js",
+    "dump": "knex-dump --file seeds/data.json restore"
   },
   "keywords": [],
   "author": "",
