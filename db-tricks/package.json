@@ -1,0 +1,23 @@
+{
+  "name": "db-tricks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "migrate": "node scripts/migrate.js",
+    "rentify": "node scripts/rentify.js",
+    "seed": "node scripts/seed.js",
+    "dump": "pg-migrator postgres://docker:mysecretpassword@localhost/docker",
+    "knex-dump": "knex-dump --file seeds/data.json dump"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "knex": "^0.95.7",
+    "knex-dump": "^1.0.9",
+    "pg": "^8.6.0",
+    "pg-dump": "^0.10.0",
+    "pg-migrator": "^1.1.0"
+  }
+}
