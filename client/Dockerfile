@@ -1,8 +1,11 @@
 FROM node:14-alpine
+
 WORKDIR /app
-COPY /tutorial .
-# CMD ["node","app.js"]
+
+COPY . .
 
 RUN npm install
+
+EXPOSE 3000
 
 CMD ["npm", "start"]
