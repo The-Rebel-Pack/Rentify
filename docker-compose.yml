@@ -1,10 +1,21 @@
 version: '3.9'
 
 services:
-  server:
-    build: .
+  api:
+    build: ./api
     ports:
       - '5000:5000'
+  client:
+    build: ./client
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    ports:
+      - '3000:3000'
+    depends_on: 
+      - api
   db:
     image: 'postgres'
     environment:
