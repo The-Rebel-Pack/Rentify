@@ -2,7 +2,7 @@
   "name": "docker-tut",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "dependencies": {
     "express": "^4.17.1",
     "knex": "^0.21.18",
@@ -12,12 +12,12 @@
   },
   "scripts": {
     "start": "node server.js",
-    "migrate": "node scripts/migrate.js",
-    "rentify": "node scripts/rentify.js",
-    "seed": "node scripts/seed.js",
-    "dump": "knex-dump --file seeds/data.json restore"
+    "dev": "nodemon --exec npm start"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
 }
