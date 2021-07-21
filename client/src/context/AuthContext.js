@@ -5,12 +5,6 @@ export const AuthContext = createContext();
 const AuthContextProvider = (props) => {
     const [auth, setAuth] = useState(window.localStorage.getItem('auth') === 'true' || false);
     const [token, setToken] = useState(null);
-    // const [isAuth, setIsAuth] = useState({
-    //     user: null,
-    //     token: null,
-    //     loading: false,
-    //     errorMessage: null
-    // })
 
     const value = {
         auth,

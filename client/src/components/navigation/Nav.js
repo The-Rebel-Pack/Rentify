@@ -5,7 +5,7 @@ import NavRouter from '../../routers/NavRouter';
 import NavLogin from '../authentication/NavLogin';
 
 const Nav = () => {
-    const { isAuth } = useContext(AuthContext)
+    const { auth } = useContext(AuthContext)
 
     return (
         <NavRouter>
@@ -16,13 +16,15 @@ const Nav = () => {
                             Listings
                         </NavLink>
                     </li>
+                    {auth &&
+                        <li>
+                            <NavLink to="/profile" >
+                                profile
+                            </NavLink>
+                        </li>
+                    }
                     <li>
                         <NavLogin />
-                    </li>
-                    <li>
-                        <NavLink to="/register" >
-                            Register
-                        </NavLink>
                     </li>
                 </ul>
             </nav>

@@ -12,8 +12,6 @@ const app = express()
 
 app.use(cors())
 
-app.use(middleware.decodeToken);
-
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -38,7 +36,11 @@ app.get('/api/listings', (req, res) => {
   });
 });
 
-app.use('/users', usersRouter);
+app.get('/api/protectedroute', middleware.decodeToken, (req,res) => {
+  return res.json({ message: "this is a protected route, needs authorization token in header" });
+});
+
+app.use('/users', middleware.decodeToken, usersRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));

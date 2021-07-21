@@ -11,7 +11,6 @@ class Middleware {
             }
             return res.json({ message: 'Unauthorized' });
         } catch (err) {
-            console.log(err);
             return res.json({ message: err.message || 'Internal server error' });
         }
     }

@@ -4,8 +4,7 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
-import Login from '../components/authentication/NavLogin';
-import Register from '../components/authentication/Register';
+import Profile from '../components/profile/Profile';
 import Listings from '../components/listings/Listings';
 
 const NavRouter = (props) => {
@@ -17,8 +16,8 @@ const NavRouter = (props) => {
                 <Route exact path="/" >
                     <Listings />
                 </Route>
-                <Route path="/register" >
-                    <Register />
+                <Route path="/profile" >
+                    <Profile />
                 </Route>
             </Switch>
         </Router>

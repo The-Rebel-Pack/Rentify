@@ -27,9 +27,11 @@ const Login = () => {
           setAuth(true);
           window.localStorage.setItem('auth', 'true');
         }
-        console.log(userCred);
       }
-      );
+      )
+      .catch((err) => {
+        console.log(err.message)
+      })
   };
 
   const logout = () => {
