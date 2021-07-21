@@ -7,7 +7,7 @@ const {
   getAllListings,
   getAllCategories,
   getListing
-} = require('../db');
+} = require('../utils/db');
 
 router.get('/', (req, res) => {
   getAllListings((err, rows) => {

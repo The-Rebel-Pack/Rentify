@@ -7,15 +7,17 @@ const createError = (code, message) => {
   return err;
 };
 
-const getAllUsers = (callback) => {
-  db.query('SELECT * FROM users', (err, res) => {
-    console.log('Get all users');
+const getAllUsers = async (callback) => {
+  const usersGetList = await fs.readFile('./sql/users_get_list.sql');
+  db.query(usersGetList.toString(), (err, res) => {
+    console.log(`Got ${res.rowCount} users`);
     callback(err, res.rows);
   });
 };
 
-const getAllListings = (callback) => {
-  db.query('SELECT * FROM listings', (err, res) => {
+const getAllListings = async (callback) => {
+  const listingsGetList = await fs.readFile('./sql/listings_get_list.sql');
+  db.query(listingsGetList.toString(), (err, res) => {
     console.log(`Got ${res.rowCount} listings`);
     if (res.rowCount > 0) {
       callback(err, res.rows);
@@ -25,8 +27,9 @@ const getAllListings = (callback) => {
   });
 };
 
-const getAllCategories = (callback) => {
-  db.query('SELECT * FROM categories', (err, res) => {
+const getAllCategories = async (callback) => {
+  const catsGetList = await fs.readFile('./sql/categories_get_list.sql');
+  db.query(catsGetList.toString(), (err, res) => {
     callback(err, res.rows);
   });
 };
@@ -39,8 +42,9 @@ const resetDb = async () => {
   });
 }
 
-const getUser = (id, callback) => {
-  db.query(`SELECT * FROM users WHERE Id = ${id}`, (err, res) => {
+const getUser = async (id, callback) => {
+  const getUserById = await fs.readFile('./sql/users_get_by_id.sql');
+  db.query(getUserById.toString(), [id], (err, res) => {
     callback(err, res.rows);
   });
 };
@@ -60,8 +64,9 @@ const addUser = async (userDetails, callback) => {
     });
 };
 
-const getListing = (id, callback) => {
-  db.query(`SELECT * FROM listings WHERE Id = ${id}`, (err, res) => {
+const getListing = async (id, callback) => {
+  const getListingById = await fs.readFile('./sql/listings_get_by_id.sql');
+  db.query(getListingById.toString(), [id], (err, res) => {
     callback(err, res.rows);
   });
 };
