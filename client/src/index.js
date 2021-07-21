@@ -2,15 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './style/main.css';
 import App from './App';
+import './config/firebase-config';
 import AuthContextProvider from './context/AuthContext';
+import ListingsContextProvider from './context/ListingsContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <App />
+      <ListingsContextProvider>
+        <App />
+      </ListingsContextProvider>
     </AuthContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-
