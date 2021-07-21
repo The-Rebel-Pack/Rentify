@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS users
     email VARCHAR(120) NOT NULL,
     name VARCHAR(120) NOT NULL,
     first_name VARCHAR(120),
-    last_name VARCHAR(120)
+    last_name VARCHAR(120),
+    details JSON NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS categories
@@ -33,11 +34,11 @@ VALUES
   ('furniture');
 
 INSERT INTO users
-  (name, email, first_name, last_name)
+  (name, email, first_name, last_name, details)
 VALUES
-  ('Anna Nilsson', 'anna@nilsson.se', 'Anna', 'Nilsson'),
-  ('Bo Karlsson', 'bo@karlsson.se', 'Bo', 'Karlsson'),
-  ('Robert Olsson', 'robert@olsson.se', 'Robert', 'Olsson');
+  ('Anna Nilsson', 'anna@nilsson.se', 'Anna', 'Nilsson', '{"phone": "123-456789"}'),
+  ('Bo Karlsson', 'bo@karlsson.se', 'Bo', 'Karlsson', '{"phone": "123-456789"}'),
+  ('Robert Olsson', 'robert@olsson.se', 'Robert', 'Olsson', '{"phone": "123-456789"}');
 
 INSERT INTO listings
   (name, details, category, owner)

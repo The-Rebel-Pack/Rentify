@@ -3,10 +3,8 @@ const router = express.Router();
 
 router.use(express.json());
 
-const {
-  getAllUsers,
-  getUser
-} = require('../db');
+const { getAllUsers, getUser, addUser } = require('../utils/db');
+const { validateUser } = require('../utils/validation');
 
 router.get('/', (req, res) => {
   getAllUsers((err, rows) => {
@@ -20,10 +18,14 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   getUser(req.params.id, (err, row) => {
     if (err) throw err;
+    if (!row[0]) {
+      res
+        .status(404)
+        .end()
+    }
     res
-      .json(row)
       .status(200)
-      .end();
+      .json(row)
   });
 });
 
@@ -46,19 +48,14 @@ router.get('/:id', (req, res) => {
 //   });
 // });
 
-// router.post('/', (req, res) => {
-//   const { name, description, price, groupId } = req.body;
-//   addProduct(name, description, price, groupId, (err, dbRes) => {
-//     if (err) throw err;
-//     res
-//       .json(req.body)
-//       .status(201)
-//       .end();
-//   });
-// });
-
-router.use((err, req, res, next) => {
-  res.status(err.code).end();
+router.post('/', (req, res) => {
+  const userDetails = validateUser(req.body);
+  addUser(userDetails, (err, dbRes) => {
+    if (err) throw err;
+    res
+      .status(201)
+      .json(dbRes)
+  });
 });
 
 module.exports = router;

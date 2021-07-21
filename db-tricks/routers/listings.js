@@ -67,8 +67,4 @@ router.get('/:id', (req, res) => {
 //   });
 // });
 
-router.use((err, req, res, next) => {
-  res.status(err.code).end();
-});
-
 module.exports = router;
