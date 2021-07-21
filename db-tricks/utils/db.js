@@ -34,11 +34,10 @@ const getAllCategories = async (callback) => {
   });
 };
 
-const resetDb = async () => {
+const resetDb = async (callback) => {
   const reset = await fs.readFile('./sql/reset.sql');
   db.query(reset.toString(), (err, res) => {
-    if (err) return console.error(err.detail || err);
-    return console.log('Database reset');
+    callback(err, 'Database updated')
   });
 }
 
@@ -64,6 +63,21 @@ const addUser = async (userDetails, callback) => {
     });
 };
 
+const editUser = async (userDetails, callback) => {
+  const editUser = await fs.readFile('./sql/users_edit.sql');
+  db.query(
+    editUser.toString(),
+    [
+      userDetails.name,
+      userDetails.first_name,
+      userDetails.last_name,
+      userDetails.details,
+      userDetails.id
+    ], (err, res) => {
+      callback(err, res.rows);
+    });
+};
+
 const getListing = async (id, callback) => {
   const getListingById = await fs.readFile('./sql/listings_get_by_id.sql');
   db.query(getListingById.toString(), [id], (err, res) => {
@@ -76,6 +90,7 @@ module.exports = {
   getAllUsers,
   getUser,
   addUser,
+  editUser,
   getAllListings,
   getAllCategories,
   getListing,

@@ -4,14 +4,18 @@ const app = express();
 const port = process.env.PORT || 4000;
 const {
   createError,
-  resetDb
-} = require('./db');
+  resetDb,
+} = require('./utils/db');
 
 app.get('/db/reset', (req, res) => {
-  resetDb();
-  res
-    .status(201)
-    .end('Database reset');
+  resetDb((err, row) => {
+    if (err) {
+      next(err);
+    }
+    res
+      .status(201)
+      .json(row)
+  });
 });
 
 app.use('/api/users', require('./routers/users'));

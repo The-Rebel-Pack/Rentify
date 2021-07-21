@@ -3,21 +3,22 @@ const router = express.Router();
 
 router.use(express.json());
 
-const { getAllUsers, getUser, addUser } = require('../utils/db');
-const { validateUser } = require('../utils/validation');
+const { getAllUsers, getUser, addUser, editUser } = require('../utils/db');
+const { validateUser, validateNewUser } = require('../utils/validation');
 
 router.get('/', (req, res) => {
   getAllUsers((err, rows) => {
     res
-      .json(rows)
       .status(200)
-      .end();
+      .json(rows)
   });
 });
 
 router.get('/:id', (req, res) => {
   getUser(req.params.id, (err, row) => {
-    if (err) throw err;
+    if (err) {
+      next(err);
+    }
     if (!row[0]) {
       res
         .status(404)
@@ -38,23 +39,27 @@ router.get('/:id', (req, res) => {
 //   });
 // });
 
-// router.put('/:id', (req, res) => {
-//   updateProduct(req.params.id, req.body, (err, dbRes) => {
-//     if (err) throw err;
-//     res
-//       .json(dbRes)
-//       .status(202)
-//       .end();
-//   });
-// });
-
-router.post('/', (req, res) => {
-  const userDetails = validateUser(req.body);
-  addUser(userDetails, (err, dbRes) => {
-    if (err) throw err;
+router.post('/:id', (req, res) => {
+  const userDetails = validateUser(req.params.id, req.body);
+  editUser(userDetails, (err, row) => {
+    if (err) {
+      throw err;
+    }
     res
       .status(201)
-      .json(dbRes)
+      .json(row)
+  });
+});
+
+router.post('/', (req, res) => {
+  const userDetails = validateNewUser(req.body);
+  addUser(userDetails, (err, row) => {
+    if (err) {
+      throw err;
+    }
+    res
+      .status(201)
+      .json(row)
   });
 });
 
