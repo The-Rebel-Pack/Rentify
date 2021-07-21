@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useContext } from 'react';
+import React, { useEffect, useCallback, useContext } from 'react';
 import axios from 'axios';
 import { ListingsContext } from '../../context/ListingsContext';
 
@@ -10,7 +10,7 @@ const Listings = () => {
             const res = await axios.get('http://localhost:5000/api/listings');
             setListings(res.data);
         },
-        [],
+        [setListings],
     );
 
     useEffect(() => {
