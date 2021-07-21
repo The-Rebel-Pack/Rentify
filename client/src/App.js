@@ -1,20 +1,18 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Login from "./components/authentication/Login";
-import BookList from "./components/listings/Booklist";
+import Listings from "./components/listings/Listings";
+import Nav from './components/navigation/Nav';
 
 const App = () => {
   return (
     <div className="App">
       <header className="App-header">
         <div className="App">
+          <Nav/>
           <BrowserRouter>
             <Switch>
-              <Route path={"/login"}>
-                <Login />
-              </Route>
-              <Route path={"/book-list"}>
-                <BookList />
+              <Route path={"/"}>
+                <Listings />
               </Route>
             </Switch>
           </BrowserRouter>

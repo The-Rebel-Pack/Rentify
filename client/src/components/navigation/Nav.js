@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { NavLink } from "react-router-dom";
 import { AuthContext } from '../../context/AuthContext';
 import NavRouter from '../../routers/NavRouter';
+import NavLogin from '../authentication/NavLogin';
 
 const Nav = () => {
     const { isAuth } = useContext(AuthContext)
@@ -16,14 +17,7 @@ const Nav = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/logout" >
-                            Logout
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/login" >
-                            Login
-                        </NavLink>
+                        <NavLogin />
                     </li>
                     <li>
                         <NavLink to="/register" >
