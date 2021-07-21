@@ -8,7 +8,4 @@ module.exports = knex({
     password: 'mysecretpassword',
     database: 'docker',
   },
-  seeds: {
-    directory: './seeds/dev'
-  }
 })

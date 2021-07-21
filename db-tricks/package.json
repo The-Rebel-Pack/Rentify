@@ -4,6 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon --exec npm start",
     "migrate": "node scripts/migrate.js",
     "rentify": "node scripts/rentify.js",
     "seed": "node scripts/seed.js",
@@ -14,8 +16,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
     "knex": "^0.95.7",
     "knex-dump": "^1.0.9",
+    "nodemon": "^2.0.12",
     "pg": "^8.6.0",
     "pg-dump": "^0.10.0",
     "pg-migrator": "^1.1.0"
