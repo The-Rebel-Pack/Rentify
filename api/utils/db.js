@@ -1,6 +1,6 @@
 const fs = require('fs').promises;
 const db = require('../config/db')
-const { createError } = require('../utils/validation');
+const { createError, isNumber } = require('../utils/validation');
 
 const getAllUsers = async () => {
   try {
@@ -16,13 +16,28 @@ const getAllUsers = async () => {
 const getAllListings = async (query) => {
   try {
     if (query) {
-      const page = query.page;
+      // const page = query.page;
       const search = query.search;
       const categories = query.categories;
       if (search) {
         const getListings = await fs.readFile('./sql/listings_get_list_search.sql');
         const res = await db.query(getListings.toString(), [search]);
-        console.log(`Got ${res.rowCount} listings`);
+        console.log(`Got ${res.rowCount} listings from search "${search}"`);
+        return res.rows;
+      }
+      if (categories) {
+        let getListings = await fs.readFile('./sql/listings_get_list_category.sql');
+        const catsArray = categories
+          .split(',')
+          .map(Number)
+          .filter(c => isNumber(c) && c !== 0);
+        if (catsArray.length > 1) {
+          const catsSqlParts = catsArray.map((c, i) => `category = $${i + 1}`);
+          const catsSql = catsSqlParts.join(' OR ');
+          getListings = getListings.toString().replace('category = $1', catsSql)
+        }
+        const res = await db.query(getListings.toString(), catsArray);
+        console.log(`Got ${res.rowCount} listings in categories "${catsArray}"`);
         return res.rows;
       }
     }

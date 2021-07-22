@@ -33,7 +33,7 @@ const validateUser = (id, userInput) => {
 }
 
 const isNumber = (input) => {
-  if (isFinite(input)) {
+  if (Number.isFinite(input)) {
     return true;
   }
   return false;
@@ -53,4 +53,4 @@ const validateListing = (userInput) => {
   return listingDetails;
 }
 
-module.exports = { createError, validateUser, validateNewUser, validateListing }
+module.exports = { createError, validateUser, validateNewUser, validateListing, isNumber }
