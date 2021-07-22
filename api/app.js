@@ -17,15 +17,15 @@ app.use(express.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
-app.get('/db/reset', (req, res) => {
-  resetDb((err, row) => {
-    if (err) {
-      next(err);
-    }
+app.get('/db/reset', async (req, res) => {
+  try {
+    const rows = await resetDb();
     res
       .status(201)
-      .json(row)
-  });
+      .json(rows)
+  } catch (err) {
+    next(err);
+  }
 });
 
 
