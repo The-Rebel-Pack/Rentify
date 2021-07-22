@@ -7,7 +7,7 @@ const { getAllListings, getAllCategories, getListing, addListing } = require('..
 const { validateListing } = require('../utils/validation');
 
 router.get('/', async (req, res) => {
-  console.log(req.user);
+  // console.log(req.user);
   const rows = await getAllListings(req.query);
   if (rows[0]) {
     return res
@@ -55,26 +55,6 @@ router.post('/:id', async (req, res, next) => {
   }
 });
 
-
-// router.delete('/:id', (req, res) => {
-//   deleteProduct(req.params.id, (err) => {
-//     if (err) throw err;
-//     res
-//       .status(204)
-//       .end();
-//   });
-// });
-
-// router.put('/:id', (req, res) => {
-//   updateProduct(req.params.id, req.body, (err, dbRes) => {
-//     if (err) throw err;
-//     res
-//       .json(dbRes)
-//       .status(202)
-//       .end();
-//   });
-// });
-
 router.post('/', async (req, res, next) => {
   try {
     const listingDetails = validateListing(req.body);
@@ -91,17 +71,5 @@ router.post('/', async (req, res, next) => {
     next(err);
   }
 });
-
-
-// router.post('/', (req, res) => {
-//   const { name, description, price, groupId } = req.body;
-//   addProduct(name, description, price, groupId, (err, dbRes) => {
-//     if (err) throw err;
-//     res
-//       .json(req.body)
-//       .status(201)
-//       .end();
-//   });
-// });
 
 module.exports = router;
