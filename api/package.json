@@ -13,7 +13,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon -L"
+    "dev": "nodemon -e js,sql,json -L"
   },
   "keywords": [],
   "author": "",

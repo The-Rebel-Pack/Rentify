@@ -1,1 +1,2 @@
-SELECT * FROM categories
+SELECT * 
+FROM categories
