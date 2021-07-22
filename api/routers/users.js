@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const middleware = require('../middleware');
 
 router.use(express.json());
 
@@ -13,7 +14,7 @@ router.get('/', async (req, res) => {
     .json(rows)
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', middleware.decodeToken, async (req, res) => {
   const rows = await getUser(req.params.id);
   if (rows[0]) {
     return res
@@ -25,7 +26,7 @@ router.get('/:id', async (req, res) => {
     .end('Not found')
 });
 
-router.post('/:id', async (req, res, next) => {
+router.post('/:id', middleware.decodeToken, async (req, res, next) => {
   try {
     const userDetails = validateUser(req.params.id, req.body);
     const rows = await editUser(userDetails);

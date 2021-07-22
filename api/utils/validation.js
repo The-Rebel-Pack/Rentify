@@ -5,11 +5,12 @@ const createError = (code, message) => {
 };
 
 const validateNewUser = (userInput) => {
-  const { name, email } = userInput;
+  const { name, email, id } = userInput;
   const userDetails = {};
   // first time we guess the first and last name
   const firstName = name.match(/([^\s]*)/);
   const lastNames = name.match(/\s(.*)/);
+  userDetails.id = id;
   userDetails.name = name;
   userDetails.first_name = firstName ? firstName[1] : name;
   userDetails.last_name = lastNames ? lastNames[1] : name;

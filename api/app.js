@@ -33,8 +33,6 @@ app.get('/api/protectedroute', middleware.decodeToken, (req, res) => {
   return res.json({ message: "this is a protected route, needs authorization token in header" });
 });
 
-// app.use('/api/users', middleware.decodeToken, require('./routers/users'));
-// app.use('/api/listings', middleware.decodeToken, require('./routers/listings'));
 app.use('/api/users', require('./routers/users'));
 app.use('/api/listings', require('./routers/listings'));
 

@@ -26,13 +26,15 @@ const Login = () => {
       .then( async (userCred) => {
         if (userCred) {
           setAuth(true);
+          // console.log(userCred);
           window.localStorage.setItem('auth', 'true');
           const response = await axios({
             method: 'POST',
             url: 'http://localhost:5000/api/users',
             data: {
-              "email": userCred.user.bc.email,
-              "name": userCred.user.bc.displayName
+              "id": userCred.user.uid,
+              "email": userCred.user.email,
+              "name": userCred.user.displayName
             },
           });
           console.log(response);

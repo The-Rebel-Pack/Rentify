@@ -82,6 +82,7 @@ const addUser = async (userDetails) => {
     const res = await db.query(
       addUser.toString(),
       [
+        userDetails.id,
         userDetails.name,
         userDetails.first_name,
         userDetails.last_name,

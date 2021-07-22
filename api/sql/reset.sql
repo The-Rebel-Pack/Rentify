@@ -11,7 +11,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TABLE IF NOT EXISTS users (
-  id SERIAL PRIMARY KEY,
+  id VARCHAR(120) PRIMARY KEY,
   email VARCHAR(120) NOT NULL UNIQUE,
   name VARCHAR(120) NOT NULL,
   first_name VARCHAR(120),
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS listings (
   price JSON NOT NULL,
   category INTEGER,
   FOREIGN KEY (category) REFERENCES categories (id),
-  owner INTEGER,
+  owner VARCHAR(120),
   FOREIGN KEY (owner) REFERENCES users (id),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -52,9 +52,10 @@ VALUES
   ('electronics');
 
 INSERT INTO
-  users (name, email, first_name, last_name, details)
+  users (id, name, email, first_name, last_name, details)
 VALUES
   (
+    '1',
     'Anna Nilsson',
     'anna@nilsson.se',
     'Anna',
@@ -62,6 +63,7 @@ VALUES
     '{"phone": "123-456789"}'
   ),
   (
+    '2',
     'Bo Karlsson',
     'bo@karlsson.se',
     'Bo',
@@ -69,6 +71,7 @@ VALUES
     '{"phone": "123-456789"}'
   ),
   (
+    '3',
     'Robert Olsson',
     'robert@olsson.se',
     'Robert',
@@ -84,19 +87,19 @@ VALUES
     '{"description": "Very fast car", "images": ["https://images.unsplash.com/photo-1489824904134-891ab64532f1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1778&q=80"]}',
     '{"day": 100}',
     1,
-    1
+    '1'
   ),
   (
     'Fancy car',
     '{"description": "Very fancy car", "images": ["https://images.unsplash.com/photo-1489824904134-891ab64532f1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1778&q=80"]}',
     '{"day": 200}',
     2,
-    3
+    '3'
   ),
   (
     'Old chair',
     '{"description": "Very nice chair", "images": ["https://images.unsplash.com/photo-1562113530-57ba467cea38?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y2hhaXJ8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"]}',
     '{"day": 300}',
     2,
-    2
+    '2'
   );
