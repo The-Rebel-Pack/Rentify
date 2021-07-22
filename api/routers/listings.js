@@ -3,7 +3,7 @@ const router = express.Router();
 
 // router.use(express.json());
 
-const { getAllListings, getAllCategories, getListing, addListing } = require('../utils/db');
+const { getAllListings, getAllCategories, getListing, addListing, getListingByOwner } = require('../utils/db');
 const { validateListing } = require('../utils/validation');
 
 router.get('/', async (req, res) => {
@@ -34,6 +34,18 @@ router.get('/categories', async (req, res) => {
 router.get('/:id', async (req, res) => {
   const rows = await getListing(req.params.id);
   if (rows[0]) {
+    return res
+      .status(200)
+      .json(rows)
+  }
+  return res
+    .status(404)
+    .end('Not found')
+});
+
+router.get('/users/:id', async (req, res) => {
+  const rows = await getListingByOwner(req.params.id);
+  if (rows) {
     return res
       .status(200)
       .json(rows)

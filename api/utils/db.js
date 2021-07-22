@@ -127,7 +127,7 @@ const addListing = async (listingDetails) => {
   }
 };
 
-const editUser = async (userDetails, callback) => {
+const editUser = async (userDetails) => {
   try {
     const editUser = await fs.readFile('./sql/users_edit.sql');
     const res = await db.query(
@@ -145,9 +145,19 @@ const editUser = async (userDetails, callback) => {
   }
 };
 
-const getListing = async (id, callback) => {
+const getListing = async (id) => {
   try {
     const getListingById = await fs.readFile('./sql/listings_get_by_id.sql');
+    const res = await db.query(getListingById.toString(), [id]);
+    return res.rows;
+  } catch (err) {
+    console.error(err.message || err);
+  }
+};
+
+const getListingByOwner = async (id) => {
+  try {
+    const getListingById = await fs.readFile('./sql/listings_get_list_owner.sql');
     const res = await db.query(getListingById.toString(), [id]);
     return res.rows;
   } catch (err) {
@@ -165,6 +175,7 @@ module.exports = {
   getAllListings,
   getAllCategories,
   getListing,
+  getListingByOwner,
   addListing,
   resetDb,
 };
