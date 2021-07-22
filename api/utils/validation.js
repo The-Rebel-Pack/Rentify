@@ -21,9 +21,9 @@ const validateNewUser = (userInput) => {
 
 const validateUser = (id, userInput) => {
   const { name, first_name, last_name, details } = userInput;
-  if (name.trim() === '' || first_name.trim() === '' || last_name.trim() === '') throw Error('Invalid name');
+  if (name.trim() === '' || first_name.trim() === '' || last_name.trim() === '') throw createError(400, 'Invalid name');
   const userDetails = {};
-  userDetails.id = Number(id);
+  userDetails.id = id;
   userDetails.name = name;
   userDetails.first_name = first_name;
   userDetails.last_name = last_name;
