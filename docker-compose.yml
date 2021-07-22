@@ -23,9 +23,9 @@ services:
       POSTGRES_USER: 'docker'
     volumes:
       - data:/var/lib/postgresql/data
-    # ports needed for db scripts
-    ports: 
-      - '5432:5432'
+    # ports needed for db scripts (knex)
+    # ports: 
+    #   - '5432:5432'
 
 volumes:
   data:
