@@ -1,3 +1,9 @@
+const createError = (code, message) => {
+  const err = new Error(message);
+  err.status = code;
+  return err;
+};
+
 const validateNewUser = (userInput) => {
   const { name, email } = userInput;
   const userDetails = {};
@@ -25,4 +31,17 @@ const validateUser = (id, userInput) => {
   return userDetails;
 }
 
-module.exports = { validateUser, validateNewUser }
+const validateListing = (id, userInput) => {
+  const { name, category, owner, details } = userInput;
+  if (name.trim() === '') throw createError(400, 'Invalid name');
+  const userDetails = {};
+  userDetails.id = Number(id);
+  userDetails.name = name;
+  userDetails.first_name = first_name;
+  userDetails.last_name = last_name;
+  userDetails.details = JSON.stringify(details);
+  console.log(userDetails);
+  return userDetails;
+}
+
+module.exports = { createError, validateUser, validateNewUser, validateListing }

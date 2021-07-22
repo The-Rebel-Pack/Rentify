@@ -3,8 +3,8 @@ const router = express.Router();
 
 router.use(express.json());
 
-const { getAllUsers, getUser, addUser, editUser } = require('../utils/db');
-const { validateUser, validateNewUser } = require('../utils/validation');
+const { getAllUsers, getUser, addUser, findUserByEmail, editUser } = require('../utils/db');
+const { createError, validateUser, validateNewUser } = require('../utils/validation');
 
 router.get('/', (req, res) => {
   getAllUsers((err, rows) => {
@@ -43,7 +43,7 @@ router.post('/:id', (req, res) => {
   const userDetails = validateUser(req.params.id, req.body);
   editUser(userDetails, (err, row) => {
     if (err) {
-      throw err;
+      throw createError(500, err.message || err);
     }
     res
       .status(201)
@@ -51,16 +51,23 @@ router.post('/:id', (req, res) => {
   });
 });
 
-router.post('/', (req, res) => {
-  const userDetails = validateNewUser(req.body);
-  addUser(userDetails, (err, row) => {
-    if (err) {
-      throw err;
+router.post('/', async (req, res) => {
+  console.log('Request new user');
+  try {
+    const userExists = await findUserByEmail(req.body.email);
+    if (userExists) {
+      return res
+        .status(200)
+        .end('User exists')
     }
-    res
+    const userDetails = validateNewUser(req.body);
+    const newRow = await addUser(userDetails);
+    return res
       .status(201)
-      .json(row)
-  });
+      .json(newRow)
+  } catch (err) {
+    throw createError(500, err.message || err);
+  }
 });
 
 module.exports = router;

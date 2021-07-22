@@ -3,39 +3,44 @@ const router = express.Router();
 
 router.use(express.json());
 
-const {
-  getAllListings,
-  getAllCategories,
-  getListing
-} = require('../utils/db');
+const { getAllListings, getAllCategories, getListing, addListing } = require('../utils/db');
+const { validateListing } = require('../utils/validation');
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   console.log(req.user);
-  getAllListings((err, rows) => {
-    res
-      .json(rows)
+  const rows = await getAllListings();
+  if (rows[0]) {
+    return res
       .status(200)
-      .end();
-  });
+      .json(rows)
+  }
+  return res
+    .status(200)
+    .end('No listings to show')
 });
 
-router.get('/categories', (req, res) => {
-  getAllCategories((err, rows) => {
-    res
-      .json(rows)
+router.get('/categories', async (req, res) => {
+  const rows = await getAllCategories();
+  if (rows[0]) {
+    return res
       .status(200)
-      .end();
-  });
+      .json(rows)
+  }
+  return res
+    .status(200)
+    .end('No categories to show')
 });
 
-router.get('/:id', (req, res) => {
-  getListing(req.params.id, (err, row) => {
-    if (err) throw err;
-    res
-      .json(row)
+router.get('/:id', async (req, res) => {
+  const rows = await getListing(req.params.id);
+  if (rows[0]) {
+    return res
       .status(200)
-      .end();
-  });
+      .json(rows)
+  }
+  return res
+    .status(404)
+    .end('Not found')
 });
 
 // router.delete('/:id', (req, res) => {
@@ -56,6 +61,20 @@ router.get('/:id', (req, res) => {
 //       .end();
 //   });
 // });
+
+router.post('/', async (req, res) => {
+  const listingDetails = validateListing(req.body);
+  const rows = await addListing(listingDetails);
+  if (rows[0]) {
+    return res
+      .status(201)
+      .json(rows)
+  }
+  return res
+    .status(500)
+    .end('Not created')
+});
+
 
 // router.post('/', (req, res) => {
 //   const { name, description, price, groupId } = req.body;
