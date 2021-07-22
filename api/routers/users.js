@@ -4,54 +4,40 @@ const router = express.Router();
 router.use(express.json());
 
 const { getAllUsers, getUser, addUser, findUserByEmail, editUser } = require('../utils/db');
-const { createError, validateUser, validateNewUser } = require('../utils/validation');
+const { validateUser, validateNewUser } = require('../utils/validation');
 
-router.get('/', (req, res) => {
-  getAllUsers((err, rows) => {
-    res
+router.get('/', async (req, res) => {
+  const rows = await getAllUsers();
+  res
+    .status(200)
+    .json(rows)
+});
+
+router.get('/:id', async (req, res) => {
+  const rows = await getUser(req.params.id);
+  if (rows[0]) {
+    return res
       .status(200)
       .json(rows)
-  });
+  }
+  return res
+    .status(404)
+    .end('Not found')
 });
 
-router.get('/:id', (req, res) => {
-  getUser(req.params.id, (err, row) => {
-    if (err) {
-      next(err);
-    }
-    if (!row[0]) {
-      res
-        .status(404)
-        .end()
-    }
-    res
-      .status(200)
-      .json(row)
-  });
-});
-
-// router.delete('/:id', (req, res) => {
-//   deleteProduct(req.params.id, (err) => {
-//     if (err) throw err;
-//     res
-//       .status(204)
-//       .end();
-//   });
-// });
-
-router.post('/:id', (req, res) => {
-  const userDetails = validateUser(req.params.id, req.body);
-  editUser(userDetails, (err, row) => {
-    if (err) {
-      throw createError(500, err.message || err);
-    }
+router.post('/:id', async (req, res, next) => {
+  try {
+    const userDetails = validateUser(req.params.id, req.body);
+    const rows = await editUser(userDetails);
     res
       .status(201)
-      .json(row)
-  });
+      .json(rows)
+  } catch (err) {
+    next(err);
+  }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   console.log('Request new user');
   try {
     const userExists = await findUserByEmail(req.body.email);
@@ -66,7 +52,7 @@ router.post('/', async (req, res) => {
       .status(201)
       .json(newRow)
   } catch (err) {
-    throw createError(500, err.message || err);
+    next(err);
   }
 });
 
