@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Profile from '../components/profile/Profile';
 import Listings from '../components/listings/Listings';
+import DetailedListing from '../components/listings/DetailedListing';
 
 const NavRouter = (props) => {
 
@@ -18,6 +19,9 @@ const NavRouter = (props) => {
                 </Route>
                 <Route path="/profile" >
                     <Profile />
+                </Route>
+                <Route path="/listings/:id" >
+                    <DetailedListing />
                 </Route>
             </Switch>
         </Router>

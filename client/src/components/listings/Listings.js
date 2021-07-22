@@ -26,6 +26,7 @@ const Listings = () => {
                     <h2>{listing.name}</h2>
                     <p>50 kr</p>
                     <img src={listing?.details?.images[0]} alt={listing.name} width="100px" />
+                    <a href= {`/listings/${listing.id}`} ><button>Details</button></a>
                 </div>
             ))}
         </div>
