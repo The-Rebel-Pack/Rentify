@@ -9,7 +9,7 @@ const getAllUsers = async () => {
     if (res) console.log(`Got ${res.rowCount} users`);
     return res.rows;
   } catch (err) {
-    console.err(err);
+    console.error(err.message || err);
   }
 };
 
@@ -20,7 +20,7 @@ const getAllListings = async () => {
     console.log(`Got ${res.rowCount} listings`);
     return res.rows;
   } catch (err) {
-    console.err(err);
+    console.error(err.message || err);
   }
 };
 
@@ -30,7 +30,7 @@ const getAllCategories = async () => {
     const res = await db.query(catsGetList.toString());
     return res.rows;
   } catch (err) {
-    console.err(err);
+    console.error(err.message || err);
   }
 };
 
@@ -40,7 +40,7 @@ const resetDb = async () => {
     const res = await db.query(reset.toString());
     return 'Database updated';
   } catch (err) {
-    console.err(err);
+    console.error(err.message || err);
   }
 }
 
@@ -50,7 +50,7 @@ const getUser = async (id) => {
     const res = await db.query(getUserById.toString(), [id]);
     return res.rows;
   } catch (err) {
-    console.err(err);
+    console.error(err.message || err);
   }
 };
 
@@ -61,7 +61,7 @@ const findUserByEmail = async (email) => {
     if (res) return res.rowCount;
     return 0;
   } catch (err) {
-    console.err(err);
+    console.error(err.message || err);
   }
 };
 
@@ -79,7 +79,7 @@ const addUser = async (userDetails) => {
       ]);
     return res.rows;
   } catch (err) {
-    console.err(err);
+    console.error(err.message || err);
   }
 };
 
@@ -91,10 +91,12 @@ const addListing = async (listingDetails) => {
       [
         listingDetails.name,
         listingDetails.details,
+        listingDetails.category,
+        listingDetails.owner,
       ]);
     return res.rows;
   } catch (err) {
-    console.err(err);
+    console.error(err.message || err);
   }
 };
 
@@ -112,7 +114,7 @@ const editUser = async (userDetails, callback) => {
       ]);
     return res.rows;
   } catch (err) {
-    console.err(err);
+    console.error(err.message || err);
   }
 };
 
@@ -122,7 +124,7 @@ const getListing = async (id, callback) => {
     const res = await db.query(getListingById.toString(), [id]);
     return res.rows;
   } catch (err) {
-    console.err(err);
+    console.error(err.message || err);
   }
 };
 

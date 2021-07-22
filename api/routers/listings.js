@@ -43,6 +43,19 @@ router.get('/:id', async (req, res) => {
     .end('Not found')
 });
 
+router.post('/:id', async (req, res, next) => {
+  try {
+    const userDetails = validateUser(req.params.id, req.body);
+    const rows = await editUser(userDetails);
+    res
+      .status(201)
+      .json(rows)
+  } catch (err) {
+    next(err);
+  }
+});
+
+
 // router.delete('/:id', (req, res) => {
 //   deleteProduct(req.params.id, (err) => {
 //     if (err) throw err;
@@ -62,17 +75,21 @@ router.get('/:id', async (req, res) => {
 //   });
 // });
 
-router.post('/', async (req, res) => {
-  const listingDetails = validateListing(req.body);
-  const rows = await addListing(listingDetails);
-  if (rows[0]) {
+router.post('/', async (req, res, next) => {
+  try {
+    const listingDetails = validateListing(req.body);
+    const rows = await addListing(listingDetails);
+    if (rows[0]) {
+      return res
+        .status(201)
+        .json(rows)
+    }
     return res
-      .status(201)
-      .json(rows)
+      .status(500)
+      .end('Not created')
+  } catch (err) {
+    next(err);
   }
-  return res
-    .status(500)
-    .end('Not created')
 });
 
 
