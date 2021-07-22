@@ -1,1 +1,2 @@
-SELECT * FROM listings WHERE id = $1
+SELECT * FROM listings 
+WHERE id = $1
