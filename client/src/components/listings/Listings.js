@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback, useContext } from 'react';
 import axios from 'axios';
 import { ListingsContext } from '../../context/ListingsContext';
+import Search from './Search';
 
 const Listings = () => {
     const { listings, setListings } = useContext(ListingsContext);
@@ -19,9 +20,13 @@ const Listings = () => {
 
     return (
         <div>
-            <h1>Listings</h1>
-            {listings && listings.listings.map((item, idx) => (
-                <h2 key={idx}>{item.title}</h2>
+            <Search />
+            {listings && listings.map(listing => (
+                <div key={listing.id} >
+                    <h2>{listing.name}</h2>
+                    <p>50 kr</p>
+                    <img src={listing?.details?.images[0]} alt={listing.name} width="100px" />
+                </div>
             ))}
         </div>
     )
