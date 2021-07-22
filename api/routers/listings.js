@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-router.use(express.json());
+// router.use(express.json());
 
 const { getAllListings, getAllCategories, getListing, addListing } = require('../utils/db');
 const { validateListing } = require('../utils/validation');
 
 router.get('/', async (req, res) => {
   console.log(req.user);
-  const rows = await getAllListings();
+  const rows = await getAllListings(req.query);
   if (rows[0]) {
     return res
       .status(200)

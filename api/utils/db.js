@@ -13,10 +13,21 @@ const getAllUsers = async () => {
   }
 };
 
-const getAllListings = async () => {
+const getAllListings = async (query) => {
   try {
-    const listingsGetList = await fs.readFile('./sql/listings_get_list.sql');
-    const res = await db.query(listingsGetList.toString());
+    if (query) {
+      const page = query.page;
+      const search = query.search;
+      const categories = query.categories;
+      if (search) {
+        const getListings = await fs.readFile('./sql/listings_get_list_search.sql');
+        const res = await db.query(getListings.toString(), [search]);
+        console.log(`Got ${res.rowCount} listings`);
+        return res.rows;
+      }
+    }
+    const getListings = await fs.readFile('./sql/listings_get_list.sql');
+    const res = await db.query(getListings.toString());
     console.log(`Got ${res.rowCount} listings`);
     return res.rows;
   } catch (err) {
