@@ -3,11 +3,11 @@ const router = express.Router();
 
 // router.use(express.json());
 
-const { getAllListings, getAllCategories, getListing, addListing } = require('../utils/db');
+const { getAllListings, getAllCategories, getListing, addListing, getListingByOwner } = require('../utils/db');
 const { validateListing } = require('../utils/validation');
 
 router.get('/', async (req, res) => {
-  console.log(req.user);
+  // console.log(req.user);
   const rows = await getAllListings(req.query);
   if (rows[0]) {
     return res
@@ -43,6 +43,18 @@ router.get('/:id', async (req, res) => {
     .end('Not found')
 });
 
+router.get('/users/:id', async (req, res) => {
+  const rows = await getListingByOwner(req.params.id);
+  if (rows) {
+    return res
+      .status(200)
+      .json(rows)
+  }
+  return res
+    .status(404)
+    .end('Not found')
+});
+
 router.post('/:id', async (req, res, next) => {
   try {
     const userDetails = validateUser(req.params.id, req.body);
@@ -54,26 +66,6 @@ router.post('/:id', async (req, res, next) => {
     next(err);
   }
 });
-
-
-// router.delete('/:id', (req, res) => {
-//   deleteProduct(req.params.id, (err) => {
-//     if (err) throw err;
-//     res
-//       .status(204)
-//       .end();
-//   });
-// });
-
-// router.put('/:id', (req, res) => {
-//   updateProduct(req.params.id, req.body, (err, dbRes) => {
-//     if (err) throw err;
-//     res
-//       .json(dbRes)
-//       .status(202)
-//       .end();
-//   });
-// });
 
 router.post('/', async (req, res, next) => {
   try {
@@ -91,17 +83,5 @@ router.post('/', async (req, res, next) => {
     next(err);
   }
 });
-
-
-// router.post('/', (req, res) => {
-//   const { name, description, price, groupId } = req.body;
-//   addProduct(name, description, price, groupId, (err, dbRes) => {
-//     if (err) throw err;
-//     res
-//       .json(req.body)
-//       .status(201)
-//       .end();
-//   });
-// });
 
 module.exports = router;
