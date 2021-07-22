@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from 'react';
+import axios from 'axios';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { AuthContext } from '../../context/AuthContext';
@@ -22,10 +23,19 @@ const Login = () => {
 
   const loginWithGoogle = () => {
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then((userCred) => {
+      .then( async (userCred) => {
         if (userCred) {
           setAuth(true);
           window.localStorage.setItem('auth', 'true');
+          const response = await axios({
+            method: 'POST',
+            url: 'http://localhost:5000/api/users',
+            data: {
+              "email": userCred.user.bc.email,
+              "name": userCred.user.bc.displayName
+            },
+          });
+          console.log(response);
         }
       }
       )
