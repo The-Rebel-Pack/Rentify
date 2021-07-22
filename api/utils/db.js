@@ -1,5 +1,5 @@
 const fs = require('fs').promises;
-const db = require('../db')
+const db = require('../config/db')
 
 const createError = (code, message) => {
   const err = new Error(message);
@@ -10,7 +10,7 @@ const createError = (code, message) => {
 const getAllUsers = async (callback) => {
   const usersGetList = await fs.readFile('./sql/users_get_list.sql');
   db.query(usersGetList.toString(), (err, res) => {
-    console.log(`Got ${res.rowCount} users`);
+    if (res) console.log(`Got ${res.rowCount} users`);
     callback(err, res.rows);
   });
 };
@@ -18,7 +18,7 @@ const getAllUsers = async (callback) => {
 const getAllListings = async (callback) => {
   const listingsGetList = await fs.readFile('./sql/listings_get_list.sql');
   db.query(listingsGetList.toString(), (err, res) => {
-    console.log(`Got ${res.rowCount} listings`);
+    if (res) console.log(`Got ${res.rowCount} listings`);
     if (res.rowCount > 0) {
       callback(err, res.rows);
     } else {

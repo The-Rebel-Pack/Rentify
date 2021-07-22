@@ -1,11 +1,21 @@
 const express = require('express');
+// const morgan = require('morgan')
+const cors = require('cors')
+const middleware = require('./middleware');
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
 const {
   createError,
   resetDb,
 } = require('./utils/db');
+
+// app.use(morgan('dev'))
+app.use(cors());
+// app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+app.get('/', (req, res) => res.send('Hello World!'))
 
 app.get('/db/reset', (req, res) => {
   resetDb((err, row) => {
@@ -18,6 +28,13 @@ app.get('/db/reset', (req, res) => {
   });
 });
 
+
+app.get('/api/protectedroute', middleware.decodeToken, (req, res) => {
+  return res.json({ message: "this is a protected route, needs authorization token in header" });
+});
+
+// app.use('/api/users', middleware.decodeToken, require('./routers/users'));
+// app.use('/api/listings', middleware.decodeToken, require('./routers/listings'));
 app.use('/api/users', require('./routers/users'));
 app.use('/api/listings', require('./routers/listings'));
 
