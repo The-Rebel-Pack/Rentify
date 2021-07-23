@@ -91,8 +91,22 @@ VALUES
   ),
   (
     'Fancy car',
-    '{"description": "Very fancy car", "images": ["https://images.unsplash.com/photo-1489824904134-891ab64532f1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1778&q=80"]}',
+    '{"description": "Very fancy car", "images": ["https://images.unsplash.com/photo-1535732820275-9ffd998cac22?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"]}',
     '{"day": 200}',
+    2,
+    '3'
+  ),
+  (
+    'Fancy boat',
+    '{"description": "Very fancy boat", "images": ["https://images.unsplash.com/photo-1545566239-0b2fb5c50bc6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGJvYXR8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"]}',
+    '{"day": 500}',
+    2,
+    '3'
+  ),
+  (
+    'Fancy Batman costume',
+    '{"description": "Best costume for your Batman fantasies", "images": ["https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"]}',
+    '{"day": 150}',
     2,
     '3'
   ),

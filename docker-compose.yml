@@ -13,7 +13,7 @@ services:
   #     - /app/node_modules
   #     - ./client:/app
   #   ports:
-  #     - '3000:3000'
+  #     - '3000:300l0'
   #   depends_on: 
   #     - api
   db:
@@ -24,8 +24,8 @@ services:
     volumes:
       - data:/var/lib/postgresql/data
     # ports needed for db scripts (knex)
-    # ports: 
-    #   - '5432:5432'
+    ports: 
+      - '5432:5432'
 
 volumes:
   data:
