@@ -4,10 +4,11 @@ export const ListingsContext = createContext();
 
 const ListingsContextProvider = (props) => {
     const [listings, setListings] = useState(null);
+    const [categories, setCategories] = useState(null);
     const [currentListings, setCurrentListings] = useState(null);
 
     return (
-        <ListingsContext.Provider value={{ listings, setListings, currentListings, setCurrentListings }}>
+        <ListingsContext.Provider value={{ listings, setListings, currentListings, setCurrentListings, categories, setCategories }}>
             {props.children}
         </ListingsContext.Provider>
     )

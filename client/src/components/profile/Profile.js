@@ -1,4 +1,7 @@
 import React, { useEffect, useState, useCallback, useContext } from 'react';
+import {
+    Link,
+} from "react-router-dom";
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -28,7 +31,8 @@ const Profile = () => {
     return (
         <div>
             <h1>Profile</h1>
-            {data?.message}
+            <Link to={`/listings/create`} ><button>Create new listing</button></Link>
+            <p>{data?.message}</p>
         </div>
     )
 }

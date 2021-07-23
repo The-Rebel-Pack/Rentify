@@ -7,6 +7,7 @@ import {
 import Profile from '../components/profile/Profile';
 import Listings from '../components/listings/Listings';
 import DetailedListing from '../components/listings/DetailedListing';
+import CreateListing from '../components/listings/CreateListing';
 
 const NavRouter = (props) => {
 
@@ -19,6 +20,9 @@ const NavRouter = (props) => {
                 </Route>
                 <Route path="/profile" >
                     <Profile />
+                </Route>
+                <Route path="/listings/create" >
+                    <CreateListing />
                 </Route>
                 <Route path="/listings/:id" >
                     <DetailedListing />
