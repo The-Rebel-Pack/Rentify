@@ -68,6 +68,7 @@ router.post('/:id', async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
+  console.log('post:', req.body);
   try {
     const listingDetails = validateListing(req.body);
     const rows = await addListing(listingDetails);

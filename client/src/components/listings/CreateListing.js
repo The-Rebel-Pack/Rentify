@@ -21,12 +21,34 @@ const CreateListing = () => {
         fetchData();
     }, [fetchData]);
 
-    const handleSubmit = (e) => {
+    const postData = async (listing) => {
+        try {
+            const res = await axios({
+                method: 'POST',
+                url: 'http://localhost:5000/api/listings',
+                data: {
+                    "id": '1',
+                    "name": listing.name,
+                    "details": {},
+                    "price": {}
+                }
+            });
+            return res;
+        } catch (err) {
+            return ('err:', err);
+        }
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log({ newListing });
+        const res = await postData(newListing);
+        console.log(res);
         setNewListing({});
     };
 
     const newListingInput = e => {
+        console.log({ newListing });
         const { name } = e.target;
         setNewListing({
             ...newListing,
@@ -40,7 +62,6 @@ const CreateListing = () => {
             <form id='add-listing' onSubmit={handleSubmit} noValidate>
                 <h2>Choose category for your listing</h2>
                 <h3 className='add-listing__sub-title'>Category</h3>
-                {console.log(categories)}
                 <select
                     className='add-listing__select'
                     name='category'
