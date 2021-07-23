@@ -28,9 +28,11 @@ const Profile = () => {
 
     return (
         <div>
-            <h1>Profile</h1>
-            <Link to={`/listings/create`} ><button>Create new listing</button></Link>
-            <p>{data?.message}</p>
+            <h2>Profile</h2>
+            <p>Welcome to your profile page!</p>
+            <p><Link to={`/listings/create`} ><button>Create new listing</button></Link></p>
+            <p><Link to={`/listings/my-listings`} ><button>See your listings</button></Link></p>
+            {/* <p>{data?.message}</p> */}
         </div>
     )
 }
