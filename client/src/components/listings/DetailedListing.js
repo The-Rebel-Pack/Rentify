@@ -1,8 +1,11 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useState, useContext } from 'react';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
+import { AuthContext } from '../../context/AuthContext';
+
 const SingleListing = () => {
 
+    const { auth } = useContext(AuthContext)
     const [listing, setListing] = useState(null)
 
     const { id } = useParams();
@@ -24,9 +27,12 @@ const SingleListing = () => {
             {listing &&
                 <div key={listing?.id} >
                     <h2>{listing?.name}</h2>
-                    <p>50 kr</p>
-                    <img src={listing?.details?.images[0]} alt={listing.name} width="100px" />
+                    <p>{listing?.price?.day} kr</p>
+                    <img src={listing?.details?.images[0]} alt={listing.name} width="500px" />
                     <p>{listing?.details?.description}</p>
+                    {auth && <>
+                        <h3>Contact owner</h3>
+                        <p><button>Send e-mail</button></p></>}
                 </div>
             }
         </>

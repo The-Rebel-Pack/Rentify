@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback, useContext } from 'react';
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import { ListingsContext } from '../../context/ListingsContext';
 import Search from './Search';
@@ -30,7 +31,7 @@ const Listings = () => {
                     <h2>{listing.name}</h2>
                     <p>{listing?.price?.day} kr</p>
                     <img src={listing?.details?.images[0]} alt={listing.name} width="100px" />
-                    <a href={`/listings/${listing.id}`} ><button>Details</button></a>
+                    <Link to={`/listings/${listing.id}`} ><button>Details</button></Link>
                 </div>
             ))}
         </div>

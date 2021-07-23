@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useCallback, useContext } from 'react';
-import {
-    Link,
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 
