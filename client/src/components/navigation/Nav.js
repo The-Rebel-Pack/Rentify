@@ -9,6 +9,7 @@ const Nav = () => {
 
     return (
         <NavRouter>
+            <h1>Rentify</h1>
             <nav>
                 <ul>
                     <li>

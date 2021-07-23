@@ -30,7 +30,7 @@ const Search = () => {
     return (
         <form onSubmit={handleSubmit}>
             <label htmlFor="search" />
-            <input id="search" value={searchValue} type="text" onChange={(e) => setSearchValue(e.target.value)} required />
+            <input id="search" value={searchValue} type="text" onChange={(e) => setSearchValue(e.target.value)} autoComplete='off' />
             <button type="submit">Search</button>
         </form>
     )
