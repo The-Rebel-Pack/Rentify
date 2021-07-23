@@ -30,7 +30,7 @@ const Listings = () => {
                 <div key={listing.id} >
                     <h2>{listing.name}</h2>
                     <p>{listing?.price?.day} kr</p>
-                    <img src={listing?.details?.images[0]} alt={listing.name} width="100px" />
+                    <img src={listing?.details?.images[0]} alt={listing.name} width="150px" />
                     <Link to={`/listings/${listing.id}`} ><button>Details</button></Link>
                 </div>
             ))}
