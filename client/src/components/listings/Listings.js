@@ -8,7 +8,7 @@ import Categories from './Categories';
 
 const Listings = () => {
     const { auth } = useContext(AuthContext)
-    const { listings, setListings } = useContext(ListingsContext);
+    const { listings, setListings, categories } = useContext(ListingsContext);
 
     const fetchData = useCallback(
         async () => {
@@ -22,6 +22,11 @@ const Listings = () => {
         fetchData();
     }, [fetchData]);
 
+    const findCategory = (id) => {
+        const category = categories.find((c) => c.id === id);
+        return category.name;
+    }
+
     return (
         <div>
             {auth && <>
@@ -29,10 +34,12 @@ const Listings = () => {
             <Search />
             <Categories />
             {listings
-                ? listings.map(listing => (
+                ? 
+                listings.map(listing => (
                     <div key={listing.id} >
                         <h2>{listing.name}</h2>
                         <p>{listing?.price?.day} kr</p>
+                        <p>{findCategory(listing.category)}</p>
                         <img src={listing?.details?.images[0]} alt={listing.name} width="150px" />
                         <Link to={`/listings/${listing.id}`} ><button>Details</button></Link>
                     </div>
