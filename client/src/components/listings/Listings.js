@@ -7,15 +7,13 @@ import { AuthContext } from '../../context/AuthContext';
 
 const Listings = () => {
     const { auth } = useContext(AuthContext)
-    const { listings, setListings } = useContext(ListingsContext);
-    const { categories, setCategories } = useContext(ListingsContext);
+    const { listings, setListings, categories, setCategories } = useContext(ListingsContext);
 
     const fetchData = useCallback(
         async () => {
             const res = await axios.get('http://localhost:5000/api/listings');
             const resCat = await axios.get('http://localhost:5000/api/listings/categories');
             setListings(res.data);
-            console.log(resCat.data);
             setCategories(resCat.data);
         },
         [setListings, setCategories],
