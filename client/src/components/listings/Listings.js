@@ -33,7 +33,7 @@ const Listings = () => {
             {categories && <>
                 <ul>
                     {categories.map(a =>
-                        <li><Link to={`/listings/categories/${a.id}`} key={a.id}>
+                        <li key={a.id}><Link to={`/listings/categories/${a.id}`}>
                             {a.name}
                         </Link></li>
                     )}
