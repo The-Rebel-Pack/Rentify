@@ -28,14 +28,17 @@ const Listings = () => {
                 <p><Link to={`/listings/create`} ><button>Create new listing</button></Link></p></>}
             <Search />
             <Categories />
-            {listings && listings.map(listing => (
-                <div key={listing.id} >
-                    <h2>{listing.name}</h2>
-                    <p>{listing?.price?.day} kr</p>
-                    <img src={listing?.details?.images[0]} alt={listing.name} width="150px" />
-                    <Link to={`/listings/${listing.id}`} ><button>Details</button></Link>
-                </div>
-            ))}
+            {listings
+                ? listings.map(listing => (
+                    <div key={listing.id} >
+                        <h2>{listing.name}</h2>
+                        <p>{listing?.price?.day} kr</p>
+                        <img src={listing?.details?.images[0]} alt={listing.name} width="150px" />
+                        <Link to={`/listings/${listing.id}`} ><button>Details</button></Link>
+                    </div>
+                ))
+                : <h2>No results, please search for something else</h2>
+        }
         </div>
     )
 }
