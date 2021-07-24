@@ -40,8 +40,10 @@ const Search = () => {
             if (searchTerm || selectedCategories.length > 0) {
                 querySign = `?`;
             }
-            console.log(`http://localhost:5000/api/listings${querySign}${searchParam}${apperand}${categoriesParam}`);
             const res = await axios.get(`http://localhost:5000/api/listings${querySign}${searchParam}${apperand}${categoriesParam}`);
+            if (res.data === 'No listings to show') {
+                return setListings(null);
+            }
             setListings(res.data);
             setSearchValue(debounceSearch);
             setCategoriesValue(debounceCategory);
