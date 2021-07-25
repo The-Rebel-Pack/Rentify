@@ -3,7 +3,8 @@ const router = express.Router();
 
 // router.use(express.json());
 
-const { getAllListings, getAllCategories, getListing, addListing, getListingByOwner } = require('../utils/db');
+const { getAllListings, getAllCategories, getListing, getListingByOwner } = require('../utils/db_read');
+const { addListing } = require('../utils/db_create');
 const { validateListing } = require('../utils/validation');
 
 router.get('/', async (req, res) => {
@@ -68,6 +69,7 @@ router.post('/:id', async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
+  console.log('incoming post:', req.body);
   try {
     const listingDetails = validateListing(req.body);
     const rows = await addListing(listingDetails);
