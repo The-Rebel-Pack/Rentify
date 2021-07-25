@@ -1,1 +1,0 @@
-SELECT * FROM listings WHERE Id = $1
