@@ -3,13 +3,14 @@ const router = express.Router();
 
 // router.use(express.json());
 
-const { getAllListings, getAllCategories, getListing, getListingByOwner } = require('../utils/db_read');
+const { getAllCategories, getListing, getListingByOwner } = require('../utils/db_read');
+const { getListings } = require('../utils/db_read_dynamic');
 const { addListing } = require('../utils/db_create');
 const { validateListing } = require('../utils/validation');
 
 router.get('/', async (req, res) => {
   // console.log(req.user);
-  const rows = await getAllListings(req.query);
+  const rows = await getListings(req.query);
   if (rows[0]) {
     return res
       .status(200)

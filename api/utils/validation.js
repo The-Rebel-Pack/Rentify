@@ -62,4 +62,10 @@ const validateCategoriesStrToArr = (categories) => {
     .filter(c => isValidNumber(c));
 }
 
-module.exports = { createHttpError, validateUser, validateNewUser, validateListing, validateCategoriesStrToArr }
+const validateSearchStrToArr = (search) => {
+  return search
+    .split(' ')
+    .filter(s => s.length > 1)
+}
+
+module.exports = { createHttpError, validateUser, validateNewUser, validateListing, validateCategoriesStrToArr, validateSearchStrToArr }
