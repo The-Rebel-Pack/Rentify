@@ -4,24 +4,52 @@ import { ListingsContext } from '../../context/ListingsContext';
 import useDebounce from './useDebounce';
 
 const Search = () => {
-    const { setListings } = useContext(ListingsContext);
+    const { categories, setListings } = useContext(ListingsContext);
     const [searchValue, setSearchValue] = useState('');
+    const [categoriesValue, setCategoriesValue] = useState('');
 
-    const debounceValue = useDebounce(searchValue, 150);
+    const debounceSearch = useDebounce(searchValue, 250);
+    const debounceCategory = useDebounce(categoriesValue, 250);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
     };
 
     useEffect(() => {
         const fetchListings = async (searchTerm) => {
-            const res = await axios.get(`http://localhost:5000/api/listings?search=${searchTerm}`);
+            let searchParam = ``;
+            if (searchTerm !== ``) {
+                searchParam = `search=${searchTerm}`
+            }
+
+            let categoriesParam = [];
+            let selectedCategories = [];
+            if (categories) {
+                selectedCategories = categories.filter(c => c.checked)
+            }
+            if (selectedCategories.length > 0) {
+                categoriesParam = `categories=${selectedCategories.map(c => c.id)}`
+            }
+
+            let apperand = ``;
+            if (searchTerm && selectedCategories.length > 0) {
+                apperand = `&`
+            }
+
+            let querySign = ``;
+            if (searchTerm || selectedCategories.length > 0) {
+                querySign = `?`;
+            }
+            const res = await axios.get(`http://localhost:5000/api/listings${querySign}${searchParam}${apperand}${categoriesParam}`);
+            if (res.data === 'No listings to show') {
+                return setListings(null);
+            }
             setListings(res.data);
-            setSearchValue(debounceValue);
+            setSearchValue(debounceSearch);
+            setCategoriesValue(debounceCategory);
         }
-        fetchListings(debounceValue);
-    }, [debounceValue, setListings]);
+        fetchListings(debounceSearch);
+    }, [categories, debounceSearch, debounceCategory, setListings]);
 
     return (
         <form onSubmit={handleSubmit}>

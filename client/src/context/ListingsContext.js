@@ -7,8 +7,17 @@ const ListingsContextProvider = (props) => {
     const [categories, setCategories] = useState(null);
     const [currentListings, setCurrentListings] = useState(null);
 
+    const value = {
+        listings,
+        setListings,
+        currentListings,
+        setCurrentListings,
+        categories,
+        setCategories
+    }
+
     return (
-        <ListingsContext.Provider value={{ listings, setListings, currentListings, setCurrentListings, categories, setCategories }}>
+        <ListingsContext.Provider value={value}>
             {props.children}
         </ListingsContext.Provider>
     )
