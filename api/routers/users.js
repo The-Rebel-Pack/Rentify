@@ -4,7 +4,8 @@ const middleware = require('../middleware');
 
 router.use(express.json());
 
-const { getAllUsers, getUser, addUser, findUserByEmail, editUser } = require('../utils/db');
+const { getAllUsers, getUser, findUserByEmail } = require('../utils/db_read');
+const { addUser, editUser } = require('../utils/db_create');
 const { validateUser, validateNewUser } = require('../utils/validation');
 
 router.get('/', async (req, res) => {

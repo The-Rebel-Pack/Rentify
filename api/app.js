@@ -5,10 +5,8 @@ const middleware = require('./middleware');
 
 const app = express();
 const port = process.env.PORT || 5000;
-const {
-  createError,
-  resetDb,
-} = require('./utils/db');
+const { resetDb } = require('./utils/db_create');
+const { createError } = require('./utils/validation');
 
 // app.use(morgan('dev'))
 app.use(cors());
@@ -41,6 +39,7 @@ app.use(function (req, res, next) {
 });
 
 app.use(function (err, req, res, next) {
+  console.log(err.status, err.message);
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   res.status(err.status || 500);

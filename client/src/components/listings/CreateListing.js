@@ -6,8 +6,15 @@ const CreateListing = () => {
 
     const { categories, setCategories } = useContext(ListingsContext);
 
-    // const [selectedCategory, setSelectedCategory] = useState('');
-    const [newListing, setNewListing] = useState({});
+    const [selectedCategory] = useState(1);
+    const emptyListing = {
+        "name": '',
+        "description": '',
+        "images": [],
+        "category": selectedCategory,
+        "pricePerDay": '',
+    }
+    const [newListing, setNewListing] = useState(emptyListing);
 
     const fetchData = useCallback(
         async () => {
@@ -27,10 +34,16 @@ const CreateListing = () => {
                 method: 'POST',
                 url: 'http://localhost:5000/api/listings',
                 data: {
-                    "id": '1',
+                    "category": listing.category,
                     "name": listing.name,
-                    "details": {},
-                    "price": {}
+                    "details": {
+                        "description": listing.name,
+                        "images": listing.images
+                    },
+                    "price": {
+                        "day": listing.pricePerDay
+                    },
+                    "owner": '1',
                 }
             });
             return res;
@@ -41,14 +54,15 @@ const CreateListing = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log({ newListing });
         const res = await postData(newListing);
-        console.log(res);
-        setNewListing({});
+        if (res.status === 201) {
+            setNewListing(emptyListing);
+        } else {
+            console.log('Post not inserted', res);
+        }
     };
 
     const newListingInput = e => {
-        console.log({ newListing });
         const { name } = e.target;
         setNewListing({
             ...newListing,
@@ -58,10 +72,9 @@ const CreateListing = () => {
 
     return (
         <section className='app__section add-listing'>
-            <h1 className='add-listing__title'>Create a new listing</h1>
-            <form id='add-listing' onSubmit={handleSubmit} noValidate>
-                <h2>Choose category for your listing</h2>
-                <h3 className='add-listing__sub-title'>Category</h3>
+            <h2 className='add-listing__title'>Create a new listing</h2>
+            <form id='add-listing' onSubmit={handleSubmit}>
+                <h3 className='add-listing__sub-title'>Choose category for your listing</h3>
                 <select
                     className='add-listing__select'
                     name='category'
@@ -74,7 +87,7 @@ const CreateListing = () => {
                     )}
                 </select>
                 <br />
-                <label htmlFor='name' className='add-listing__label'>Name</label>
+                <label htmlFor='name' className='add-listing__label'>Title for your listing</label>
                 <input
                     type='text'
                     name='name'
@@ -82,26 +95,29 @@ const CreateListing = () => {
                     onChange={newListingInput}
                     className='add-listing__input'
                     autoComplete='off'
+                    required="required"
                 />
                 <br />
-                <label htmlFor='images' className='add-listing__label'>Image</label>
+                <label htmlFor='description' className='add-listing__label'>Description</label>
+                <textarea
+                    name='description'
+                    value={newListing.description}
+                    onChange={newListingInput}
+                    className='add-listing__textarea'
+                    required="required"
+                />
+                <br />
+                <label htmlFor='pricePerDay' className='add-listing__label'>Price per day</label>
                 <input
-                    type='url'
-                    name='link'
-                    value={newListing.images}
+                    type='number'
+                    name='pricePerDay'
+                    value={newListing.pricePerDay}
                     onChange={newListingInput}
                     className='add-listing__input'
                     autoComplete='off'
+                    required="required"
                 />
                 <br />
-
-                <textarea className='add-listing__textarea' />
-                <br />
-                <input
-                    type='hidden'
-                    name='owner'
-                    value='1'
-                />
                 <button type='submit' className='button'>
                     Add listing</button>
             </form>
