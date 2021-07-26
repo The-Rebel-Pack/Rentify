@@ -16,20 +16,21 @@ const MyListings = () => {
                     Authorization: 'Bearer ' + token,
                 }
             });
-            console.log(res.data)
             setMyListings(res.data);
         },
-        [setMyListings],
+        [setMyListings, myListings],
     );
 
     useEffect(() => {
-        fetchData();
-    }, [fetchData]);
+        if (token) {
+            fetchData(token);
+        }
+    }, [token, fetchData]);
 
     return (
         <section className='app__section listings-section'>
             <section className='listings-section__grid'>
-                {myListings
+                {myListings.length > 0
                     ?
                     myListings.map(listing => (
                         <div key={listing.l_id} >
