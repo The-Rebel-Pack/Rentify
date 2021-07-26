@@ -1,7 +1,7 @@
 .button {
   padding: .75rem;
   border-radius: 0.25rem;
-  background: #d76d6d;
+  background: var(--primary-color);
   color: white;
   font-size: .75rem;
   letter-spacing: .07rem;
@@ -9,11 +9,11 @@
 }
 
 .button:hover {
-  background: #fea771;
+  background: var(--primary-color-darker);
 }
 
 .button:focus {
-  border: #fea771 solid 2px;
+  border: var(--primary-color-darker) solid 2px;
   outline: none;
-  background: #d76d6d;
+  background: var(--primary-color-darker);
 }

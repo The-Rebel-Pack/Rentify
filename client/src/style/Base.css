@@ -1,11 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100;400;700&display=swap');
 
 :root {
   --primary-color: #74c09c;
+  --font-color: #292929;
   --primary-color-darker: #57a392;
   --primary-color-more-darker: ##1f8181;
   --light-color: #fbedb0;
   --secondary-color: #ff1d45;
+  --font-thin: 100;
+  --font-normal: 400;
+  --font-bold: 400;
+  --font-family: 'Lexend', sans-serif;
 }
 
 * {
@@ -16,9 +21,9 @@
 
 body {
   background: var(--light-color);
-  color: #292929;
-  font-family: 'Ubuntu', sans-serif;
-  font-weight: 300;
+  color: var(--font-color);
+  font-family: var(--font-family);
+  font-weight: var(--font-normal);
 }
 
 button {
