@@ -1,0 +1,18 @@
+.app__main {
+  padding: .5rem;
+}
+
+.app__section {
+  max-width: 600px;
+  margin: auto auto 1rem;
+  padding: 1rem;
+  border-radius: .75rem;
+  background: #fff4e9;
+  box-shadow: 2px 2px 12px #a48d76;
+}
+
+@media screen and (min-width: 400px) {
+  .app__main {
+    padding: 1rem;
+  }
+}

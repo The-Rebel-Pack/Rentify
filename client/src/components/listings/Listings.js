@@ -2,7 +2,6 @@ import React, { useEffect, useCallback, useContext } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { ListingsContext } from '../../context/ListingsContext';
-import Search from './Search';
 import { AuthContext } from '../../context/AuthContext';
 import Categories from './Categories';
 
@@ -24,9 +23,6 @@ const Listings = () => {
 
     return (
         <div>
-            {auth && <>
-                <p><Link to={`/listings/create`} ><button>Create new listing</button></Link></p></>}
-            <Search />
             <Categories />
             {listings
                 ?
@@ -35,8 +31,8 @@ const Listings = () => {
                         <h2>{listing.title}</h2>
                         <p>{listing?.price?.day} kr</p>
                         <p>{listing.category}</p>
-                        <img src={listing?.details?.images[0]} alt={listing.title} width="150px" />
-                        <Link to={`/listings/${listing.l_id}`} ><button>Details</button></Link>
+                        {/* <img src={listing?.details?.images[0]} alt={listing.title} width="150px" /> */}
+                        <Link to={`/listings/${listing.l_id}`} ><button className='button'>Details</button></Link>
                     </div>
                 ))
                 : <h2>No results, please search for something else</h2>

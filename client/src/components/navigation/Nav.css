@@ -1,0 +1,15 @@
+.header {
+  margin: -1rem -1rem 1rem;
+  padding: 1rem;
+  background: var(--primary-color-darker);
+  box-shadow: 2px 2px 12px var(--primary-color-darker);
+  color: white;
+  text-align: center;
+}
+
+.header__title {
+  margin: 0;
+  color: var(--light-color);
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+}

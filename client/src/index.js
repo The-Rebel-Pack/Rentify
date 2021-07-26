@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './style/main.css';
+import './style/';
 import App from './App';
 import './config/firebase-config';
 import AuthContextProvider from './context/AuthContext';
