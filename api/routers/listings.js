@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const middleware = require('../middleware');
 
 // router.use(express.json());
 
@@ -33,6 +34,20 @@ router.get('/categories', async (req, res) => {
     .end('No categories to show')
 });
 
+router.get('/user', middleware.decodeToken, async (req, res) => {
+  const uid = req.user.uid;
+  console.log(uid);
+  const rows = await getListingByOwner(uid);
+  if (rows) {
+    return res
+    .status(200)
+    .json(rows)
+  }
+  return res
+  .status(404)
+  .end('Not found')
+});
+
 router.get('/:id', async (req, res) => {
   const rows = await getListing(req.params.id);
   if (rows[0]) {
@@ -45,19 +60,7 @@ router.get('/:id', async (req, res) => {
     .end('Not found')
 });
 
-router.get('/users/:id', async (req, res) => {
-  const rows = await getListingByOwner(req.params.id);
-  if (rows) {
-    return res
-      .status(200)
-      .json(rows)
-  }
-  return res
-    .status(404)
-    .end('Not found')
-});
-
-router.post('/:id', async (req, res, next) => {
+router.post('/:id', middleware.decodeToken, async (req, res, next) => {
   try {
     const userDetails = validateUser(req.params.id, req.body);
     const rows = await editUser(userDetails);
@@ -69,7 +72,8 @@ router.post('/:id', async (req, res, next) => {
   }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', middleware.decodeToken, async (req, res, next) => {
+  const uid = req.user.uid;
   console.log('incoming post:', req.body);
   try {
     const listingDetails = validateListing(req.body);
