@@ -37,6 +37,7 @@ const Listings = () => {
                                 <img src={listing?.details?.images[0]} alt={listing.title} width="150px" />
                             }
                             <Link to={`/listings/${listing.l_id}`} ><button className='button'>Details</button></Link>
+                            <Link to={`/listings/${listing.l_id}`} ><button className='button'>Edit</button></Link>
                         </div>
                     ))
                     : <h2>No results, please search for something else</h2>

@@ -2,12 +2,12 @@ import React, { useEffect, useCallback, useState, useContext } from 'react';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 import { AuthContext } from '../../context/AuthContext';
+import { ListingsContext } from '../../context/ListingsContext';
 
 const SingleListing = () => {
 
     const { auth } = useContext(AuthContext)
-    const [detailListings, setDetailListings] = useState(null)
-
+    const { detailListings, setDetailListings } = useContext(ListingsContext)
     const { id } = useParams();
 
     const fetchData = useCallback(
