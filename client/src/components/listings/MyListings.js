@@ -1,12 +1,12 @@
 import React, { useEffect, useCallback, useContext } from 'react';
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import './style/Listings.css';
 import { AuthContext } from '../../context/AuthContext';
 import { ListingsContext } from '../../context/ListingsContext';
 
 const MyListings = () => {
-    const { auth, token } = useContext(AuthContext);
+    const { token } = useContext(AuthContext);
     const { myListings, setMyListings } = useContext(ListingsContext);
 
     const fetchData = useCallback(
