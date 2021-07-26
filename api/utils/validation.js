@@ -40,15 +40,15 @@ const isValidNumber = (input) => {
 }
 
 const validateListing = (userInput) => {
-  let { category, name, details, price, owner } = userInput;
+  let { category, title, details, price, owner } = userInput;
   category = Number(category);
   price.day = Number(price.day);
-  if (name.trim() === '') throw createHttpError(400, 'Invalid name');
+  if (title.trim() === '') throw createHttpError(400, 'Invalid title');
   if (!isValidNumber(category)) throw createHttpError(400, 'Invalid category');
   if (!isValidNumber(price.day)) throw createHttpError(400, 'Invalid price per day');
   const listingDetails = {};
   listingDetails.c_id = Number(category);
-  listingDetails.title = name;
+  listingDetails.title = title;
   listingDetails.details = JSON.stringify(details);
   listingDetails.price = JSON.stringify(price);
   listingDetails.u_id = owner;

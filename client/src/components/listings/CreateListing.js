@@ -1,17 +1,18 @@
 import React, { useState, useContext, useCallback, useEffect } from 'react';
 import axios from 'axios';
 import { ListingsContext } from '../../context/ListingsContext';
+import { AuthContext } from '../../context/AuthContext';
 
 const CreateListing = () => {
-
+    const { token } = useContext(AuthContext);
     const { categories, setCategories } = useContext(ListingsContext);
 
-    const [selectedCategory] = useState(1);
+    const [selectedCategory, setSelectedCategory] = useState(1);
     const emptyListing = {
-        "name": '',
+        "title": '',
         "description": '',
-        "images": [],
-        "category": selectedCategory,
+        "images": ["12"],
+        "c_id": 1,
         "pricePerDay": '',
     }
     const [newListing, setNewListing] = useState(emptyListing);
@@ -30,20 +31,23 @@ const CreateListing = () => {
 
     const postData = async (listing) => {
         try {
+            console.log('Triggered post listing: ', listing)
             const res = await axios({
                 method: 'POST',
                 url: 'http://localhost:5000/api/listings',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                },
                 data: {
-                    "category": listing.category,
-                    "name": listing.name,
+                    "category": listing.c_id,
+                    "title": listing.title,
                     "details": {
-                        "description": listing.name,
+                        "description": listing.description,
                         "images": listing.images
                     },
                     "price": {
                         "day": listing.pricePerDay
-                    },
-                    "owner": '1',
+                    }
                 }
             });
             return res;
@@ -57,6 +61,7 @@ const CreateListing = () => {
         const res = await postData(newListing);
         if (res.status === 201) {
             setNewListing(emptyListing);
+            setSelectedCategory(1)
         } else {
             console.log('Post not inserted', res);
         }
@@ -77,21 +82,21 @@ const CreateListing = () => {
                 <h3 className='add-listing__sub-title'>Choose category for your listing</h3>
                 <select
                     className='add-listing__select'
-                    name='category'
+                    name='c_id'
                     onChange={newListingInput}
-                    value={newListing.category}>
+                    value={newListing.c_id}>
                     {categories && categories.map(a =>
-                        <option value={a.id} key={a.id}>
-                            {a.name}
+                        <option value={a.c_id} key={a.c_id}>
+                            {a.category}
                         </option>
                     )}
                 </select>
                 <br />
-                <label htmlFor='name' className='add-listing__label'>Title for your listing</label>
+                <label htmlFor='title' className='add-listing__label'>Title for your listing</label>
                 <input
                     type='text'
-                    name='name'
-                    value={newListing.name}
+                    name='title'
+                    value={newListing.title}
                     onChange={newListingInput}
                     className='add-listing__input'
                     autoComplete='off'
