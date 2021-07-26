@@ -2,7 +2,6 @@ import React, { useEffect, useCallback, useContext } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { ListingsContext } from '../../context/ListingsContext';
-import Search from './Search';
 import { AuthContext } from '../../context/AuthContext';
 import Categories from './Categories';
 
@@ -24,9 +23,6 @@ const Listings = () => {
 
     return (
         <div>
-            {auth && <>
-                <p><Link to={`/listings/create`} ><button className='button'>Create new listing</button></Link></p></>}
-            <Search />
             <Categories />
             {listings
                 ?
