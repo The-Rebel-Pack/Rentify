@@ -1,6 +1,7 @@
 import React, { useContext, useCallback, useEffect } from 'react';
 import axios from 'axios';
 import { ListingsContext } from '../../context/ListingsContext';
+import './style/Categories.css';
 
 const Categories = () => {
     const {
@@ -38,15 +39,17 @@ const Categories = () => {
     return (
         <>
             {categories &&
-                <ul>
-                    {categories.map((c, idx) => (
-                        <label key={c.c_id} htmlFor={c.category}>
-                            <input type="checkbox" id={c.category} name={c.category} checked={c.checked} onChange={() => handleChange(idx)} />
-                            {c.category}
-                        </label>
-                    )
-                    )}
-                </ul>
+                <div className='categories'>
+                    <ul>
+                        {categories.map((c, idx) => (
+                            <label key={c.c_id} htmlFor={c.category} className='categories__category'>
+                                <input type="checkbox" name={c.category} checked={c.checked} onChange={() => handleChange(idx)} />
+                                {c.category}
+                            </label>
+                        )
+                        )}
+                    </ul>
+                </div>
             }
         </>
     )
