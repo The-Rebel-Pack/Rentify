@@ -1,5 +1,5 @@
 INSERT INTO listings
-  (category, title, details, price, owner_id) 
+  (c_id, title, details, price, u_id) 
 VALUES
   ($1, $2, $3, $4, $5) 
 RETURNING *

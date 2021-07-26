@@ -6,5 +6,5 @@ SET
   last_name = $3,
   details = $4
 WHERE
-  id = $5
+  u_id = $5
 RETURNING *
