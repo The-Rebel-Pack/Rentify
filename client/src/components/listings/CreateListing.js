@@ -11,7 +11,7 @@ const CreateListing = () => {
     const emptyListing = {
         "title": '',
         "description": '',
-        "images": ["12"],
+        "images": [],
         "c_id": 1,
         "pricePerDay": '',
     }

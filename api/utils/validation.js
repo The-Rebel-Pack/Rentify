@@ -41,6 +41,12 @@ const isValidNumber = (input) => {
 
 const validateListing = (userInput) => {
   let { category, title, details, price, owner } = userInput;
+  if (!details.images) {
+    details = {
+      ...details,
+      images: []
+    }
+  };
   category = Number(category);
   price.day = Number(price.day);
   if (title.trim() === '') throw createHttpError(400, 'Invalid title');
