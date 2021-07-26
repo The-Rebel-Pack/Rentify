@@ -25,7 +25,7 @@ const Listings = () => {
     return (
         <div>
             {auth && <>
-                <p><Link to={`/listings/create`} ><button>Create new listing</button></Link></p></>}
+                <p><Link to={`/listings/create`} ><button className='button'>Create new listing</button></Link></p></>}
             <Search />
             <Categories />
             {listings
@@ -36,7 +36,7 @@ const Listings = () => {
                         <p>{listing?.price?.day} kr</p>
                         <p>{listing.category}</p>
                         <img src={listing?.details?.images[0]} alt={listing.title} width="150px" />
-                        <Link to={`/listings/${listing.l_id}`} ><button>Details</button></Link>
+                        <Link to={`/listings/${listing.l_id}`} ><button className='button'>Details</button></Link>
                     </div>
                 ))
                 : <h2>No results, please search for something else</h2>
