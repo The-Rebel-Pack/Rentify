@@ -10,12 +10,12 @@ const validateNewUser = (userInput) => {
   // first time we guess the first and last name
   const firstName = name.match(/([^\s]*)/);
   const lastNames = name.match(/\s(.*)/);
-  userDetails.id = id;
-  userDetails.name = name;
+  userDetails.u_id = id;
+  userDetails.full_name = name;
   userDetails.first_name = firstName ? firstName[1] : name;
   userDetails.last_name = lastNames ? lastNames[1] : name;
   userDetails.email = email;
-  userDetails.details = {};
+  userDetails.u_details = {};
   return userDetails;
 }
 
@@ -23,11 +23,11 @@ const validateUser = (id, userInput) => {
   const { name, first_name, last_name, details } = userInput;
   if (name.trim() === '' || first_name.trim() === '' || last_name.trim() === '') throw createHttpError(400, 'Invalid name');
   const userDetails = {};
-  userDetails.id = id;
-  userDetails.name = name;
+  userDetails.u_id = id;
+  userDetails.full_name = name;
   userDetails.first_name = first_name;
   userDetails.last_name = last_name;
-  userDetails.details = JSON.stringify(details);
+  userDetails.u_details = JSON.stringify(details);
   console.log(userDetails);
   return userDetails;
 }
@@ -46,11 +46,11 @@ const validateListing = (userInput) => {
   if (!isValidNumber(category)) throw createHttpError(400, 'Invalid category');
   if (!isValidNumber(price.day)) throw createHttpError(400, 'Invalid price per day');
   const listingDetails = {};
-  listingDetails.category = Number(category);
-  listingDetails.name = name;
+  listingDetails.c_id = Number(category);
+  listingDetails.title = name;
   listingDetails.details = JSON.stringify(details);
   listingDetails.price = JSON.stringify(price);
-  listingDetails.owner = owner;
+  listingDetails.u_id = owner;
   console.log({ listingDetails });
   return listingDetails;
 }

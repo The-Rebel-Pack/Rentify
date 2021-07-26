@@ -1,20 +1,9 @@
-import React, { useContext } from 'react'
-import { ListingsContext } from '../../context/ListingsContext'
+import React from 'react'
 
 const DeleteListing = () => {
-
-    const { listings, setListings } = useContext(ListingsContext)
-
-    const handleDelete = (id) => {
-        const deleteItem = listings.filter(list => list.id !== id);
-        console.log(deleteItem)
-        setListings(deleteItem);
-    }
-
     return (
-
         <div>
-            <button type="button" onClick={() => handleDelete(listings.id)} >Delete</button>
+            <h1>Delete listing</h1>
         </div>
     )
 }

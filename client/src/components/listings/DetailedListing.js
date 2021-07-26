@@ -26,9 +26,9 @@ const SingleListing = () => {
         <>
             {listing &&
                 <div key={listing?.id} >
-                    <h2>{listing?.name}</h2>
+                    <h2>{listing?.title}</h2>
                     <p>{listing?.price?.day} kr</p>
-                    <img src={listing?.details?.images[0]} alt={listing.name} width="500px" />
+                    <img src={listing?.details?.images[0]} alt={listing.title} width="500px" />
                     <p>{listing?.details?.description}</p>
                     {auth && <>
                         <h3>Contact owner</h3>

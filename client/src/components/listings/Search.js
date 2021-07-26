@@ -28,7 +28,7 @@ const Search = () => {
                 selectedCategories = categories.filter(c => c.checked)
             }
             if (selectedCategories.length > 0) {
-                categoriesParam = `categories=${selectedCategories.map(c => c.id)}`
+                categoriesParam = `categories=${selectedCategories.map(c => c.c_id)}`
             }
 
             let apperand = ``;

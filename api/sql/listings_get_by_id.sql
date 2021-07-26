@@ -1,6 +1,6 @@
 SELECT * FROM listings 
 INNER JOIN categories 
-ON listings.category_id = categories.id
+ON listings.c_id = categories.c_id
 INNER JOIN users 
-ON listings.owner_id = users.id
-WHERE listings.id = $1
+ON listings.u_id = users.u_id
+WHERE listings.l_id = $1

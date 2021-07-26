@@ -11,28 +11,28 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TABLE IF NOT EXISTS users (
-  id VARCHAR(120) PRIMARY KEY,
+  u_id VARCHAR(120) PRIMARY KEY,
   email VARCHAR(120) NOT NULL UNIQUE,
   full_name VARCHAR(120) NOT NULL,
   first_name VARCHAR(120),
   last_name VARCHAR(120),
-  details JSON NOT NULL
+  u_details JSON NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS categories (
-  id SERIAL PRIMARY KEY,
+  c_id SERIAL PRIMARY KEY,
   category VARCHAR(120) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS listings (
-  id SERIAL PRIMARY KEY,
+  l_id SERIAL PRIMARY KEY,
   title VARCHAR(120) NOT NULL,
   details JSON NOT NULL,
   price JSON NOT NULL,
-  category_id INTEGER,
-  FOREIGN KEY (category_id) REFERENCES categories (id),
-  owner_id VARCHAR(120),
-  FOREIGN KEY (owner_id) REFERENCES users (id),
+  c_id INTEGER,
+  FOREIGN KEY (c_id) REFERENCES categories (c_id),
+  u_id VARCHAR(120),
+  FOREIGN KEY (u_id) REFERENCES users (u_id),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   completed_at TIMESTAMPTZ
@@ -52,7 +52,7 @@ VALUES
   ('electronics');
 
 INSERT INTO
-  users (id, full_name, email, first_name, last_name, details)
+  users (u_id, full_name, email, first_name, last_name, u_details)
 VALUES
   (
     '1',
@@ -80,7 +80,7 @@ VALUES
   );
 
 INSERT INTO
-  listings (title, details, price, category_id, owner_id)
+  listings (title, details, price, c_id, u_id)
 VALUES
   (
     'Fast car',

@@ -1,6 +1,6 @@
 SELECT * FROM listings
-INNER JOIN categories 
-ON listings.category_id = categories.id
+LEFT JOIN categories
+ON listings.c_id = categories.c_id
 ORDER BY updated_at DESC
 LIMIT 5
 OFFSET ($1 - 1) * 5
