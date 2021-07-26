@@ -12,6 +12,7 @@
   --font-normal: 400;
   --font-bold: 400;
   --font-family: 'Lexend', sans-serif;
+  --corners: .1rem;
 }
 
 * {
