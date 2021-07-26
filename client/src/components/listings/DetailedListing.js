@@ -25,14 +25,16 @@ const SingleListing = () => {
     return (
         <>
             {listing &&
-                <div key={listing?.id} >
-                    <h2>{listing?.title}</h2>
-                    <p>{listing?.price?.day} kr</p>
-                    <img src={listing?.details?.images[0]} alt={listing.title} width="500px" />
-                    <p>{listing?.details?.description}</p>
+                <div className='listing' key={listing?.id} >
+                    <h2 className='listing__title'>{listing?.title}</h2>
+                    <h2 className='listing__category'>{listing?.category}</h2>
+                    <p className='listing__price'>{listing?.price?.day} kr</p>
+                    {listing?.details?.images && <>
+                        <img className='listing__image' src={listing?.details?.images[0]} alt={listing.title} width="500px" /> </>}
+                    <p className='listing__description'>{listing?.details?.description}</p>
                     {auth && <>
-                        <h3>Contact owner</h3>
-                        <p><button>Send e-mail</button></p></>}
+                        <h3 className='listing__contact-title'>Contact owner</h3>
+                        <div className='listing__contact-details'><button>Send e-mail</button></div></>}
                 </div>
             }
         </>
