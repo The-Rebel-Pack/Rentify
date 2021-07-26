@@ -2,10 +2,10 @@ import React, { useEffect, useState, useCallback, useContext } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
-
+import ContactInfo from './ContactInfo';
 const Profile = () => {
     const [data, setData] = useState(null)
-    const { token } = useContext(AuthContext)
+    const { auth, token } = useContext(AuthContext)
 
     const fetchData = useCallback(
         async (token) => {
@@ -15,7 +15,7 @@ const Profile = () => {
                 }
             });
             console.log(res.data.message)
-            setData(res.data);
+                        setData(res.data);
         },
         [],
     );
@@ -30,6 +30,8 @@ const Profile = () => {
         <div>
             <h2>Profile</h2>
             <p>Welcome to your profile page!</p>
+
+            {auth && token && <Link to="/" component= {ContactInfo} /> }
             <p><Link to={`/listings/create`} ><button>Create new listing</button></Link></p>
             <p><Link to={`/listings/my-listings`} ><button>See your listings</button></Link></p>
             {/* <p>{data?.message}</p> */}

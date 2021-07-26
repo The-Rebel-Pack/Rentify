@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
     .json(rows)
 });
 
-router.get('/:id', middleware.decodeToken, async (req, res) => {
+router.get('/:id', async (req, res) => {
   const rows = await getUser(req.params.id);
   if (rows[0]) {
     return res
