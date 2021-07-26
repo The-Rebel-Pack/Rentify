@@ -76,7 +76,7 @@ router.post('/', middleware.decodeToken, async (req, res, next) => {
   const uid = req.user.uid;
   console.log('incoming post:', req.body);
   try {
-    const listingDetails = validateListing(req.body);
+    const listingDetails = validateListing({...req.body, owner:uid});
     const rows = await addListing(listingDetails);
     if (rows[0]) {
       return res

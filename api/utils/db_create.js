@@ -37,11 +37,11 @@ const addListing = async (listingDetails) => {
     const res = await db.query(
       addListing.toString(),
       [
-        listingDetails.category,
-        listingDetails.name,
+        listingDetails.c_id,
+        listingDetails.title,
         listingDetails.details,
         listingDetails.price,
-        listingDetails.owner,
+        listingDetails.u_id,
       ]);
     return res.rows;
   } catch (err) {

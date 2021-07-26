@@ -41,7 +41,7 @@ const Categories = () => {
                 <ul>
                     {categories.map((c, idx) => (
                         <label key={c.c_id} htmlFor={c.category}>
-                            <input type="checkbox" id={c.category} name={c.category} checked={c.checked} onChange={() => handleChange(idx)} />
+                            <input type="checkbox" name={c.category} checked={c.checked} onChange={() => handleChange(idx)} />
                             {c.category}
                         </label>
                     )
