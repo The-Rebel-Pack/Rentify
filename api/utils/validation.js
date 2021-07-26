@@ -5,6 +5,7 @@ const createHttpError = (code, message) => {
 };
 
 const validateNewUser = (userInput) => {
+  console.log(userInput)
   const { name, email, id } = userInput;
   const userDetails = {};
   // first time we guess the first and last name

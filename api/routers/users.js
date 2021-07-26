@@ -15,8 +15,9 @@ router.get('/', async (req, res) => {
     .json(rows)
 });
 
-router.get('/:id', middleware.decodeToken, async (req, res) => {
-  const rows = await getUser(req.params.id);
+router.get('/unique', middleware.decodeToken, async (req, res) => {
+  const uid = req.user.uid;
+  const rows = await getUser(uid);
   if (rows[0]) {
     return res
       .status(200)
@@ -27,9 +28,10 @@ router.get('/:id', middleware.decodeToken, async (req, res) => {
     .end('Not found')
 });
 
-router.post('/:id', middleware.decodeToken, async (req, res, next) => {
+router.post('/unique', middleware.decodeToken, async (req, res, next) => {
   try {
-    const userDetails = validateUser(req.params.id, req.body);
+    const uid = req.user.uid;
+    const userDetails = validateUser(uid, req.body);
     const rows = await editUser(userDetails);
     res
       .status(201)
