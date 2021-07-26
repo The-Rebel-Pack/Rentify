@@ -18,12 +18,12 @@ const addUser = async (userDetails) => {
     const res = await db.query(
       addUser.toString(),
       [
-        userDetails.id,
-        userDetails.name,
+        userDetails.u_id,
+        userDetails.full_name,
         userDetails.first_name,
         userDetails.last_name,
         userDetails.email,
-        userDetails.details
+        userDetails.u_details
       ]);
     return res.rows;
   } catch (err) {
@@ -55,11 +55,11 @@ const editUser = async (userDetails) => {
     const res = await db.query(
       editUser.toString(),
       [
-        userDetails.name,
+        userDetails.full_name,
         userDetails.first_name,
         userDetails.last_name,
-        userDetails.details,
-        userDetails.id
+        userDetails.u_details,
+        userDetails.u_id
       ]);
     return res.rows;
   } catch (err) {
