@@ -13,7 +13,7 @@ $$ LANGUAGE plpgsql;
 CREATE TABLE IF NOT EXISTS users (
   id VARCHAR(120) PRIMARY KEY,
   email VARCHAR(120) NOT NULL UNIQUE,
-  name VARCHAR(120) NOT NULL,
+  full_name VARCHAR(120) NOT NULL,
   first_name VARCHAR(120),
   last_name VARCHAR(120),
   details JSON NOT NULL
@@ -21,18 +21,18 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS categories (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(120) NOT NULL UNIQUE
+  category VARCHAR(120) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS listings (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(120) NOT NULL,
+  title VARCHAR(120) NOT NULL,
   details JSON NOT NULL,
   price JSON NOT NULL,
-  category INTEGER,
-  FOREIGN KEY (category) REFERENCES categories (id),
-  owner VARCHAR(120),
-  FOREIGN KEY (owner) REFERENCES users (id),
+  category_id INTEGER,
+  FOREIGN KEY (category_id) REFERENCES categories (id),
+  owner_id VARCHAR(120),
+  FOREIGN KEY (owner_id) REFERENCES users (id),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   completed_at TIMESTAMPTZ
@@ -44,7 +44,7 @@ FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp();
 
 INSERT INTO
-  categories (name)
+  categories (category)
 VALUES
   ('vehicles'),
   ('furniture'),
@@ -52,7 +52,7 @@ VALUES
   ('electronics');
 
 INSERT INTO
-  users (id, name, email, first_name, last_name, details)
+  users (id, full_name, email, first_name, last_name, details)
 VALUES
   (
     '1',
@@ -80,7 +80,7 @@ VALUES
   );
 
 INSERT INTO
-  listings (name, details, price, category, owner)
+  listings (title, details, price, category_id, owner_id)
 VALUES
   (
     'Fast car',

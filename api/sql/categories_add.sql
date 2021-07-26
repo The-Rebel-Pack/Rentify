@@ -1,4 +1,4 @@
-INSERT INTO
-  categories (name)
-VALUES
-  ($1) RETURNING *
+INSERT INTO 
+  categories (category)
+VALUES ($1) 
+  RETURNING *
