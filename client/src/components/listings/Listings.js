@@ -31,12 +31,12 @@ const Listings = () => {
             {listings
                 ?
                 listings.map(listing => (
-                    <div key={listing.id} >
+                    <div key={listing.l_id} >
                         <h2>{listing.title}</h2>
                         <p>{listing?.price?.day} kr</p>
                         <p>{listing.category}</p>
                         <img src={listing?.details?.images[0]} alt={listing.title} width="150px" />
-                        <Link to={`/listings/${listing.id}`} ><button>Details</button></Link>
+                        <Link to={`/listings/${listing.l_id}`} ><button>Details</button></Link>
                     </div>
                 ))
                 : <h2>No results, please search for something else</h2>
