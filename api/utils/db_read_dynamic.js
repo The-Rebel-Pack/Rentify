@@ -13,12 +13,12 @@ OR details->>'description' ILIKE '%' || $${i + 2} || '%')
 
 const dynamicCatsSql = (catsArray, getListingsStr, offset) => {
   const catsSqlParts = catsArray.map((c, i) => `
-c_id = $${i + offset + 2}
+l.c_id = $${i + offset + 2}
 `);
   let catsSql = catsSqlParts.join('OR');
   catsSql = offset ? `
 AND (${catsSql})` : `(${catsSql})`;
-  return getListingsStr.replace('c_id = $2', catsSql)
+  return getListingsStr.replace('l.c_id = $2', catsSql)
 }
 
 const getListings = async (query) => {
@@ -29,22 +29,22 @@ const getListings = async (query) => {
     const searchArray = search ? validateSearchStrToArr(search) : [];
     const searchTerms = searchArray.length;
     let getListingsStr;
-    if (categories || search) {
+    if (categories || searchTerms) {
       const getListingsSql = await fs.readFile('./sql/listings_get_list_category.sql');
       getListingsStr = getListingsSql.toString();
     }
     if (categories) {
-      if (search) {
+      if (searchTerms) {
         getListingsStr = dynamicSearchSql(searchArray, getListingsStr);
       }
       getListingsStr = dynamicCatsSql(catsArray, getListingsStr, searchTerms)
-      // console.log(getListingsStr);
+      console.log(getListingsStr);
       const res = await db.query(getListingsStr, [page, ...searchArray, ...catsArray]);
       console.log(`Got ${res.rowCount} listings from search "${search}" and/or categories "${catsArray}"`);
       return res.rows;
     }
-    if (search) {
-      getListingsStr = getListingsStr.replace('c_id = $2', '');
+    if (searchTerms) {
+      getListingsStr = getListingsStr.replace('l.c_id = $2', '');
       getListingsStr = dynamicSearchSql(searchArray, getListingsStr);
       // console.log(getListingsStr);
       const res = await db.query(getListingsStr, [page, ...searchArray]);

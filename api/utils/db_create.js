@@ -49,6 +49,25 @@ const addListing = async (listingDetails) => {
   }
 };
 
+const editListing = async (listingDetails) => {
+  try {
+    const addListing = await fs.readFile('./sql/listings_edit.sql');
+    const res = await db.query(
+      addListing.toString(),
+      [
+        listingDetails.c_id,
+        listingDetails.title,
+        listingDetails.details,
+        listingDetails.price,
+        listingDetails.u_id,
+        listingDetails.l_id,
+      ]);
+    return res.rows;
+  } catch (err) {
+    console.error(err.message || err);
+  }
+};
+
 const editUser = async (userDetails) => {
   try {
     const editUser = await fs.readFile('./sql/users_edit.sql');
@@ -72,4 +91,5 @@ module.exports = {
   editUser,
   addListing,
   resetDb,
+  editListing
 };

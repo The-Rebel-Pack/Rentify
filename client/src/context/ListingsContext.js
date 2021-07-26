@@ -4,6 +4,7 @@ export const ListingsContext = createContext();
 
 const ListingsContextProvider = (props) => {
     const [listings, setListings] = useState(null);
+    const [detailListings, setDetailListings] = useState(null);
     const [categories, setCategories] = useState(null);
     const [currentListings, setCurrentListings] = useState(null);
 
@@ -13,7 +14,9 @@ const ListingsContextProvider = (props) => {
         currentListings,
         setCurrentListings,
         categories,
-        setCategories
+        setCategories,
+        detailListings, 
+        setDetailListings
     }
 
     return (
