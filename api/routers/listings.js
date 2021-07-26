@@ -6,7 +6,7 @@ const middleware = require('../middleware');
 
 const { getAllCategories, getListing, getListingByOwner } = require('../utils/db_read');
 const { getListings } = require('../utils/db_read_dynamic');
-const { addListing } = require('../utils/db_create');
+const { addListing, editListing } = require('../utils/db_create');
 const { validateListing } = require('../utils/validation');
 
 router.get('/', async (req, res) => {
@@ -40,12 +40,12 @@ router.get('/user', middleware.decodeToken, async (req, res) => {
   const rows = await getListingByOwner(uid);
   if (rows) {
     return res
-    .status(200)
-    .json(rows)
+      .status(200)
+      .json(rows)
   }
   return res
-  .status(404)
-  .end('Not found')
+    .status(404)
+    .end('Not found')
 });
 
 router.get('/:id', async (req, res) => {
@@ -61,9 +61,11 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/:id', middleware.decodeToken, async (req, res, next) => {
+  const uid = req.user.uid;
   try {
-    const userDetails = validateUser(req.params.id, req.body);
-    const rows = await editUser(userDetails);
+    const listingDetails = validateListing({ ...req.body, u_id: uid });
+    listingDetails.l_id = req.params.id;
+    const rows = await editListing(listingDetails);
     res
       .status(201)
       .json(rows)
@@ -76,7 +78,7 @@ router.post('/', middleware.decodeToken, async (req, res, next) => {
   const uid = req.user.uid;
   console.log('incoming post:', req.body);
   try {
-    const listingDetails = validateListing({...req.body, owner:uid});
+    const listingDetails = validateListing({ ...req.body, u_id: uid });
     const rows = await addListing(listingDetails);
     if (rows[0]) {
       return res

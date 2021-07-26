@@ -25,7 +25,6 @@ const validateUser = (id, userInput) => {
   if (name.trim() === '' || first_name.trim() === '' || last_name.trim() === '') throw createHttpError(400, 'Invalid name');
   const userDetails = {};
   userDetails.u_id = id;
-  userDetails.full_name = name;
   userDetails.first_name = first_name;
   userDetails.last_name = last_name;
   userDetails.u_details = JSON.stringify(details);
@@ -40,7 +39,7 @@ const isValidNumber = (input) => {
 }
 
 const validateListing = (userInput) => {
-  let { category, title, details, price, owner } = userInput;
+  let { category, title, details, price, u_id } = userInput;
   if (!details.images) {
     details = {
       ...details,
@@ -57,7 +56,7 @@ const validateListing = (userInput) => {
   listingDetails.title = title;
   listingDetails.details = JSON.stringify(details);
   listingDetails.price = JSON.stringify(price);
-  listingDetails.u_id = owner;
+  listingDetails.u_id = u_id;
   console.log({ listingDetails });
   return listingDetails;
 }
