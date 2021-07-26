@@ -8,7 +8,6 @@ import Profile from '../components/profile/Profile';
 import Listings from '../components/listings/Listings';
 import DetailedListing from '../components/listings/DetailedListing';
 import CreateListing from '../components/listings/CreateListing';
-import ContactInfo from '../components/profile/ContactInfo';
 
 const NavRouter = (props) => {
 
@@ -27,9 +26,6 @@ const NavRouter = (props) => {
                 </Route>
                 <Route path="/listings/:id" >
                     <DetailedListing />
-                </Route>
-                <Route path="/users/:id" >
-                    <ContactInfo />
                 </Route>
             </Switch>
         </Router>
