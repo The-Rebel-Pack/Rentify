@@ -6,6 +6,7 @@
   --primary-color-darker: #57a392;
   --primary-color-more-darker: ##1f8181;
   --light-color: #fbedb0;
+  --bg-color: #fff;
   --secondary-color: #ff1d45;
   --font-thin: 100;
   --font-normal: 400;
@@ -20,7 +21,7 @@
 }
 
 body {
-  background: var(--light-color);
+  background: var(--bg-color);
   color: var(--font-color);
   font-family: var(--font-family);
   font-weight: var(--font-normal);
