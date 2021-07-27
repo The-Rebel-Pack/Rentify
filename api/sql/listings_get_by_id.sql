@@ -1,4 +1,5 @@
-SELECT * FROM listings 
+SELECT *, count(*) OVER() AS full_count 
+FROM listings
 INNER JOIN categories 
 ON listings.c_id = categories.c_id
 INNER JOIN users 

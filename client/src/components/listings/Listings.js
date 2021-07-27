@@ -13,7 +13,7 @@ const Listings = () => {
     const fetchData = useCallback(
         async () => {
             const res = await axios.get('http://localhost:5000/api/listings');
-            setListings(res.data);
+            setListings(res.data.listings);
         },
         [setListings],
     );

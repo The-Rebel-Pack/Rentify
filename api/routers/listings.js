@@ -2,20 +2,18 @@ const express = require('express');
 const router = express.Router();
 const middleware = require('../middleware');
 
-// router.use(express.json());
-
-const { getAllCategories, getListing, getListingByOwner } = require('../utils/db_read');
+const { getAllCategories, getListing, getListingsByOwner } = require('../utils/db_read');
 const { getListings } = require('../utils/db_read_dynamic');
 const { addListing, editListing } = require('../utils/db_create');
 const { validateListing } = require('../utils/validation');
 
 router.get('/', async (req, res) => {
   // console.log(req.user);
-  const rows = await getListings(req.query);
-  if (rows[0]) {
+  const result = await getListings(req.query);
+  if (result.listings[0]) {
     return res
       .status(200)
-      .json(rows)
+      .json(result)
   }
   return res
     .status(200)
@@ -34,10 +32,10 @@ router.get('/categories', async (req, res) => {
     .end('No categories to show')
 });
 
-router.get('/user', middleware.decodeToken, async (req, res) => {
-  const uid = req.user.uid;
-  console.log(uid);
-  const rows = await getListingByOwner(uid);
+router.get('/user/:id', async (req, res) => {
+  // admin only
+  const uid = req.params.id;
+  const rows = await getListingsByOwner(uid);
   if (rows) {
     return res
       .status(200)
@@ -46,6 +44,25 @@ router.get('/user', middleware.decodeToken, async (req, res) => {
   return res
     .status(404)
     .end('Not found')
+});
+
+router.get('/user', middleware.decodeToken, async (req, res) => {
+  if (req.user && req.user.uid) {
+    const uid = req.user.uid;
+    console.log(uid);
+    const rows = await getListingsByOwner(uid);
+    if (rows[0]) {
+      return res
+        .status(200)
+        .json(rows)
+    }
+    return res
+      .status(404)
+      .end('Not found')
+  }
+  return res
+    .status(400)
+    .end('No user id provided')
 });
 
 router.get('/:id', async (req, res) => {

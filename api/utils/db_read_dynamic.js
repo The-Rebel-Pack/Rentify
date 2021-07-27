@@ -1,6 +1,7 @@
 const fs = require('fs').promises;
 const db = require('../config/db')
 const { validateCategoriesStrToArr, validateSearchStrToArr } = require('./validation');
+const { addPagination } = require('./addPagination');
 
 const dynamicSearchSql = (searchArray, getListingsStr) => {
   const searchSqlParts = searchArray.map((c, i) => `
@@ -19,23 +20,6 @@ l.c_id = $${i + offset + 2}
   catsSql = offset ? `
 AND (${catsSql})` : `(${catsSql})`;
   return getListingsStr.replace('l.c_id = $2', catsSql)
-}
-
-const addPagination = async (query, res) => {
-  let full_count = null;
-  if (res[0] && res[0].full_count) {
-    full_count = res[0].full_count
-  }
-  if (query.page && full_count) {
-    const total_pages = Math.ceil(full_count / 6);
-    res = res.map(res => {
-      res.full_count = Number(full_count);
-      res.current_page = Number(query.page);
-      res.total_pages = total_pages;
-      return res;
-    });
-  }
-  return res;
 }
 
 const getListings = async (query) => {
@@ -58,7 +42,7 @@ const getListings = async (query) => {
       console.log(getListingsStr);
       const res = await db.query(getListingsStr, [page, ...searchArray, ...catsArray]);
       console.log(`Got ${res.rowCount} listings from search "${search}" and/or categories "${catsArray}"`);
-      return addPagination(query, res.rows);
+      return addPagination(res.rows, query);
     }
     if (searchTerms) {
       getListingsStr = getListingsStr.replace('l.c_id = $2', '');
@@ -66,12 +50,12 @@ const getListings = async (query) => {
       // console.log(getListingsStr);
       const res = await db.query(getListingsStr, [page, ...searchArray]);
       console.log(`Got ${res.rowCount} listings from search "${search}"`);
-      return addPagination(query, res.rows);
+      return addPagination(res.rows, query);
     }
     const getListingsSql = await fs.readFile('./sql/listings_get_list.sql');
     const res = await db.query(getListingsSql.toString(), [page]);
     console.log(`Got ${res.rowCount} listings`);
-    return addPagination(query, res.rows);
+    return addPagination(res.rows, query);
   } catch (err) {
     console.error(err.message || err);
   }
