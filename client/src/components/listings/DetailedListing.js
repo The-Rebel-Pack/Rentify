@@ -39,7 +39,7 @@ const SingleListing = () => {
                         <h3 className='listing__contact-title'>Contact owner</h3>
                         <div className='listing__contact-details'>
                             <p>Name: {detailListings.first_name} {detailListings.last_name}</p>
-                            <p>E-mail: <Link to="#">Send e-mail</Link></p>
+                            <p>E-mail: <Link to="#"><button className='button'>Send a message to {detailListings.first_name} {detailListings.last_name}</button></Link></p>
                             <p>Phone: {detailListings.u_details?.phone}</p>
                         </div></>
                         :

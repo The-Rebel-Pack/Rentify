@@ -1,6 +1,6 @@
 import './Nav.css';
 import React, { useState, useContext, useEffect } from 'react'
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { AuthContext } from '../../context/AuthContext';
 import NavRouter from '../../routers/NavRouter';
 import TopMenu from './TopMenu';
@@ -48,7 +48,9 @@ const Nav = () => {
                         <button className='button top-menu__icon button--icon' onClick={() => toggleShowMenu()}>
                             <FaBars />
                         </button>
-                        <h1 className='header__title'>Rentify</h1>
+                        <NavLink to="/" >
+                            <h1 className='header__title'>Rentify</h1>
+                        </NavLink>
                         {showMenu && <TopMenu />}
                     </div>
                     {auth && <>
