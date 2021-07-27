@@ -6,11 +6,11 @@
 }
 
 .listing {
-  background: var(--light-color);
+  background: white;
   color: var(--font-color);
-  padding: 1rem;
   margin-bottom: 1rem;
   border-radius: var(--corners);
+  padding: .3rem;
 }
 
 .listing__image-container {
@@ -26,6 +26,10 @@
 .listing__image {
   max-width: 100%;
   height: auto;
+}
+
+.listing__details-container {
+  padding: 1rem;
 }
 
 .listing__header {

@@ -32,16 +32,20 @@ const Listings = () => {
                         <div key={listing.l_id} className='listing'>
                             {console.log(listing)}
                             {listing?.details?.images.length > 0 &&
-                                <div
-                                    className='listing__image-container'
-                                    style={{
-                                        backgroundImage: `url("${listing?.details?.images[0]}")`
-                                    }}></div>
+                                <Link to={`/listings/${listing.l_id}`} >
+                                    <div className='listing__image-container'
+                                        style={{
+                                            backgroundImage: `url("${listing?.details?.images[0]}")`
+                                        }}></div>
+                                </Link>
                             }
-                            <h2>{listing.title}</h2>
-                            <p>{listing?.price?.day} kr</p>
-                            <p>{listing.category}</p>
-                            <Link to={`/listings/${listing.l_id}`} ><button className='button'>Details</button></Link>
+                            <Link to={`/listings/${listing.l_id}`} >
+                                <div className='listing__details-container'>
+                                    <h2>{listing.title}</h2>
+                                    <p>{listing?.price?.day} kr/day</p>
+                                    <p>{listing.category}</p>
+                                </div>
+                            </Link>
                         </div>
                     ))
                     : <h2>No results, please search for something else</h2>
