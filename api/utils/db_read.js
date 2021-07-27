@@ -1,5 +1,6 @@
 const fs = require('fs').promises;
-const db = require('../config/db')
+const db = require('../config/db');
+const moment = require('moment');
 
 const getAllUsers = async () => {
   try {
@@ -48,6 +49,7 @@ const filterListingDetails = (res) => {
     res = res;
     // res.updated_at = new Date(res.updated_at.replace(' ', 'T'));
     console.log(res.updated_at.toString());
+    console.log(moment(res.updated_at).format('MMMM Do, YYYY HH:mm:ss'));
     res.last_name = res.last_name[0];
     delete res.full_name;
     return res;
