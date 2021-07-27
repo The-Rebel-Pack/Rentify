@@ -6,8 +6,8 @@ import { AuthContext } from '../../context/AuthContext';
 const CreateListing = () => {
     const { token } = useContext(AuthContext);
     const { categories, setCategories } = useContext(ListingsContext);
-
-    const [selectedCategory, setSelectedCategory] = useState(1);
+    const [image, setImage] = useState("");
+    //const [selectedCategory, setSelectedCategory] = useState(1);
     const emptyListing = {
         "title": '',
         "description": '',
@@ -31,7 +31,7 @@ const CreateListing = () => {
 
     const postData = async (listing) => {
         try {
-            console.log('Triggered post listing: ', listing)
+           // console.log('Triggered post listing: ', listing)
             const res = await axios({
                 method: 'POST',
                 url: 'http://localhost:5000/api/listings',
@@ -43,7 +43,7 @@ const CreateListing = () => {
                     "title": listing.title,
                     "details": {
                         "description": listing.description,
-                        "images": listing.images
+                        "images": [image]
                     },
                     "price": {
                         "day": listing.pricePerDay
@@ -56,12 +56,31 @@ const CreateListing = () => {
         }
     };
 
+
+    const uploadImage = async (e) => {
+        const files = e.target.files;
+        console.log(files);
+        const data = new FormData();
+        data.append("file", files[0]);
+        data.append("upload_preset", "rentify");
+
+        const res = await fetch(
+            "https://api.cloudinary.com/v1_1/ddenalelw/image/upload",
+            { method: "POST", body: data }
+        );
+        const file = await res.json();
+        setImage(file.secure_url);
+    };
+
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        uploadImage()
         const res = await postData(newListing);
         if (res.status === 201) {
             setNewListing(emptyListing);
-            setSelectedCategory(1)
+         //   setSelectedCategory(1)
         } else {
             console.log('Post not inserted', res);
         }
@@ -123,6 +142,18 @@ const CreateListing = () => {
                     required="required"
                 />
                 <br />
+                <h4>Upload Image</h4>
+                <input
+                    type="file"
+                    name="file"
+                    placeholder="Upload Image"
+                    onChange={uploadImage}
+                />
+{                console.log(image)
+}                <img src={image} alt={image} style={{ width:"300px" }} />
+
+                <br />
+
                 <button type='submit' className='button'>
                     Add listing</button>
             </form>
