@@ -31,7 +31,7 @@ const CreateListing = () => {
 
     const postData = async (listing) => {
         try {
-           // console.log('Triggered post listing: ', listing)
+            // console.log('Triggered post listing: ', listing)
             const res = await axios({
                 method: 'POST',
                 url: 'http://localhost:5000/api/listings',
@@ -59,7 +59,6 @@ const CreateListing = () => {
 
     const uploadImage = async (e) => {
         const files = e.target.files;
-        console.log(files);
         const data = new FormData();
         data.append("file", files[0]);
         data.append("upload_preset", "rentify");
@@ -77,9 +76,10 @@ const CreateListing = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const res = await postData(newListing);
+        setImage("");
         if (res.status === 201) {
             setNewListing(emptyListing);
-         //   setSelectedCategory(1)
+            //   setSelectedCategory(1)
         } else {
             console.log('Post not inserted', res);
         }
@@ -148,8 +148,7 @@ const CreateListing = () => {
                     placeholder="Upload Image"
                     onChange={uploadImage}
                 />
-{                console.log(image)
-}                <img src={image} alt={image} style={{ width:"300px" }} />
+                <img src={image} alt={image} style={{ width: "300px" }} />
 
                 <br />
 

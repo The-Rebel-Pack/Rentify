@@ -20,9 +20,8 @@ const EditListing = () => {
                 }
             });
             setCurrentEdit(res.data[0]);
-            console.log()
         },
-        [setCurrentEdit],
+        [setCurrentEdit, id, token],
     );
     useEffect(() => {
         if (token) {
@@ -53,7 +52,7 @@ const EditListing = () => {
                 },
                 data: data
             });
-            console.log(res);
+            //  console.log(res);
             if (res.status === 201) {
                 setCurrentEdit(res.data)
             }
@@ -64,7 +63,6 @@ const EditListing = () => {
 
     const uploadImage = async (e) => {
         const files = e.target.files;
-        console.log(files);
         const data = new FormData();
         data.append("file", files[0]);
         data.append("upload_preset", "rentify");
@@ -79,14 +77,14 @@ const EditListing = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(e)
         await editData({
             ...currentEdit,
             category: currentEdit.c_id,
             title: formValue.title,
             details: {
                 ...currentEdit.details,
-                description: formValue.description
+                description: formValue.description,
+                images: [image],
             },
             price: {
                 ...currentEdit.price,
@@ -94,6 +92,7 @@ const EditListing = () => {
             }
         });
     }
+
 
     const editListingInput = e => {
         const { name, value } = e.target;
@@ -131,7 +130,6 @@ const EditListing = () => {
             />
             <br />
             <label htmlFor='priceperday' className='add-listing__label'>Price per day</label>
-            {console.log(price)}
             <input
                 type='number'
                 name='pricePerDay'
@@ -149,9 +147,7 @@ const EditListing = () => {
                 placeholder="Upload New Image"
                 onChange={uploadImage}
             />
-            {console.log(image)}
             <img src={image} alt={image} style={{ width: "300px" }} />
-
             <br />
             <div>
                 <button type='submit' className='button'>Save</button>
