@@ -16,6 +16,7 @@ const Search = () => {
     const { categories, setListings } = useContext(ListingsContext);
     const [searchValue, setSearchValue] = useState(searchQueries.search || '');
     const [categoriesValue, setCategoriesValue] = useState(searchQueries.categories || '');
+    const [historyQueries, setHistoryQueries] = useState(null);
 
     const debounceSearch = useDebounce(searchValue, 250);
     const debounceCategory = useDebounce(categoriesValue, 250);
@@ -25,6 +26,7 @@ const Search = () => {
     };
 
     useEffect(() => {
+        let queries = '';
         const fetchListings = async (searchTerm) => {
             let searchParam = ``;
             if (searchTerm !== ``) {
@@ -55,10 +57,16 @@ const Search = () => {
             setListings(res.data);
             setSearchValue(debounceSearch);
             setCategoriesValue(debounceCategory);
-            history.push(`${querySign}${searchParam}${apperand}${categoriesParam}`);
+            setHistoryQueries(`${querySign}${searchParam}${apperand}${categoriesParam}`);
         }
         fetchListings(debounceSearch);
-    }, [categories, debounceSearch, debounceCategory, setListings]);
+    }, [categories, debounceSearch, debounceCategory, setListings, setHistoryQueries]);
+
+    useEffect(() => {
+        if (historyQueries) {
+            history.push(historyQueries);
+        }
+    }, [historyQueries])
 
     return (
         <div className='search'>
