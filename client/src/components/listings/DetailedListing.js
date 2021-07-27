@@ -5,7 +5,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { ListingsContext } from '../../context/ListingsContext';
 import { FiClock } from 'react-icons/fi';
 
-const SingleListing = () => {
+const DetailedListing = () => {
 
     const { auth } = useContext(AuthContext)
     const { detailListings, setDetailListings } = useContext(ListingsContext)
@@ -31,8 +31,10 @@ const SingleListing = () => {
                     <p><span className='listing__category'>{detailListings.category}</span></p>
                     <p className='listing__price'>{detailListings.price?.day} kr/day</p>
                     {detailListings.details?.images &&
-                        detailListings.details?.images.map(image => <>
-                            <img className='listing__image' src={image} alt={detailListings.title} /> </>)}
+                        detailListings.details?.images.map((image, idx) =>
+                            <div key={idx}>
+                                <img className='listing__image' src={image} alt={detailListings.title} />
+                            </div>)}
                     <p className='listing__description'>{detailListings.details?.description}</p>
                     <p><FiClock /> Last updated: {detailListings.updated_at}</p>
                     {auth ? <>
@@ -51,4 +53,4 @@ const SingleListing = () => {
 }
 
 
-export default SingleListing
+export default DetailedListing

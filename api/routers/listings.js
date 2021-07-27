@@ -10,14 +10,9 @@ const { validateListing } = require('../utils/validation');
 router.get('/', async (req, res) => {
   // console.log(req.user);
   const result = await getListings(req.query);
-  if (result.listings[0]) {
-    return res
-      .status(200)
-      .json(result)
-  }
   return res
     .status(200)
-    .end('No listings to show')
+    .json(result)
 });
 
 router.get('/categories', async (req, res) => {

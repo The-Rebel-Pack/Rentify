@@ -32,7 +32,7 @@ const Search = () => {
                 searchParam = `search=${searchTerm}`
             }
 
-            let categoriesParam = categoriesValue;
+            let categoriesParam = ``;
             let selectedCategories = [];
             if (categories) {
                 selectedCategories = categories.filter(c => c.checked)
@@ -50,9 +50,6 @@ const Search = () => {
                 querySign = `?`;
             }
             const res = await axios.get(`http://localhost:5000/api/listings${querySign}${searchParam}${apperand}${categoriesParam}`);
-            if (res.data === 'No listings to show') {
-                return setListings(null);
-            }
             setListings(res.data.listings);
             setSearchValue(debounceSearch);
             setCategoriesValue(debounceCategory);
