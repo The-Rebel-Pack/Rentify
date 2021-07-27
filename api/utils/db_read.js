@@ -43,11 +43,20 @@ const findUserByEmail = async (email) => {
   }
 };
 
+const filterListingDetails = (res) => {
+  return res.map(res => {
+    res = res;
+    res.last_name = res.last_name[0];
+    delete res.full_name;
+    return res;
+  });
+}
+
 const getListing = async (id) => {
   try {
     const getListingById = await fs.readFile('./sql/listings_get_by_id.sql');
     const res = await db.query(getListingById.toString(), [id]);
-    return res.rows;
+    return filterListingDetails(res.rows);
   } catch (err) {
     console.error(err.message || err);
   }
