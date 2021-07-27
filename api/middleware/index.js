@@ -1,18 +1,21 @@
 const admin = require('../config/firebase-config');
+const { createHttpError } = require('../utils/validation');
 
 class Middleware {
     async decodeToken(req, res, next) {
         try {
-            const token = req.headers.authorization.split(' ')[1];
-            console.log(token);
-            const decodeValue = await admin.auth().verifyIdToken(token);
-            if (decodeValue) {
-                req.user = decodeValue;
-                return next();
+            const token = req.headers && req.headers.authorization ? req.headers.authorization.split(' ')[1] : null;
+            if (token) {
+                console.log('Token ok');
+                const decodeValue = await admin.auth().verifyIdToken(token);
+                if (decodeValue) {
+                    req.user = decodeValue;
+                    return next();
+                }
             }
-            return res.json({ message: 'Unauthorized' });
+            return next(createHttpError(400, 'Unauthorized'));
         } catch (err) {
-            return res.json({ message: err.message || 'Internal server error' });
+            return next(createHttpError(400, err.message || err));
         }
     }
 }
