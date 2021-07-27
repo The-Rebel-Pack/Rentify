@@ -74,7 +74,7 @@ const Categories = () => {
                             <label
                                 htmlFor={c.category}
                                 onClick={() => handleChange(idx)}
-                                className='categories__category'
+                                className='categories__label'
                             >
                                 {c.category}
                             </label>
