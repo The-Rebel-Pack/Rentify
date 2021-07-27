@@ -1,5 +1,5 @@
 import './Nav.css';
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Link } from "react-router-dom";
 import { AuthContext } from '../../context/AuthContext';
 import NavRouter from '../../routers/NavRouter';
@@ -9,10 +9,14 @@ import { FaBars, FaPlus } from 'react-icons/fa';
 
 const Nav = () => {
     const { auth } = useContext(AuthContext);
+    const [screenWidth, setScreenWidth] = useState(window.screen.width || null);
+    const [mediaScreen, setMediaScreen] = useState(window.screen.width >= 400 ? 'desktop' : 'mobile');
 
     const isHidden = () => {
-        const mobileMenuIcon = document.getElementsByClassName('top-menu__icon');
-        return (mobileMenuIcon.offsetParent === null);
+        if (window.screen.width >= 400) {
+            return true;
+        }
+        return false;
     }
 
     const [showMenu, setShowMenu] = useState(isHidden() ? true : false);
@@ -20,6 +24,28 @@ const Nav = () => {
     const toggleShowMenu = () => {
         setShowMenu(prevShowMenu => !prevShowMenu);
     }
+
+    useEffect(() => {
+        window.addEventListener('resize', () => setScreenWidth(window.screen.width));
+        return () => {
+            window.removeEventListener('resize', () => setScreenWidth(window.screen.width));
+        }
+    }, [setScreenWidth])
+
+    useEffect(() => {
+        if (screenWidth < 400) {
+            if (mediaScreen === 'mobile') {
+                setShowMenu(false)
+                setMediaScreen('desktop');
+            }
+        }
+        if (screenWidth > 399) {
+            if (mediaScreen === 'desktop') {
+                setShowMenu(true)
+                setMediaScreen('mobile');
+            }
+        }
+    }, [screenWidth, setMediaScreen, mediaScreen])
 
     return (
         <NavRouter>
