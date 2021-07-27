@@ -40,15 +40,19 @@ const Categories = () => {
         <>
             {categories &&
                 <div className='categories'>
-                    <ul>
-                        {categories.map((c, idx) => (
-                            <label key={c.c_id} htmlFor={c.category} className='categories__category'>
-                                <input type="checkbox" name={c.category} checked={c.checked || false} onChange={() => handleChange(idx)} />
-                                {c.category}
-                            </label>
-                        )
-                        )}
-                    </ul>
+                    {categories.map((c, idx) => (
+                        <label key={c.c_id} htmlFor={c.category} className='categories__category'>
+                            <input
+                                type="checkbox"
+                                name={c.category}
+                                checked={c.checked || false}
+                                onChange={() => handleChange(idx)}
+                                className='categories__checkbox'
+                            />
+                            {c.category}
+                        </label>
+                    )
+                    )}
                 </div>
             }
         </>

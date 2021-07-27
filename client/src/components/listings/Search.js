@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { ListingsContext } from '../../context/ListingsContext';
 import useDebounce from './useDebounce';
+import './style/Search.css'
+import { FaSearch } from 'react-icons/fa';
 
 const Search = () => {
     const { categories, setListings } = useContext(ListingsContext);
@@ -52,11 +54,23 @@ const Search = () => {
     }, [categories, debounceSearch, debounceCategory, setListings]);
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="search" />
-            <input id="search" value={searchValue} type="text" onChange={(e) => setSearchValue(e.target.value)} autoComplete='off' />
-            <button type="submit" className='button'>Search</button>
-        </form>
+        <div className='search'>
+            <form onSubmit={handleSubmit}>
+                <input
+                    id="search"
+                    value={searchValue}
+                    type="text"
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    autoComplete='off'
+                    placeholder='Start your search'
+                    className='search__input'
+                />
+                <button
+                    type="submit"
+                    className='button search__button'
+                ><FaSearch /></button>
+            </form>
+        </div>
     )
 }
 

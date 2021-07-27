@@ -29,14 +29,23 @@ const Listings = () => {
                 {listings
                     ?
                     listings.map(listing => (
-                        <div key={listing.l_id} >
-                            <h2>{listing.title}</h2>
-                            <p>{listing?.price?.day} kr</p>
-                            <p>{listing.category}</p>
+                        <div key={listing.l_id} className='listing'>
+                            {console.log(listing)}
                             {listing?.details?.images.length > 0 &&
-                                <img src={listing?.details?.images[0]} alt={listing.title} width="150px" />
+                                <Link to={`/listings/${listing.l_id}`} >
+                                    <div className='listing__image-container'
+                                        style={{
+                                            backgroundImage: `url("${listing?.details?.images[0]}")`
+                                        }}></div>
+                                </Link>
                             }
-                            <Link to={`/listings/${listing.l_id}`} ><button className='button'>Details</button></Link>
+                            <Link to={`/listings/${listing.l_id}`} >
+                                <div className='listing__details-container'>
+                                    <h2>{listing.title}</h2>
+                                    <p>{listing?.price?.day} kr/day</p>
+                                    <p>{listing.category}</p>
+                                </div>
+                            </Link>
                         </div>
                     ))
                     : <h2>No results, please search for something else</h2>

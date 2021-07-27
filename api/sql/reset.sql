@@ -97,8 +97,8 @@ VALUES
     '3'
   ),
   (
-    'Fancy boat',
-    '{"description": "Very fancy boat", "images": ["https://images.unsplash.com/photo-1545566239-0b2fb5c50bc6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGJvYXR8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"]}',
+    'Floaty boat',
+    '{"description": "Very floaty boat", "images": ["https://images.unsplash.com/photo-1545566239-0b2fb5c50bc6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGJvYXR8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"]}',
     '{"day": 500}',
     1,
     '3'
@@ -121,6 +121,6 @@ VALUES
     'Sony Walkman',
     '{"description": "Very nice Sony Walkman freestyle", "images": ["https://images.unsplash.com/photo-1611001716885-b3402558a62b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"]}',
     '{"day": 30}',
-    2,
+    4,
     '2'
   );
