@@ -15,7 +15,6 @@ const Profile = () => {
                 }
             });
             setData(res.data);
-            console.log(res.data);
         },
         [],
     );
