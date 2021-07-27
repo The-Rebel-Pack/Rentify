@@ -10,6 +10,7 @@ const EditListing = () => {
     const [currentEdit, setCurrentEdit] = useState(null);
     const [formValue, setFormValue] = useState(null);
     const [price, setPrice] = useState(null);
+    const [image, setImage] = useState("");
 
     const fetchData = useCallback(
         async () => {
@@ -30,12 +31,15 @@ const EditListing = () => {
     }, [token, fetchData]);
 
     useEffect(() => {
-        if (currentEdit?.title && currentEdit?.details?.description && currentEdit?.price?.day ) {
+        if (currentEdit?.title && currentEdit?.details?.description && currentEdit?.price?.day && currentEdit?.details?.images) {
+
             const { title } = currentEdit;
             const { description } = currentEdit.details;
+            const { images } = currentEdit.details;
             const price = currentEdit.price.day;
             setFormValue({ title, description });
             setPrice(price);
+            setImage(images);
         }
     }, [setFormValue, currentEdit])
 
@@ -50,12 +54,27 @@ const EditListing = () => {
                 data: data
             });
             console.log(res);
-            if(res.status === 201){
+            if (res.status === 201) {
                 setCurrentEdit(res.data)
             }
         } catch (err) {
             return ('err:', err);
         }
+    };
+
+    const uploadImage = async (e) => {
+        const files = e.target.files;
+        console.log(files);
+        const data = new FormData();
+        data.append("file", files[0]);
+        data.append("upload_preset", "rentify");
+
+        const res = await fetch(
+            "https://api.cloudinary.com/v1_1/ddenalelw/image/upload",
+            { method: "POST", body: data }
+        );
+        const file = await res.json();
+        setImage(file.secure_url);
     };
 
     const handleSubmit = async (e) => {
@@ -123,7 +142,17 @@ const EditListing = () => {
                 required="required"
             />
             <br />
+            <h4>Upload New Image</h4>
+            <input
+                type="file"
+                name="file"
+                placeholder="Upload New Image"
+                onChange={uploadImage}
+            />
+            {console.log(image)}
+            <img src={image} alt={image} style={{ width: "300px" }} />
 
+            <br />
             <div>
                 <button type='submit' className='button'>Save</button>
             </div>
