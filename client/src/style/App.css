@@ -9,11 +9,21 @@
 }
 
 .button:hover {
-  background: var(--primary-color-darker);
+  background: var(--secondary-color-darker);
 }
 
 .button:focus {
   border: var(--primary-color-darker) solid 2px;
   outline: none;
   background: var(--primary-color-darker);
+}
+
+.button--icon {
+  width: 40px;
+  height: 40px;
+  margin: 2px;
+  padding: 4px 0px 0 0;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  background: var(--primary-color);
 }

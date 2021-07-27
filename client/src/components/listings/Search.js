@@ -67,7 +67,7 @@ const Search = () => {
                 />
                 <button
                     type="submit"
-                    className='button search__button'
+                    className='button button--icon search__button'
                 ><FaSearch /></button>
             </form>
         </div>

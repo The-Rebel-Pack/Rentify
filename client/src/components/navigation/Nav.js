@@ -1,46 +1,40 @@
 import './Nav.css';
-import React, { useContext } from 'react'
-import { NavLink, Link } from "react-router-dom";
+import React, { useState, useContext } from 'react'
+import { Link } from "react-router-dom";
 import { AuthContext } from '../../context/AuthContext';
 import NavRouter from '../../routers/NavRouter';
-import NavLogin from '../authentication/NavLogin';
+import TopMenu from './TopMenu';
 import Search from '../listings/Search';
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaPlus } from 'react-icons/fa';
 
 const Nav = () => {
-    const { auth } = useContext(AuthContext)
+    const { auth } = useContext(AuthContext);
+
+    const isHidden = () => {
+        const mobileMenuIcon = document.getElementsByClassName('top-menu__icon');
+        return (mobileMenuIcon.offsetParent === null);
+    }
+
+    const [showMenu, setShowMenu] = useState(isHidden() ? true : false);
+
+    const toggleShowMenu = () => {
+        setShowMenu(prevShowMenu => !prevShowMenu);
+    }
 
     return (
         <NavRouter>
             <header className='header'>
-                <h1 className='header__title'>Rentify</h1>
-                {auth && <>
-                    <p><Link to={`/listings/create`} ><button className='button'>Create new listing</button></Link></p></>}
-                <nav className='top-menu '>
-                    <button className='button top-menu__icon'><FaBars /></button>
-                    <ul>
-                        <li className='top-menu__item'>
-                            <NavLink to="/" >
-                                Listings
-                            </NavLink>
-                        </li>
-                        <li className='top-menu__item'>
-                            <NavLink to="/" >
-                                About
-                            </NavLink>
-                        </li>
-                        {auth &&
-                            <li className='top-menu__item'>
-                                <NavLink to="/profile" >
-                                    Profile
-                                </NavLink>
-                            </li>
-                        }
-                        <li className='top-menu__item'>
-                            <NavLogin />
-                        </li>
-                    </ul>
-                </nav>
+                <div className='header__top'>
+                    <div className='header__top-first'>
+                        <button className='button top-menu__icon button--icon' onClick={() => toggleShowMenu()}>
+                            <FaBars />
+                        </button>
+                        <h1 className='header__title'>Rentify</h1>
+                        {showMenu && <TopMenu />}
+                    </div>
+                    {auth && <>
+                        <Link to={`/listings/create`} ><button className='button button--icon'><FaPlus /></button></Link></>}
+                </div>
                 <Search />
             </header>
         </NavRouter>

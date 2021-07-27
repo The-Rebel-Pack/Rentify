@@ -5,22 +5,18 @@
   color: white;
 }
 
+.header__top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: .5rem;
+}
+
+.header__top>* {
+  align-items: center;
+}
+
 .header__title {
   margin: 0;
   color: var(--light-color);
   display: inline;
-}
-
-.top-menu__icon,
-.top-menu {
-  float: right;
-  font-size: 1.5rem;
-}
-
-.top-menu ul {
-  list-style: none;
-}
-
-.top-menu__item {
-  display: block;
 }
