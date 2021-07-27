@@ -76,7 +76,6 @@ const CreateListing = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        uploadImage()
         const res = await postData(newListing);
         if (res.status === 201) {
             setNewListing(emptyListing);
