@@ -47,9 +47,8 @@ const findUserByEmail = async (email) => {
 const filterListingDetails = (res) => {
   return res.map(res => {
     res = res;
-    // res.updated_at = new Date(res.updated_at.replace(' ', 'T'));
-    console.log(res.updated_at.toString());
-    console.log(moment(res.updated_at).format('MMMM Do, YYYY HH:mm:ss'));
+    res.created_at = moment(res.created_at).format('MMMM Do, YYYY [at] HH:mm');
+    res.updated_at = moment(res.updated_at).format('MMMM Do, YYYY [at] HH:mm');
     res.last_name = res.last_name[0];
     delete res.full_name;
     return res;
