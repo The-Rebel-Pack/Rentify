@@ -6,19 +6,7 @@ import Categories from './Categories';
 import './style/Listings.css';
 
 const Listings = () => {
-    const { listings, setListings } = useContext(ListingsContext);
-
-    const fetchData = useCallback(
-        async () => {
-            const res = await axios.get('http://localhost:5000/api/listings');
-            setListings(res.data.listings);
-        },
-        [setListings],
-    );
-
-    useEffect(() => {
-        fetchData();
-    }, [fetchData]);
+    const { listings } = useContext(ListingsContext);
 
     return (
         <section className='app__section listings-section'>

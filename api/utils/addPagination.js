@@ -16,8 +16,8 @@ module.exports = {
       'full_count': full_count,
       'listings': rows
     }
-    console.log({ rows });
-    console.log({ result });
+    // console.log({ rows });
+    // console.log({ result });
     return result;
   }
 }

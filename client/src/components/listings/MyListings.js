@@ -16,9 +16,9 @@ const MyListings = () => {
                     Authorization: 'Bearer ' + token,
                 }
             });
-            setMyListings(res.data);
+            setMyListings(res.data.listings);
         },
-        [setMyListings, myListings],
+        [setMyListings],
     );
 
     useEffect(() => {

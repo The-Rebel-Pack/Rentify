@@ -68,6 +68,7 @@ const getListing = async (id) => {
 
 const getListingsByOwner = async (id) => {
   try {
+    console.log(id);
     const getListingById = await fs.readFile('./sql/listings_get_list_owner.sql');
     const res = await db.query(getListingById.toString(), [id]);
     return addPagination(res.rows);

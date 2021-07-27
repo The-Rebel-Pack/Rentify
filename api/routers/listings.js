@@ -49,12 +49,12 @@ router.get('/user/:id', async (req, res) => {
 router.get('/user', middleware.decodeToken, async (req, res) => {
   if (req.user && req.user.uid) {
     const uid = req.user.uid;
-    console.log(uid);
-    const rows = await getListingsByOwner(uid);
-    if (rows[0]) {
+    // console.log(uid);
+    const result = await getListingsByOwner(uid);
+    if (result.listings[0]) {
       return res
         .status(200)
-        .json(rows)
+        .json(result)
     }
     return res
       .status(404)

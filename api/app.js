@@ -28,10 +28,12 @@ app.get('/db/reset', async (req, res) => {
 
 
 app.get('/api/protectedroute', middleware.decodeToken, (req, res) => {
+  console.log(req.user)
   return res.json({ message: "this is a protected route, needs authorization token in header" });
 });
 
 app.use('/api/users', require('./routers/users'));
+
 app.use('/api/listings', require('./routers/listings'));
 
 app.use(function (req, res, next) {

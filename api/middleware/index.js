@@ -4,9 +4,11 @@ const { createHttpError } = require('../utils/validation');
 class Middleware {
     async decodeToken(req, res, next) {
         try {
-            const token = req.headers && req.headers.authorization ? req.headers.authorization.split(' ')[1] : null;
+            const token = req.headers && req.headers.authorization
+                ? req.headers.authorization.split(' ')[1]
+                : null;
             if (token) {
-                console.log('Token ok');
+                console.log(token);
                 const decodeValue = await admin.auth().verifyIdToken(token);
                 if (decodeValue) {
                     req.user = decodeValue;
