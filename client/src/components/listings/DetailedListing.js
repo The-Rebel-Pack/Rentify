@@ -1,8 +1,9 @@
 import React, { useEffect, useCallback, useState, useContext } from 'react';
 import axios from 'axios';
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { AuthContext } from '../../context/AuthContext';
 import { ListingsContext } from '../../context/ListingsContext';
+import { FiClock } from 'react-icons/fi';
 
 const SingleListing = () => {
 
@@ -25,16 +26,24 @@ const SingleListing = () => {
     return (
         <>
             {detailListings &&
-                <div className='listing' key={detailListings?.id} >
-                    <h2 className='listing__title'>{detailListings?.title}</h2>
-                    <h2 className='listing__category'>{detailListings?.category}</h2>
-                    <p className='listing__price'>{detailListings?.price?.day} kr</p>
-                    {detailListings?.details?.images && <>
-                        <img className='listing__image' src={detailListings?.details?.images[0]} alt={detailListings.title} width="500px" /> </>}
-                    <p className='listing__description'>{detailListings?.details?.description}</p>
-                    {auth && <>
+                <div className='listing' key={detailListings.id} >
+                    <h2 className='listing__title'>{detailListings.title}</h2>
+                    <p><span className='listing__category'>{detailListings.category}</span></p>
+                    <p className='listing__price'>{detailListings.price?.day} kr/day</p>
+                    {detailListings.details?.images &&
+                        detailListings.details?.images.map(image => <>
+                            <img className='listing__image' src={image} alt={detailListings.title} /> </>)}
+                    <p className='listing__description'>{detailListings.details?.description}</p>
+                    <p><FiClock /> Last updated: {detailListings.updated_at}</p>
+                    {auth ? <>
                         <h3 className='listing__contact-title'>Contact owner</h3>
-                        <div className='listing__contact-details'><button>Send e-mail</button></div></>}
+                        <div className='listing__contact-details'>
+                            <p>Name: {detailListings.first_name} {detailListings.last_name}</p>
+                            <p>E-mail: <Link to="#">Send e-mail</Link></p>
+                            <p>Phone: {detailListings.u_details?.phone}</p>
+                        </div></>
+                        :
+                        <><h3>Log in to contact owner</h3></>}
                 </div>
             }
         </>

@@ -1,5 +1,6 @@
 const fs = require('fs').promises;
-const db = require('../config/db')
+const db = require('../config/db');
+const moment = require('moment');
 
 const getAllUsers = async () => {
   try {
@@ -43,11 +44,22 @@ const findUserByEmail = async (email) => {
   }
 };
 
+const filterListingDetails = (res) => {
+  return res.map(res => {
+    res = res;
+    res.created_at = moment(res.created_at).format('MMMM Do, YYYY [at] HH:mm');
+    res.updated_at = moment(res.updated_at).format('MMMM Do, YYYY [at] HH:mm');
+    res.last_name = res.last_name[0];
+    delete res.full_name;
+    return res;
+  });
+}
+
 const getListing = async (id) => {
   try {
     const getListingById = await fs.readFile('./sql/listings_get_by_id.sql');
     const res = await db.query(getListingById.toString(), [id]);
-    return res.rows;
+    return filterListingDetails(res.rows);
   } catch (err) {
     console.error(err.message || err);
   }
