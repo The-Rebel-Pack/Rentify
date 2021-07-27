@@ -1,6 +1,5 @@
 const fs = require('fs').promises;
 const db = require('../config/db')
-const { createHttpError, isNumber } = require('./validation');
 
 const resetDb = async () => {
   try {
@@ -8,7 +7,7 @@ const resetDb = async () => {
     const res = await db.query(reset.toString());
     return 'Database updated';
   } catch (err) {
-    console.error(err.message || err);
+    return next(err);
   }
 }
 
@@ -27,7 +26,7 @@ const addUser = async (userDetails) => {
       ]);
     return res.rows;
   } catch (err) {
-    console.error(err.message || err);
+    return next(err);
   }
 };
 
@@ -45,7 +44,7 @@ const addListing = async (listingDetails) => {
       ]);
     return res.rows;
   } catch (err) {
-    console.error(err.message || err);
+    return next(err);
   }
 };
 
@@ -64,7 +63,7 @@ const editListing = async (listingDetails) => {
       ]);
     return res.rows;
   } catch (err) {
-    console.error(err.message || err);
+    return next(err);
   }
 };
 
@@ -82,7 +81,7 @@ const editUser = async (userDetails) => {
       ]);
     return res.rows;
   } catch (err) {
-    console.error(err.message || err);
+    return next(err);
   }
 };
 

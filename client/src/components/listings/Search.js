@@ -26,7 +26,6 @@ const Search = () => {
     };
 
     useEffect(() => {
-        let queries = '';
         const fetchListings = async (searchTerm) => {
             let searchParam = ``;
             if (searchTerm !== ``) {
@@ -54,7 +53,7 @@ const Search = () => {
             if (res.data === 'No listings to show') {
                 return setListings(null);
             }
-            setListings(res.data);
+            setListings(res.data.listings);
             setSearchValue(debounceSearch);
             setCategoriesValue(debounceCategory);
             setHistoryQueries(`${querySign}${searchParam}${apperand}${categoriesParam}`);
