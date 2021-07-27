@@ -12,14 +12,7 @@ const Nav = () => {
     const [screenWidth, setScreenWidth] = useState(window.screen.width || null);
     const [mediaScreen, setMediaScreen] = useState(window.screen.width >= 400 ? 'desktop' : 'mobile');
 
-    const isHidden = () => {
-        if (window.screen.width >= 400) {
-            return true;
-        }
-        return false;
-    }
-
-    const [showMenu, setShowMenu] = useState(isHidden() ? true : false);
+    const [showMenu, setShowMenu] = useState(window.screen.width >= 400 ? true : false);
 
     const toggleShowMenu = () => {
         setShowMenu(prevShowMenu => !prevShowMenu);
