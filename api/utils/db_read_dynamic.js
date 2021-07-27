@@ -22,9 +22,12 @@ AND (${catsSql})` : `(${catsSql})`;
 }
 
 const addPagination = async (query, res) => {
-  const full_count = res[0]?.full_count;
-  const total_pages = Math.ceil(full_count / 6);
+  let full_count = null;
+  if (res[0] && res[0].full_count) {
+    full_count = res[0].full_count
+  }
   if (query.page && full_count) {
+    const total_pages = Math.ceil(full_count / 6);
     res = res.map(res => {
       res.full_count = Number(full_count);
       res.current_page = Number(query.page);
