@@ -51,7 +51,6 @@ const Categories = () => {
     }, [fetchData]);
 
     const handleChange = (idx) => {
-        console.log('Handle change check');
         const updatedCheckValues = categories.map((c) => c);
         updatedCheckValues[idx] = {
             ...updatedCheckValues[idx],

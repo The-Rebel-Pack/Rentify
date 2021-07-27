@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useContext } from 'react';
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import { ListingsContext } from '../../context/ListingsContext';
 import Categories from './Categories';
@@ -7,8 +7,6 @@ import './style/Listings.css';
 
 const Listings = () => {
     const { listings, setListings } = useContext(ListingsContext);
-
-    let history = useHistory();
 
     const fetchData = useCallback(
         async () => {
@@ -26,7 +24,7 @@ const Listings = () => {
         <section className='app__section listings-section'>
             <Categories />
             <section className='listings-section__grid'>
-                {listings
+                {listings.length > 0
                     ?
                     listings.map(listing => (
                         <div key={listing.l_id} className='listing'>

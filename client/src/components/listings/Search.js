@@ -26,7 +26,6 @@ const Search = () => {
     };
 
     useEffect(() => {
-        let queries = '';
         const fetchListings = async (searchTerm) => {
             let searchParam = ``;
             if (searchTerm !== ``) {
