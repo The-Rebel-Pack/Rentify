@@ -76,7 +76,7 @@ router.post('/:id', middleware.decodeToken, async (req, res, next) => {
 
 router.post('/', middleware.decodeToken, async (req, res, next) => {
   const uid = req.user.uid;
-  console.log('incoming post:', req.body);
+  //console.log('incoming post:', req.body);
   try {
     const listingDetails = validateListing({ ...req.body, u_id: uid });
     const rows = await addListing(listingDetails);

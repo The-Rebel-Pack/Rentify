@@ -29,11 +29,11 @@ const NavRouter = (props) => {
                 <Route path="/listings/my-listings" >
                     <MyListings />
                 </Route>
+                <Route path="/listings/edit/:id" >
+                    <EditListing />
+                </Route>
                 <Route path="/listings/:id" >
                     <DetailedListing />
-                </Route>
-                <Route path="/listings/edit" >
-                    <EditListing />
                 </Route>
             </Switch>
         </Router>
