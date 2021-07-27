@@ -55,8 +55,7 @@ const getListings = async (query) => {
       console.log(getListingsStr);
       const res = await db.query(getListingsStr, [page, ...searchArray, ...catsArray]);
       console.log(`Got ${res.rowCount} listings from search "${search}" and/or categories "${catsArray}"`);
-      const response = addPagination(query, res.rows);
-      return response;
+      return addPagination(query, res.rows);
     }
     if (searchTerms) {
       getListingsStr = getListingsStr.replace('l.c_id = $2', '');
@@ -64,14 +63,12 @@ const getListings = async (query) => {
       // console.log(getListingsStr);
       const res = await db.query(getListingsStr, [page, ...searchArray]);
       console.log(`Got ${res.rowCount} listings from search "${search}"`);
-      const response = addPagination(query, res.rows);
-      return response;
+      return addPagination(query, res.rows);
     }
     const getListingsSql = await fs.readFile('./sql/listings_get_list.sql');
     const res = await db.query(getListingsSql.toString(), [page]);
     console.log(`Got ${res.rowCount} listings`);
-    const response = addPagination(query, res.rows);
-    return response;
+    return addPagination(query, res.rows);
   } catch (err) {
     console.error(err.message || err);
   }
