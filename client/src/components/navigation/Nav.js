@@ -5,6 +5,7 @@ import { AuthContext } from '../../context/AuthContext';
 import NavRouter from '../../routers/NavRouter';
 import NavLogin from '../authentication/NavLogin';
 import Search from '../listings/Search';
+import { FaBars } from 'react-icons/fa';
 
 const Nav = () => {
     const { auth } = useContext(AuthContext)
@@ -15,21 +16,27 @@ const Nav = () => {
                 <h1 className='header__title'>Rentify</h1>
                 {auth && <>
                     <p><Link to={`/listings/create`} ><button className='button'>Create new listing</button></Link></p></>}
-                <nav>
+                <nav className='top-menu '>
+                    <button className='button top-menu__icon'><FaBars /></button>
                     <ul>
-                        <li>
+                        <li className='top-menu__item'>
                             <NavLink to="/" >
                                 Listings
                             </NavLink>
                         </li>
+                        <li className='top-menu__item'>
+                            <NavLink to="/" >
+                                About
+                            </NavLink>
+                        </li>
                         {auth &&
-                            <li>
+                            <li className='top-menu__item'>
                                 <NavLink to="/profile" >
-                                    profile
+                                    Profile
                                 </NavLink>
                             </li>
                         }
-                        <li>
+                        <li className='top-menu__item'>
                             <NavLogin />
                         </li>
                     </ul>
