@@ -1,11 +1,7 @@
 const fs = require('fs').promises;
-<<<<<<< HEAD
 const db = require('../config/db')
 const { addPagination } = require('./addPagination');
-=======
-const db = require('../config/db');
 const moment = require('moment');
->>>>>>> master
 
 const getAllUsers = async () => {
   try {
