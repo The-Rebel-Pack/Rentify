@@ -47,7 +47,7 @@ const filterListingDetails = (res) => {
   return res.map(res => {
     res = res;
     // res.updated_at = new Date(res.updated_at.replace(' ', 'T'));
-    console.log(res.updated_at);
+    console.log(res.updated_at.toString());
     res.last_name = res.last_name[0];
     delete res.full_name;
     return res;
