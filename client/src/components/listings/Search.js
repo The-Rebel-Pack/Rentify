@@ -16,6 +16,7 @@ const Search = () => {
     const { categories, setListings } = useContext(ListingsContext);
     const [searchValue, setSearchValue] = useState(searchQueries.search || '');
     const [categoriesValue, setCategoriesValue] = useState(searchQueries.categories || '');
+    const [historyQueries, setHistoryQueries] = useState(null);
 
     const debounceSearch = useDebounce(searchValue, 250);
     const debounceCategory = useDebounce(categoriesValue, 250);
@@ -31,7 +32,7 @@ const Search = () => {
                 searchParam = `search=${searchTerm}`
             }
 
-            let categoriesParam = categoriesValue;
+            let categoriesParam = ``;
             let selectedCategories = [];
             if (categories) {
                 selectedCategories = categories.filter(c => c.checked)
@@ -49,16 +50,19 @@ const Search = () => {
                 querySign = `?`;
             }
             const res = await axios.get(`http://localhost:5000/api/listings${querySign}${searchParam}${apperand}${categoriesParam}`);
-            if (res.data === 'No listings to show') {
-                return setListings(null);
-            }
-            setListings(res.data);
+            setListings(res.data.listings);
             setSearchValue(debounceSearch);
             setCategoriesValue(debounceCategory);
-            history.push(`${querySign}${searchParam}${apperand}${categoriesParam}`);
+            setHistoryQueries(`${querySign}${searchParam}${apperand}${categoriesParam}`);
         }
         fetchListings(debounceSearch);
-    }, [categories, debounceSearch, debounceCategory, setListings]);
+    }, [categories, debounceSearch, debounceCategory, setListings, setHistoryQueries]);
+
+    useEffect(() => {
+        if (historyQueries) {
+            history.push(historyQueries);
+        }
+    }, [historyQueries])
 
     return (
         <div className='search'>

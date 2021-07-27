@@ -1,10 +1,31 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useCallback, useContext } from 'react';
 import { Link } from "react-router-dom";
+import axios from 'axios';
 import './style/Listings.css';
+import { AuthContext } from '../../context/AuthContext';
 import { ListingsContext } from '../../context/ListingsContext';
 
 const MyListings = () => {
-    const { myListings } = useContext(ListingsContext);
+    const { token } = useContext(AuthContext);
+    const { myListings, setMyListings } = useContext(ListingsContext);
+
+    const fetchData = useCallback(
+        async () => {
+            const res = await axios.get('http://localhost:5000/api/listings/user', {
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                }
+            });
+            setMyListings(res.data.listings);
+        },
+        [setMyListings],
+    );
+
+    useEffect(() => {
+        if (token) {
+            fetchData(token);
+        }
+    }, [token, fetchData]);
 
     return (
         <section className='app__section listings-section'>

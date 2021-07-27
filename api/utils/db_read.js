@@ -1,5 +1,7 @@
 const fs = require('fs').promises;
 const db = require('../config/db')
+const { addPagination } = require('./addPagination');
+const moment = require('moment');
 
 const getAllUsers = async () => {
   try {
@@ -8,7 +10,7 @@ const getAllUsers = async () => {
     if (res) console.log(`Got ${res.rowCount} users`);
     return res.rows;
   } catch (err) {
-    console.error(err.message || err);
+    return next(err);
   }
 };
 
@@ -18,7 +20,7 @@ const getAllCategories = async () => {
     const res = await db.query(catsGetList.toString());
     return res.rows;
   } catch (err) {
-    console.error(err.message || err);
+    return next(err);
   }
 };
 
@@ -28,7 +30,7 @@ const getUser = async (id) => {
     const res = await db.query(getUserById.toString(), [id]);
     return res.rows;
   } catch (err) {
-    console.error(err.message || err);
+    return next(err);
   }
 };
 
@@ -39,27 +41,39 @@ const findUserByEmail = async (email) => {
     if (res) return res.rowCount;
     return 0;
   } catch (err) {
-    console.error(err.message || err);
+    return next(err);
   }
 };
+
+const filterListingDetails = (res) => {
+  return res.map(res => {
+    res = res;
+    res.created_at = moment(res.created_at).format('MMMM Do, YYYY [at] HH:mm');
+    res.updated_at = moment(res.updated_at).format('MMMM Do, YYYY [at] HH:mm');
+    res.last_name = res.last_name[0];
+    delete res.full_name;
+    return res;
+  });
+}
 
 const getListing = async (id) => {
   try {
     const getListingById = await fs.readFile('./sql/listings_get_by_id.sql');
     const res = await db.query(getListingById.toString(), [id]);
-    return res.rows;
+    return filterListingDetails(res.rows);
   } catch (err) {
-    console.error(err.message || err);
+    return next(err);
   }
 };
 
-const getListingByOwner = async (id) => {
+const getListingsByOwner = async (id) => {
   try {
+    console.log(id);
     const getListingById = await fs.readFile('./sql/listings_get_list_owner.sql');
     const res = await db.query(getListingById.toString(), [id]);
-    return res.rows;
+    return addPagination(res.rows);
   } catch (err) {
-    console.error(err.message || err);
+    return next(err);
   }
 };
 
@@ -69,5 +83,5 @@ module.exports = {
   findUserByEmail,
   getAllCategories,
   getListing,
-  getListingByOwner,
+  getListingsByOwner,
 };

@@ -3,7 +3,7 @@ import React, { createContext, useState } from 'react'
 export const ListingsContext = createContext();
 
 const ListingsContextProvider = (props) => {
-    const [listings, setListings] = useState(null);
+    const [listings, setListings] = useState([]);
     const [detailListings, setDetailListings] = useState(null);
     const [categories, setCategories] = useState(null);
     const [currentListings, setCurrentListings] = useState(null);
