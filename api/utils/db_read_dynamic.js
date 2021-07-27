@@ -21,6 +21,20 @@ AND (${catsSql})` : `(${catsSql})`;
   return getListingsStr.replace('l.c_id = $2', catsSql)
 }
 
+const addPagination = async (query, res) => {
+  const full_count = res[0]?.full_count;
+  const total_pages = Math.ceil(full_count / 6);
+  if (query.page && full_count) {
+    res = res.map(res => {
+      res.full_count = Number(full_count);
+      res.current_page = Number(query.page);
+      res.total_pages = total_pages;
+      return res;
+    });
+  }
+  return res;
+}
+
 const getListings = async (query) => {
   try {
     const { search, categories } = query;
@@ -41,7 +55,7 @@ const getListings = async (query) => {
       console.log(getListingsStr);
       const res = await db.query(getListingsStr, [page, ...searchArray, ...catsArray]);
       console.log(`Got ${res.rowCount} listings from search "${search}" and/or categories "${catsArray}"`);
-      return res.rows;
+      return addPagination(query, res.rows);
     }
     if (searchTerms) {
       getListingsStr = getListingsStr.replace('l.c_id = $2', '');
@@ -49,12 +63,12 @@ const getListings = async (query) => {
       // console.log(getListingsStr);
       const res = await db.query(getListingsStr, [page, ...searchArray]);
       console.log(`Got ${res.rowCount} listings from search "${search}"`);
-      return res.rows;
+      return addPagination(query, res.rows);
     }
     const getListingsSql = await fs.readFile('./sql/listings_get_list.sql');
     const res = await db.query(getListingsSql.toString(), [page]);
     console.log(`Got ${res.rowCount} listings`);
-    return res.rows;
+    return addPagination(query, res.rows);
   } catch (err) {
     console.error(err.message || err);
   }
