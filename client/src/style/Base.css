@@ -28,6 +28,7 @@ body {
   color: var(--font-color);
   font-family: var(--font-family);
   font-weight: var(--font-normal);
+  line-height: 1.75rem;
 }
 
 button {
