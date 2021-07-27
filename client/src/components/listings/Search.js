@@ -28,7 +28,7 @@ const Search = () => {
     useEffect(() => {
         const fetchListings = async (searchTerm) => {
             let searchParam = ``;
-            if (searchTerm !== ``) {
+            if (searchTerm.length > 1) {
                 searchParam = `search=${searchTerm}`
             }
 

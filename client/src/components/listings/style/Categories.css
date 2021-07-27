@@ -5,38 +5,19 @@
 .categories__category {
   display: inline;
   margin-right: .5rem;
+  padding: 4px 8px;
+  border-radius: 25rem;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  cursor: pointer;
 }
 
 .categories__checkbox {
-  -webkit-appearance: none;
-  background-color: #fff;
-  border: #8F9E8B solid 1px;
-  padding: 9px;
-  margin-right: .5rem;
-  margin-bottom: .5rem;
-  border-radius: 0.25rem;
-  display: inline-block;
-  position: relative;
-  vertical-align: text-top;
+  display: none;
 }
 
-.categories__checkbox:active,
-.categories__checkbox:checked:active {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.categories__checkbox:checked {
+.categories__checkbox:checked+.categories__category {
   background-color: var(--primary-color);
-  border: #5B7876 solid 2px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05), inset 15px 10px -12px rgba(255, 255, 255, 0.1);
-  color: #000;
-}
-
-.categories__checkbox:checked:after {
-  content: '\2714';
-  font-size: 14px;
-  position: absolute;
-  top: 0px;
-  left: 3px;
-  color: #000;
+  border-color: var(--primary-color-darker);
+  color: #fff;
 }
