@@ -7,6 +7,7 @@ const ListingsContextProvider = (props) => {
     const [detailListings, setDetailListings] = useState(null);
     const [categories, setCategories] = useState(null);
     const [currentListings, setCurrentListings] = useState(null);
+    const [myListings, setMyListings] = useState([])
 
     const value = {
         listings,
@@ -16,7 +17,9 @@ const ListingsContextProvider = (props) => {
         categories,
         setCategories,
         detailListings, 
-        setDetailListings
+        setDetailListings,
+        myListings,
+        setMyListings
     }
 
     return (
