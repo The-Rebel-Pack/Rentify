@@ -109,7 +109,6 @@ const Search = () => {
             const allParams = createQueries();
             const res = await axios.get(`http://localhost:5000/api/listings${allParams}`);
             setListings(res.data.listings);
-            setQuerySearch(debounceSearch);
             setTotalPages(res.data.total_pages);
             setCurrentPage(res.data.current_page);
             setFullCount(res.data.full_count);
