@@ -13,7 +13,7 @@
 }
 
 .button:focus {
-  border: var(--primary-color-darker) solid 2px;
+  border: var(--secondary-color) solid 1px;
   outline: none;
   background: var(--primary-color-darker);
 }

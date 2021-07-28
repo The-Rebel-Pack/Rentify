@@ -52,7 +52,9 @@ VALUES
   ('electronics'),
   ('home'),
   ('sport'),
-  ('tools & machines');
+  ('tools & machines'),
+  ('party'),
+  ('boats');
 
 INSERT INTO
   users (u_id, full_name, email, first_name, last_name, u_details)
@@ -103,7 +105,7 @@ VALUES
     'Floaty boat',
     '{"description": "Very floaty boat", "images": ["https://images.unsplash.com/photo-1545566239-0b2fb5c50bc6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGJvYXR8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"]}',
     '{"day": 500}',
-    1,
+    9,
     '3'
   ),
   (
@@ -139,6 +141,13 @@ VALUES
     '{"description": "Very fast car", "images": ["https://images.unsplash.com/photo-1489824904134-891ab64532f1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1778&q=80"]}',
     '{"day": 100}',
     1,
+    '1'
+  ),
+  (
+    'Sauna boat',
+    '{"description": "Very floaty sauna", "images": ["https://a0.muscache.com/im/pictures/01306991-ed44-4b34-8c2a-9f25ae5d38a3.jpg?im_w=1200", "https://a0.muscache.com/im/pictures/733c4c9f-1074-468a-b835-0bca721815dc.jpg?im_w=1440", "https://a0.muscache.com/im/pictures/511c7c39-6706-4aca-af1b-dd09a45c851b.jpg?im_w=1440"]}',
+    '{"day": 1000, "3day": 2000}',
+    5,
     '1'
   ),
   (
