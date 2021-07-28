@@ -9,8 +9,6 @@ import { QueryContext } from '../../context/QueryContext';
 
 const Search = () => {
     let history = useHistory();
-    // let location = useLocation();
-    // let queryParams = qs.parse(location.search.replace(/[?]/, ''));
 
     const { categories, setListings } = useContext(ListingsContext);
     const {
@@ -24,10 +22,6 @@ const Search = () => {
         querySearch,
         setQuerySearch
     } = useContext(QueryContext);
-
-    // const [searchValue, setSearchValue] = useState(queryParams.search || '');
-    // const [categoriesValue, setCategoriesValue] = useState(queryParams.categories || '');
-    // const [historyQueries, setHistoryQueries] = useState(null);
 
     const createCategoriesValue = useCallback(() => {
         let categoriesParam = ``;
@@ -113,7 +107,6 @@ const Search = () => {
             setTotalPages(res.data.total_pages);
             setCurrentPage(res.data.current_page);
             setFullCount(res.data.full_count);
-            // setHistoryQueries(`${allParams}`);
         }
         fetchListings(debounceSearch);
     }, [categories, queryPage, debounceSearch, debounceCategory, setListings, setFullCount, createQueries, setCurrentPage, setTotalPages]);
