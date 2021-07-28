@@ -46,6 +46,7 @@ const CreateListing = () => {
                     "title": listing.title,
                     "details": {
                         "description": listing.description,
+                        "location": listing.location,
                         "images": image ? [image] : [],
                     },
                     "price": {
@@ -119,6 +120,16 @@ const CreateListing = () => {
                     className='add-listing__input'
                     autoComplete='off'
                     required="required"
+                />
+                <br />
+                <label htmlFor='location' className='add-listing__label'>Location</label>
+                <input
+                    type='text'
+                    name='location'
+                    value={newListing.location}
+                    onChange={newListingInput}
+                    className='add-listing__input'
+                    autoComplete='off'
                 />
                 <br />
                 <label htmlFor='description' className='add-listing__label'>Description</label>
