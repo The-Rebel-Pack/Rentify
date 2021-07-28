@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useContext } from 'react';
+import React, { useEffect, useCallback, useContext } from 'react';
 import axios from 'axios';
 import { useParams, Link } from "react-router-dom";
 import { AuthContext } from '../../context/AuthContext';
@@ -26,8 +26,9 @@ const DetailedListing = () => {
     return (
         <>
             {detailListings &&
-                <div className='listing' key={detailListings.id} >
-                    <h2 className='listing__title'>{detailListings.title}</h2>
+                <div className='listing' key={detailListings.l_id} >
+{                    console.log(detailListings)
+}                    <h2 className='listing__title'>{detailListings.title}</h2>
                     <p><span className='listing__category'>{detailListings.category}</span></p>
                     <p className='listing__price'>{detailListings.price?.day} kr/day</p>
                     {detailListings.details?.images &&
