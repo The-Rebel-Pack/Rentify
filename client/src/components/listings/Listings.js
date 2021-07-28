@@ -11,10 +11,10 @@ const Listings = () => {
     return (
         <section className='app__section listings-section'>
             <Categories />
-            <section className='listings-section__grid'>
-                {listings.length > 0
-                    ?
-                    <>
+            {listings.length > 0
+                ?
+                <>
+                    <section className='listings-section__grid'>
                         {listings.map(listing => (
                             <div key={listing.l_id} className='listing'>
                                 {listing?.details?.images.length > 0 &&
@@ -44,11 +44,11 @@ const Listings = () => {
                                 </Link>
                             </div>
                         ))}
-                        <Pagination />
-                    </>
-                    : <h2>No results, please search for something else</h2>
-                }
-            </section>
+                    </section>
+                    <Pagination />
+                </>
+                : <h2>No results, please search for something else</h2>
+            }
         </section>
     )
 }

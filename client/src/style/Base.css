@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@200;400;700&display=swap');
 
 :root {
+  --primary-color-more-lighter: #ccdacf;
   --primary-color-lighter: #78ba7b;
   --primary-color: #206d2d;
   --primary-color-darker: #143e2d;
