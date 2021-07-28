@@ -30,7 +30,7 @@ router.get('/categories', async (req, res, next) => {
 router.get('/user/:id', async (req, res, next) => {
   // admin only
   const uid = req.params.id;
-  const rows = await getListingsByOwner(uid);
+  const rows = await getListingsByOwner(uid, next);
   if (rows) {
     return res
       .status(200)
@@ -45,7 +45,7 @@ router.get('/user', middleware.decodeToken, async (req, res, next) => {
   if (req.user && req.user.uid) {
     const uid = req.user.uid;
     // console.log(uid);
-    const result = await getListingsByOwner(uid);
+    const result = await getListingsByOwner(uid, next);
     if (result.listings[0]) {
       return res
         .status(200)
@@ -61,7 +61,7 @@ router.get('/user', middleware.decodeToken, async (req, res, next) => {
 });
 
 router.get('/:id', async (req, res, next) => {
-  const rows = await getListing(req.params.id);
+  const rows = await getListing(req.params.id, next);
   if (rows[0]) {
     return res
       .status(200)

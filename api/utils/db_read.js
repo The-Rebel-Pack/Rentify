@@ -3,7 +3,7 @@ const db = require('../config/db')
 const { addPagination } = require('./addPagination');
 const moment = require('moment');
 
-const getAllUsers = async () => {
+const getAllUsers = async (next) => {
   try {
     const usersGetList = await fs.readFile('./sql/users_get_list.sql');
     const res = await db.query(usersGetList.toString());
@@ -14,7 +14,7 @@ const getAllUsers = async () => {
   }
 };
 
-const getAllCategories = async () => {
+const getAllCategories = async (next) => {
   try {
     const catsGetList = await fs.readFile('./sql/categories_get_list.sql');
     const res = await db.query(catsGetList.toString());
@@ -24,7 +24,7 @@ const getAllCategories = async () => {
   }
 };
 
-const getUser = async (id) => {
+const getUser = async (id, next) => {
   try {
     const getUserById = await fs.readFile('./sql/users_get_by_id.sql');
     const res = await db.query(getUserById.toString(), [id]);
@@ -44,7 +44,7 @@ const deleteListing = async (id) => {
   }
 };
 
-const findUserByEmail = async (email) => {
+const findUserByEmail = async (email, next) => {
   try {
     const getUserByEmail = await fs.readFile('./sql/users_get_by_email.sql');
     const res = await db.query(getUserByEmail.toString(), [email]);
@@ -66,7 +66,7 @@ const filterListingDetails = (res) => {
   });
 }
 
-const getListing = async (id) => {
+const getListing = async (id, next) => {
   try {
     const getListingById = await fs.readFile('./sql/listings_get_by_id.sql');
     const res = await db.query(getListingById.toString(), [id]);
@@ -76,9 +76,8 @@ const getListing = async (id) => {
   }
 };
 
-const getListingsByOwner = async (id) => {
+const getListingsByOwner = async (id, next) => {
   try {
-    console.log(id);
     const getListingById = await fs.readFile('./sql/listings_get_list_owner.sql');
     const res = await db.query(getListingById.toString(), [id]);
     return addPagination(res.rows);

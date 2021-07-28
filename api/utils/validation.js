@@ -74,4 +74,11 @@ const validateSearchStrToArr = (search) => {
     .filter(s => s.length > 1)
 }
 
-module.exports = { createHttpError, validateUser, validateNewUser, validateListing, validateCategoriesStrToArr, validateSearchStrToArr }
+module.exports = {
+  createHttpError,
+  validateUser,
+  validateNewUser,
+  validateListing,
+  validateCategoriesStrToArr,
+  validateSearchStrToArr
+}

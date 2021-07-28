@@ -42,7 +42,6 @@ router.post('/unique', middleware.decodeToken, async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
-  console.log('Request new user');
   try {
     const userExists = await findUserByEmail(req.body.email);
     if (userExists) {
