@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ListingsContext } from '../../context/ListingsContext';
 import { AuthContext } from '../../context/AuthContext';
 import { useHistory } from 'react-router';
+import './style/EditListing.css';
 
 const CreateListing = () => {
     const { token } = useContext(AuthContext);
@@ -94,9 +95,9 @@ const CreateListing = () => {
 
     return (
         <section className='app__section add-listing'>
-            <h2 className='add-listing__title'>Create a new listing</h2>
+            <h2 className='section__title'>Create a new listing</h2>
             <form id='add-listing' onSubmit={handleSubmit}>
-                <h3 className='add-listing__sub-title'>Choose category for your listing</h3>
+                <h3 className='section__sub-title'>Choose category for your listing</h3>
                 <select
                     className='add-listing__select'
                     name='c_id'
@@ -140,15 +141,14 @@ const CreateListing = () => {
                     required="required"
                 />
                 <br />
-                <h4>Upload Image</h4>
+                <h4 className='section__sub-title'>Upload Image</h4>
+                {image && <><img src={image} alt={image} style={{ width: "300px" }} /><br /></>}
                 <input
                     type="file"
                     name="file"
                     placeholder="Upload Image"
                     onChange={uploadImage}
                 />
-                <img src={image} alt={image} style={{ width: "300px" }} />
-
                 <br />
                 <button type='submit' className='button'>
                     Add listing
