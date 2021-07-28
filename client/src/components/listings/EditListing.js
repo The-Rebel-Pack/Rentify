@@ -126,6 +126,8 @@ const EditListing = () => {
     };
 
     return (
+        <section className='app__section add-listing'>
+        <h2 className='section__title'>Edit your listings</h2>
         <form onSubmit={handleSubmit} >
             <h3 className='add-listing__sub-title'>Choose category for your listing</h3>
             <select
@@ -194,6 +196,7 @@ const EditListing = () => {
                 <button type='submit' className='button'>Save</button>
             </div>
         </form>
+        </section>
 
 
     )
