@@ -1,0 +1,8 @@
+.footer {
+  font-size: .9rem;
+  color: var(--font-color-meta);
+}
+
+.footer__title {
+  font-weight: var(--font-weight-light);
+}
