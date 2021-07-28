@@ -1,19 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@200;400;700&display=swap');
 
 :root {
-  --primary-color-lighter: #71ccb1;
-  --primary-color: #439b81;
-  --primary-color-darker: #478182;
-  --primary-color-more-darker: #46697d;
-  --light-color: #e5f2ee;
+  --primary-color-lighter: #78ba7b;
+  --primary-color: #206d2d;
+  --primary-color-darker: #143e2d;
+  --primary-color-more-darker: #052a16;
+  --light-color: #ebf0ee;
   --bg-color: #f1f1f1;
-  --secondary-color: #f9ba79;
-  --secondary-color-darker: #f1a355;
-  --font-color: #494255;
+  --almost-white: #fcfcfc;
+  --secondary-color: #2c9bc4;
+  --secondary-color-darker: #034773;
+  --font-color: #081f29;
+  --font-color-meta: #647279;
   --font-thin: 200;
   --font-normal: 400;
   --font-bold: 700;
   --font-family: 'Lexend', sans-serif;
+  --font-size: 17px;
   --corners: .3rem;
 }
 
@@ -24,11 +27,12 @@
 }
 
 body {
-  background: var(--bg-color);
+  background: #f1f1f1;
   color: var(--font-color);
   font-family: var(--font-family);
   font-weight: var(--font-normal);
   line-height: 1.75rem;
+  font-size: var(--font-size);
 }
 
 button {
