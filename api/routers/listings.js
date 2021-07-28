@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const middleware = require('../middleware');
 
-const { getAllCategories, getListing, getListingsByOwner } = require('../utils/db_read');
+const { getAllCategories, getListing, getListingsByOwner, deleteListing } = require('../utils/db_read');
 const { getListings } = require('../utils/db_read_dynamic');
 const { addListing, editListing } = require('../utils/db_create');
 const { validateListing } = require('../utils/validation');
@@ -103,6 +103,19 @@ router.post('/', middleware.decodeToken, async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+});
+
+router.delete('/:id', async (req, res) => {
+  const rows = await deleteListing(req.params.id);
+  console.log(rows)
+  if (!rows[0]) {
+    return res
+      .status(204)  
+      .end('Deleted successfully')
+    }
+  // return res
+  //   .status(404)
+  //   .end('Deleted successfully')
 });
 
 module.exports = router;
