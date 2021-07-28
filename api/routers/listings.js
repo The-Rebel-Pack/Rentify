@@ -7,7 +7,7 @@ const { getListings } = require('../utils/db_read_dynamic');
 const { addListing, editListing } = require('../utils/db_create');
 const { validateListing } = require('../utils/validation');
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   // console.log(req.user);
   const result = await getListings(req.query);
   return res
@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
     .json(result)
 });
 
-router.get('/categories', async (req, res) => {
+router.get('/categories', async (req, res, next) => {
   const rows = await getAllCategories();
   if (rows[0]) {
     return res
@@ -27,7 +27,7 @@ router.get('/categories', async (req, res) => {
     .end('No categories to show')
 });
 
-router.get('/user/:id', async (req, res) => {
+router.get('/user/:id', async (req, res, next) => {
   // admin only
   const uid = req.params.id;
   const rows = await getListingsByOwner(uid);
@@ -41,7 +41,7 @@ router.get('/user/:id', async (req, res) => {
     .end('Not found')
 });
 
-router.get('/user', middleware.decodeToken, async (req, res) => {
+router.get('/user', middleware.decodeToken, async (req, res, next) => {
   if (req.user && req.user.uid) {
     const uid = req.user.uid;
     // console.log(uid);
@@ -60,7 +60,7 @@ router.get('/user', middleware.decodeToken, async (req, res) => {
     .end('No user id provided')
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res, next) => {
   const rows = await getListing(req.params.id);
   if (rows[0]) {
     return res

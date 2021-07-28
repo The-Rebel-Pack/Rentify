@@ -11,7 +11,13 @@
   border-radius: 25rem;
   border: 2px solid var(--primary-color);
   color: var(--primary-color);
+  font-size: var(--font-size);
+  font-weight: var(--font-normal);
   cursor: pointer;
+}
+
+.categories__label:hover {
+  background: var(--primary-color-more-lighter);
 }
 
 .categories__checkbox {

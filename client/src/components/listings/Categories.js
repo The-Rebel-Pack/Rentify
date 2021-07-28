@@ -68,6 +68,7 @@ const Categories = () => {
                             <input
                                 type="checkbox"
                                 name={c.category}
+                                onChange={() => console.log('Checkbox clicked')}
                                 checked={c.checked || false}
                                 className='categories__checkbox'
                             />

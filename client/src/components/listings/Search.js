@@ -1,77 +1,136 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useHistory, useLocation } from "react-router-dom";
+import React, { useEffect, useContext, useCallback } from 'react';
+import { useHistory } from "react-router-dom";
 import axios from 'axios';
-import qs from 'qs';
-
 import { ListingsContext } from '../../context/ListingsContext';
 import useDebounce from './useDebounce';
 import './style/Search.css'
 import { FaSearch } from 'react-icons/fa';
+import { QueryContext } from '../../context/QueryContext';
 
 const Search = () => {
     let history = useHistory();
-    let location = useLocation();
-    let searchQueries = qs.parse(location.search.replace(/[?]/, ''));
 
     const { categories, setListings } = useContext(ListingsContext);
-    const [searchValue, setSearchValue] = useState(searchQueries.search || '');
-    const [categoriesValue, setCategoriesValue] = useState(searchQueries.categories || '');
-    const [historyQueries, setHistoryQueries] = useState(null);
+    const {
+        setFullCount,
+        setTotalPages,
+        setCurrentPage,
+        queryPage,
+        setQueryPage,
+        queryCategories,
+        setQueryCategories,
+        querySearch,
+        setQuerySearch
+    } = useContext(QueryContext);
 
-    const debounceSearch = useDebounce(searchValue, 250);
-    const debounceCategory = useDebounce(categoriesValue, 250);
+    const createCategoriesValue = useCallback(() => {
+        let categoriesParam = ``;
+        let selectedCategories = [];
+        if (categories) {
+            selectedCategories = categories.filter(c => c.checked);
+        }
+        if (selectedCategories.length > 0) {
+            categoriesParam = `${selectedCategories.map(c => c.c_id)}`;
+        }
+        return categoriesParam;
+    }, [categories]);
+
+    const createQueries = useCallback(
+        () => {
+            if (!querySearch && !queryCategories && !queryPage) {
+                return '';
+            };
+            const getTotalParams = () => {
+                const allParams = [querySearch, queryCategories, queryPage];
+                let count = 0;
+                allParams.forEach(param => {
+                    if (param) {
+                        count += 1;
+                    }
+                });
+                return count;
+            }
+            const totalParams = getTotalParams();
+
+            let queryParams = ``;
+            if (querySearch || queryCategories || queryPage) {
+                queryParams += `?`;
+            }
+            if (querySearch && totalParams === 1) {
+                queryParams += `search=${querySearch}`;
+            }
+            if (queryCategories && totalParams === 1) {
+                queryParams += `categories=${queryCategories}`;
+            }
+            if (queryCategories && queryPage && totalParams === 2) {
+                queryParams += `categories=${queryCategories}`;
+                queryParams += `&`;
+                queryParams += `page=${queryPage}`;
+            }
+            if (queryPage && totalParams === 1) {
+                queryParams += `page=${queryPage}`;
+            }
+            if (querySearch && queryCategories && totalParams === 2) {
+                queryParams += `search=${querySearch}`;
+                queryParams += `&`;
+                queryParams += `categories=${queryCategories}`;
+            }
+            if (querySearch && queryPage && totalParams === 2) {
+                queryParams += `search=${querySearch}`;
+                queryParams += `&`;
+                queryParams += `page=${queryPage}`;
+            }
+            if (totalParams === 3) {
+                queryParams += `search=${querySearch}`;
+                queryParams += `&`;
+                queryParams += `categories=${queryCategories}`;
+                queryParams += `&`;
+                queryParams += `page=${queryPage}`;
+            }
+            return queryParams;
+        },
+        [queryPage, queryCategories, querySearch],
+    );
+
+    const debounceSearch = useDebounce(querySearch, 250);
+    const debounceCategory = useDebounce(queryCategories, 250);
 
     const handleSubmit = (e) => {
         e.preventDefault();
     };
 
     useEffect(() => {
-        const fetchListings = async (searchTerm) => {
-            let searchParam = ``;
-            if (searchTerm.length > 1) {
-                searchParam = `search=${searchTerm}`
-            }
-
-            let categoriesParam = ``;
-            let selectedCategories = [];
-            if (categories) {
-                selectedCategories = categories.filter(c => c.checked)
-            }
-            if (selectedCategories.length > 0) {
-                categoriesParam = `categories=${selectedCategories.map(c => c.c_id)}`
-            }
-            let apperand = ``;
-            if (searchTerm && selectedCategories.length > 0) {
-                apperand = `&`
-            }
-
-            let querySign = ``;
-            if (searchTerm || selectedCategories.length > 0) {
-                querySign = `?`;
-            }
-            const res = await axios.get(`http://localhost:5000/api/listings${querySign}${searchParam}${apperand}${categoriesParam}`);
+        const fetchListings = async () => {
+            const allParams = createQueries();
+            const res = await axios.get(`http://localhost:5000/api/listings${allParams}`);
             setListings(res.data.listings);
-            setSearchValue(debounceSearch);
-            setCategoriesValue(debounceCategory);
-            setHistoryQueries(`${querySign}${searchParam}${apperand}${categoriesParam}`);
+            setTotalPages(res.data.total_pages);
+            setCurrentPage(res.data.current_page);
+            setFullCount(res.data.full_count);
         }
         fetchListings(debounceSearch);
-    }, [categories, debounceSearch, debounceCategory, setListings, setHistoryQueries]);
+    }, [categories, queryPage, debounceSearch, debounceCategory, setListings, setFullCount, createQueries, setCurrentPage, setTotalPages]);
 
     useEffect(() => {
-        if (historyQueries) {
-            history.push(historyQueries);
-        }
-    }, [historyQueries])
+        history.push(createQueries());
+    }, [createQueries, queryPage])
+
+    useEffect(() => {
+        setQueryCategories(createCategoriesValue())
+    }, [categories, setQueryCategories, createCategoriesValue])
+
+    useEffect(() => {
+        setQueryPage(null)
+    }, [querySearch, queryCategories, setQueryPage])
 
     return (
         <div className='search'>
             <form onSubmit={handleSubmit}>
                 <input
                     id="search"
-                    value={searchValue}
+                    value={querySearch || ''}
                     type="text"
-                    onChange={(e) => setSearchValue(e.target.value)}
+                    onChange={(e) => setQuerySearch(e.target.value)}
                     autoComplete='off'
                     placeholder='Start your search'
                     className='search__input'
