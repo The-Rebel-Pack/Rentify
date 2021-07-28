@@ -1,4 +1,7 @@
 .pagination {
+  display: block;
+  margin-top: 1rem;
+  width: 100%;
   text-align: center;
 }
 
@@ -6,7 +9,7 @@
   width: 40px;
   height: 40px;
   margin: 2px;
-  padding: 4px 0px 0 0;
+  padding: 1px 0px 0 0;
   border: 2px solid var(--primary-color);
   color: var(--primary-color);
   border-radius: 50%;
@@ -15,7 +18,7 @@
 }
 
 .pagination__button:hover {
-  background: var(--primary-color-lighter);
+  background: var(--primary-color-more-lighter);
 }
 
 .pagination__button--current {

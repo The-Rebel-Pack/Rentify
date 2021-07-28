@@ -17,7 +17,7 @@
 }
 
 .categories__label:hover {
-  background: var(--primary-color-lighter);
+  background: var(--primary-color-more-lighter);
 }
 
 .categories__checkbox {
