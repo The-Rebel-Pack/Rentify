@@ -64,7 +64,6 @@ const CreateListing = () => {
         const data = new FormData();
         data.append("file", files[0]);
         data.append("upload_preset", "rentify");
-
         const res = await fetch(
             "https://api.cloudinary.com/v1_1/ddenalelw/image/upload",
             { method: "POST", body: data }
@@ -73,16 +72,13 @@ const CreateListing = () => {
         setImage(file.secure_url);
     };
 
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const res = await postData(newListing);
-        setImage("");
-        history.push('/listings/my-listings')
+        setImage([]);
         if (res.status === 201) {
             setNewListing(emptyListing);
-            //   setSelectedCategory(1)
+            history.push('/profile')
         } else {
             console.log('Post not inserted', res);
         }
