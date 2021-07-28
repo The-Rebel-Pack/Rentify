@@ -16,7 +16,7 @@ const Listings = () => {
         if (querySearch) {
             searchContent = querySearch.length > 1 ? ` for ${querySearch}` : '';
         }
-        return `Found ${fullCount} results${searchContent}`;
+        return `${searchContent}`;
     }
 
     return (
@@ -25,7 +25,7 @@ const Listings = () => {
             {listings.length > 0
                 ?
                 <>
-                    <Heading heading={headingsContent()} />
+                    <Heading heading={`Found ${fullCount} results${headingsContent()}`} />
                     <section className='listings-section__grid'>
                         {listings.map((listing) => (
                             <Listing key={listing.l_id} listing={listing} />
@@ -33,7 +33,7 @@ const Listings = () => {
                     </section>
                     <Pagination />
                 </>
-                : <Heading heading={`Found no results${querySearch && ' for '}${querySearch}, please try something else`} />
+                : <Heading heading={`Found no results${headingsContent()}, please try something else`} />
             }
         </section>
     )
