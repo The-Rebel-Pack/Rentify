@@ -28,6 +28,11 @@
   background: var(--primary-color);
 }
 
+.section__title {
+  font-weight: var(--font-light);
+  font-size: 2.5rem;
+}
+
 .clearfix:after {
   content: "";
   display: table;
