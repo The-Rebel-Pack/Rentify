@@ -1,0 +1,40 @@
+.pagination {
+  display: block;
+  margin-top: 1rem;
+  width: 100%;
+  text-align: center;
+}
+
+.pagination__button {
+  width: 40px;
+  height: 40px;
+  margin: 2px;
+  padding: 1px 0px 0 0;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  border-radius: 50%;
+  font-size: 1.25rem;
+  background: var(--light-color);
+}
+
+.pagination__button:hover {
+  background: var(--primary-color-more-lighter);
+}
+
+.pagination__button--current {
+  background: var(--primary-color);
+  color: white;
+}
+
+.categories__label {
+  display: inline-block;
+  margin-right: .5rem;
+  margin-bottom: .5rem;
+  padding: 4px 8px;
+  border-radius: 25rem;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  font-size: var(--font-size);
+  font-weight: var(--font-normal);
+  cursor: pointer;
+}

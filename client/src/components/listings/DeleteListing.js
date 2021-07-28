@@ -1,43 +1,36 @@
 import React, { useState, useContext, useCallback, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
-import { AuthContext } from '../../context/AuthContext';
-const DeleteListing = () => {
+import { ListingsContext } from '../../context/ListingsContext';
+const DeleteListing = ({myListings, setMyListings}) => {
 
-    const { id } = useParams();
-    const { token } = useContext(AuthContext);
+    //const { myListings, setMyListings } = useContext(ListingsContext);
     const [deleteList, setDeleteList] = useState(null);
-
-    const fetchData = useCallback(
+    const { id } = useParams();
+    const fetchDelete = useCallback(
         async () => {
-            const res = await axios.get(`http://localhost:5000/api/listings/user/${id}`, {
-                headers: {
-                    Authorization: 'Bearer ' + token,
-                }
-            });
+            const res = await axios.delete(`http://localhost:5000/api/listings/${id}`);
+            console.log(res)
             setDeleteList(res.data[0]);
         },
-        [setDeleteList, token],
+        [setDeleteList],
     );
     useEffect(() => {
-        if (token) {
-            fetchData(token);
-        }
-    }, [token, fetchData]);
+        fetchDelete();
+    }, [fetchDelete, myListings]);
 
     const handleDelete = (id) => {
-        const newList = deleteList.filter((item) => item.id !== id);
+        alert(id);
+        const newList = myListings.filter((item) => item.id !== id);
 
-        setDeleteList(newList);
+        setMyListings(newList);
 
     }
 
     return (
         <div>
             <h1>Delete listing</h1>
-            {deleteList.length > 0 &&
-                <button type='submit' className='button' onClick={() => handleDelete(deleteList.l_id)} >Delete</button>
-            }
+            <button type='submit' className='button' onClick={() => handleDelete(myListings.l_id)} >Delete</button>
         </div>
     )
 }

@@ -1,13 +1,14 @@
-import React, { useEffect, useCallback, useContext } from 'react';
+import React, { useEffect, useCallback, useContext, useState } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import './style/Listings.css';
 import { AuthContext } from '../../context/AuthContext';
 import { ListingsContext } from '../../context/ListingsContext';
-
+import DeleteListing from './DeleteListing';
 const MyListings = () => {
     const { token } = useContext(AuthContext);
     const { myListings, setMyListings } = useContext(ListingsContext);
+    const [deleteList, setDeleteList] = useState(null)
 
     const fetchData = useCallback(
         async () => {
@@ -27,11 +28,25 @@ const MyListings = () => {
         }
     }, [token, fetchData]);
 
+    // useEffect((id) => {
+    //     // DELETE request using axios with async/await
+    //     async function deleteList(id) {
+    //         const res = await axios.delete(`http://localhost:5000/api/listings/${id}`);
+    //         setDeleteList(res.data);
+    //     }
+
+    //     deleteList(id);
+    // }, [setMyListings, myListings]);
+
+    const deleteListing = async (id) => {
+
+        const res = await axios.delete(`http://localhost:5000/api/listings/${id}`);
+        setDeleteList(res.data);
+    }
+
     const handleDelete = (id) => {
-        const newList = myListings.filter((item) => item.l_id !== id);
-
-        setMyListings(newList);
-
+        deleteListing(id);
+        setMyListings(deleteList);
     }
 
     return (
@@ -49,7 +64,9 @@ const MyListings = () => {
                             }
                             <button className='button' onClick={() => handleDelete(listing.l_id)} >Delete</button>
                             <Link to={`/listings/edit/${listing.l_id}`} ><button className='button'>Edit</button></Link>
+
                             {/* <Link to={`/listings/delete/${listing.l_id}`} ><button className='button' >Delete</button></Link> */}
+                            {/* <DeleteListing myListings={myListings} setMyListings={setMyListings} /> */}
                         </div>
                     ))
                     : <h2>You have no listings.</h2>
