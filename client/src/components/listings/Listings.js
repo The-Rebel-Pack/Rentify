@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { ListingsContext } from '../../context/ListingsContext';
 import { QueryContext } from '../../context/QueryContext';
 import Categories from './Categories';
@@ -11,13 +11,21 @@ const Listings = () => {
     const { listings } = useContext(ListingsContext);
     const { fullCount, querySearch } = useContext(QueryContext);
 
+    const headingsContent = () => {
+        let searchContent = ``;
+        if (querySearch) {
+            searchContent = querySearch.length > 1 ? ` for ${querySearch}` : '';
+        }
+        return `${searchContent}`;
+    }
+
     return (
         <section className='app__section listings-section'>
             <Categories />
             {listings.length > 0
                 ?
                 <>
-                    <Heading heading={`Found ${fullCount} results${querySearch && ' for '}${querySearch}`} />
+                    <Heading heading={`Found ${fullCount} results${headingsContent()}`} />
                     <section className='listings-section__grid'>
                         {listings.map((listing) => (
                             <Listing key={listing.l_id} listing={listing} />
@@ -25,7 +33,7 @@ const Listings = () => {
                     </section>
                     <Pagination />
                 </>
-                : <Heading heading={`Found no results${querySearch && ' for '}${querySearch}, please try something else`} />
+                : <Heading heading={`Found no results${headingsContent()}, please try something else`} />
             }
         </section>
     )
