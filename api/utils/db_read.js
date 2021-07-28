@@ -34,7 +34,7 @@ const getUser = async (id, next) => {
   }
 };
 
-const deleteListing = async (id) => {
+const deleteListing = async (id, next) => {
   try {
     const deleteListingById = await fs.readFile('./sql/listings_delete_by_id.sql');
     const res = await db.query(deleteListingById.toString(), [id]);

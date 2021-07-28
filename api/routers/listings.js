@@ -107,15 +107,11 @@ router.post('/', middleware.decodeToken, async (req, res, next) => {
 
 router.delete('/:id', async (req, res) => {
   const rows = await deleteListing(req.params.id);
-  console.log(rows)
-  if (!rows[0]) {
+  if (rows) {
     return res
-      .status(204)  
+      .status(204)
       .end('Deleted successfully')
-    }
-  // return res
-  //   .status(404)
-  //   .end('Deleted successfully')
+  }
 });
 
 module.exports = router;
