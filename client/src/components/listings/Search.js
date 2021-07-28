@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
-import { useHistory, useLocation } from "react-router-dom";
+import React, { useEffect, useContext, useCallback } from 'react';
+import { useHistory } from "react-router-dom";
 import axios from 'axios';
-import qs from 'qs';
 import { ListingsContext } from '../../context/ListingsContext';
 import useDebounce from './useDebounce';
 import './style/Search.css'
@@ -10,16 +9,13 @@ import { QueryContext } from '../../context/QueryContext';
 
 const Search = () => {
     let history = useHistory();
-    let location = useLocation();
-    let queryParams = qs.parse(location.search.replace(/[?]/, ''));
+    // let location = useLocation();
+    // let queryParams = qs.parse(location.search.replace(/[?]/, ''));
 
-    const { categories, setListings, setPagination } = useContext(ListingsContext);
+    const { categories, setListings } = useContext(ListingsContext);
     const {
-        fullCount,
         setFullCount,
-        totalPages,
         setTotalPages,
-        currentPage,
         setCurrentPage,
         queryPage,
         setQueryPage,
@@ -31,7 +27,7 @@ const Search = () => {
 
     // const [searchValue, setSearchValue] = useState(queryParams.search || '');
     // const [categoriesValue, setCategoriesValue] = useState(queryParams.categories || '');
-    const [historyQueries, setHistoryQueries] = useState(null);
+    // const [historyQueries, setHistoryQueries] = useState(null);
 
     const createCategoriesValue = useCallback(() => {
         let categoriesParam = ``;
@@ -71,6 +67,11 @@ const Search = () => {
             }
             if (queryCategories && totalParams === 1) {
                 queryParams += `categories=${queryCategories}`;
+            }
+            if (queryCategories && queryPage && totalParams === 2) {
+                queryParams += `categories=${queryCategories}`;
+                queryParams += `&`;
+                queryParams += `page=${queryPage}`;
             }
             if (queryPage && totalParams === 1) {
                 queryParams += `page=${queryPage}`;
@@ -112,11 +113,10 @@ const Search = () => {
             setTotalPages(res.data.total_pages);
             setCurrentPage(res.data.current_page);
             setFullCount(res.data.full_count);
-
-            setHistoryQueries(`${allParams}`);
+            // setHistoryQueries(`${allParams}`);
         }
         fetchListings(debounceSearch);
-    }, [categories, queryPage, debounceSearch, debounceCategory, setListings, setHistoryQueries, setFullCount]);
+    }, [categories, queryPage, debounceSearch, debounceCategory, setListings, setFullCount, createQueries, setCurrentPage, setTotalPages]);
 
     useEffect(() => {
         history.push(createQueries());
@@ -128,7 +128,7 @@ const Search = () => {
 
     useEffect(() => {
         setQueryPage(null)
-    }, [querySearch, queryCategories])
+    }, [querySearch, queryCategories, setQueryPage])
 
     return (
         <div className='search'>
