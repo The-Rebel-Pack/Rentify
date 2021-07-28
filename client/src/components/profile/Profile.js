@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import MyListings from '../listings/MyListings';
+import Heading from '../listings/Heading';
 
 const Profile = () => {
     const [data, setData] = useState(null)
@@ -34,7 +35,7 @@ const Profile = () => {
         <section className='app__section'>
             {data && data.map((contact) => (
                 <>
-                    <h2 className='section__title'>Hi {contact.first_name}</h2>
+                    <Heading heading={`Hi ${contact.first_name}`} />
                     <h3 className='section__subtitle'>Would you like to create a new listing?</h3>
                     <p><Link to={`/listings/create`} ><button className='button'>Create new listing</button></Link></p>
                     <h3 className='section__subtitle'>These are your current active listings:</h3>
