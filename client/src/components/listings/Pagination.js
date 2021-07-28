@@ -1,11 +1,28 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './style/Pagination.css';
 
 const Pagination = () => {
+  const { setQueryPage, currentPage, totalPages } = useContext(contextValue);
+
+  const getAllPages = () => {
+    let allPages = [];
+    for (let i = 0; i > totalPages; i++) {
+      allPages.append(i + 1);
+    }
+    return allPages;
+  }
+
+  const allPages = getAllPages();
+
   return (
     <div className='pagination'>
-      <button className='button pagination__button pagination__button--current'>1</button>
-      <button className='button pagination__button'>2</button>
+      {allPages.map((p, idx) => (
+        <button
+          key={idx}
+          onClick={() => setQueryPage(p)}
+          className={`button pagination__button ${p === currentPage ? 'pagination__button--current' : ''}`}
+        >{p}</button>
+      ))}
     </div>
   )
 }
