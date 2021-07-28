@@ -16,16 +16,22 @@
   cursor: pointer;
 }
 
-.categories__label:hover {
-  background: var(--primary-color-more-lighter);
-}
-
-.categories__checkbox {
-  display: none;
-}
-
 .categories__checkbox:checked+.categories__label {
   background-color: var(--primary-color);
   border-color: var(--primary-color-darker);
   color: #fff;
+}
+
+.categories__label:hover {
+  background: var(--primary-color-more-lighter);
+}
+
+.categories__checkbox:checked+.categories__label:hover {
+  background: var(--primary-color-more-lighter);
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.categories__checkbox {
+  display: none;
 }
