@@ -1,15 +1,16 @@
 import React, { useContext } from 'react'
+import { QueryContext } from '../../context/QueryContext';
 import './style/Pagination.css';
 
 const Pagination = () => {
-  const { setQueryPage, currentPage, totalPages } = useContext(contextValue);
+  const { setQueryPage, currentPage, totalPages } = useContext(QueryContext);
 
   const getAllPages = () => {
-    let allPages = [];
-    for (let i = 0; i > totalPages; i++) {
-      allPages.append(i + 1);
+    let arrPages = [];
+    for (let i = 0; i < totalPages; i++) {
+      arrPages.push(i + 1);
     }
-    return allPages;
+    return arrPages;
   }
 
   const allPages = getAllPages();

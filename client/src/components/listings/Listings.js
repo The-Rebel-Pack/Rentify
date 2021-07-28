@@ -1,23 +1,12 @@
 import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
 import { ListingsContext } from '../../context/ListingsContext';
-import { QueryContext } from '../../context/QueryContext';
 import Categories from './Categories';
 import Pagination from './Pagination';
 import './style/Listings.css';
 
 const Listings = () => {
     const { listings } = useContext(ListingsContext);
-    const {
-        fullCount,
-        setFullCount,
-        totalPages,
-        setTotalPages,
-        currentPage,
-        setCurrentPage,
-        queryPage,
-        setQueryPage,
-    } = useContext(QueryContext)
 
     return (
         <section className='app__section listings-section'>
