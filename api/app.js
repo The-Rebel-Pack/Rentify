@@ -6,7 +6,7 @@ const middleware = require('./middleware');
 const app = express();
 const port = process.env.PORT || 5000;
 const { resetDb } = require('./utils/db_create');
-const { createError } = require('./utils/validation');
+const { createHttpError } = require('./utils/validation');
 
 // app.use(morgan('dev'))
 app.use(cors());
@@ -15,14 +15,14 @@ app.use(express.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
-app.get('/db/reset', async (req, res) => {
+app.get('/db/reset', async (req, res, next) => {
   try {
-    const rows = await resetDb();
+    const rows = await resetDb(next);
     res
       .status(201)
       .json(rows)
   } catch (err) {
-    next(err);
+    return next(err);
   }
 });
 
