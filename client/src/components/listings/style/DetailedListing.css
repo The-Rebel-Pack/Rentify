@@ -1,0 +1,28 @@
+.listings__image-container--single {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: white;
+  height: 250px;
+  max-width: 100%;
+}
+
+.listing__title {
+  font-weight: var(--font-light);
+  font-size: 2.5rem;
+}
+
+.listing__contact-details {
+  margin-top: 1rem;
+}
+
+.listing__meta-details {
+  color: var(--font-color-meta);
+  font-weight: var(--font-light);
+  font-size: .9rem;
+}
+
+@media screen and (min-width: 700px) {
+  .listings__image-container--single {
+    height: 350px;
+  }
+}
