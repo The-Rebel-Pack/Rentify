@@ -31,13 +31,20 @@ const MyListings = () => {
     }, [token, fetchData]);
 
     const deleteListing = async (id) => {
-        const res = await axios.delete(`http://localhost:5000/api/listings/${id}`);
-        setMyListings(res.data);
+        await axios.delete(`http://localhost:5000/api/listings/${id}`);
+        // setMyListings(res.data);
+        // temporary fix to update state!!!!!!
+        const res = await axios.get('http://localhost:5000/api/listings/user', {
+            headers: {
+                Authorization: 'Bearer ' + token,
+            }
+        });
+        setMyListings(res.data.listings);
     }
 
     const handleDelete = (id) => {
         deleteListing(id);
-        history.push('/listings/profile')
+        // history.push('/profile');
     }
 
     return (

@@ -15,7 +15,7 @@ const CreateListing = () => {
         "title": '',
         "description": '',
         "images": [],
-        "c_id": 1,
+        "c_id": 9,
         "pricePerDay": '',
     }
     const [newListing, setNewListing] = useState(emptyListing);

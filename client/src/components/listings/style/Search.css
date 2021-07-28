@@ -10,8 +10,8 @@
   padding: .8rem;
   border: none;
   border-radius: 25rem;
-  font-size: 1.1rem;
-  font-weight: var(--font-bold);
+  font-size: 1.3rem;
+  font-weight: var(--font-normal);
   background: var(--light-color);
   color: var(--primary-color);
   text-align: center;
