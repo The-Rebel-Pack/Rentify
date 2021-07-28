@@ -28,7 +28,7 @@ const MyListings = () => {
         if (token) {
             fetchData(token);
         }
-    }, [token, fetchData, myListings]);
+    }, [token, fetchData]);
 
     const deleteListing = async (id) => {
         const res = await axios.delete(`http://localhost:5000/api/listings/${id}`);
