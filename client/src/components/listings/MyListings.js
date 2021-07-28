@@ -43,8 +43,8 @@ const MyListings = () => {
     return (
         myListings.length > 0
             ?
-            myListings.map(listing => (
-                <Listing key={listing.l_id} listing={listing} handleDelete={handleDelete}/>
+            myListings.map((listing, idx) => (
+                <Listing key={idx} listing={listing} handleDelete={handleDelete}/>
             ))
             : <h2>You have no listings.</h2>
     )
