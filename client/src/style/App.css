@@ -10,13 +10,13 @@
 }
 
 .button:hover {
-  background: var(--secondary-color-darker);
+  background: var(--primary-color-lighter);
 }
 
 .button:focus {
   border: var(--secondary-color) solid 1px;
   outline: none;
-  background: var(--primary-color-darker);
+  background: var(--primary-color-lighter);
 }
 
 .button--icon {
@@ -32,11 +32,11 @@
 .section__title {
   font-weight: var(--font-light);
   font-size: 2.5rem;
-  line-height: 1.5rem;
+  line-height: 2.6rem;
   margin-bottom: 1rem;
 }
 
-.section__subtitle {
+.section__sub-title {
   font-weight: var(--font-light);
   font-size: 1.5rem;
   margin-bottom: 1rem;
