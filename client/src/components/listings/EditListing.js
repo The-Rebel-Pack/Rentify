@@ -106,7 +106,7 @@ const EditListing = () => {
                 day: price
             }
         });
-        history.push('/listings/my-listings');
+        history.push('/profile');
     }
 
 
