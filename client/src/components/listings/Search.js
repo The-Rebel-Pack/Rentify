@@ -128,7 +128,7 @@ const Search = () => {
     }, [categories, setQueryCategories, createCategoriesValue])
 
     useEffect(() => {
-        setQueryPage(1)
+        setQueryPage(null)
     }, [querySearch, queryCategories])
 
     return (
