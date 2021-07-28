@@ -46,14 +46,15 @@ const EditListing = () => {
     }, [token, fetchData]);
 
     useEffect(() => {
-        if (currentEdit?.c_id && currentEdit?.title && currentEdit?.details?.description && currentEdit?.price?.day && currentEdit?.details?.images) {
+        if (currentEdit?.details?.location && currentEdit?.c_id && currentEdit?.title && currentEdit?.details?.description && currentEdit?.price?.day && currentEdit?.details?.images) {
 
             const { c_id } = currentEdit;
             const { title } = currentEdit;
+            const { location } = currentEdit.details;
             const { description } = currentEdit.details;
             const { images } = currentEdit.details;
             const price = currentEdit.price.day;
-            setFormValue({ title, description, c_id });
+            setFormValue({ title, description, c_id, location });
             setPrice(price);
             setImage(images);
         }
@@ -100,6 +101,7 @@ const EditListing = () => {
                 ...currentEdit.details,
                 description: formValue.description,
                 images: [image],
+                location: formValue.location,
             },
             price: {
                 ...currentEdit.price,
@@ -149,6 +151,16 @@ const EditListing = () => {
                 required="required"
             />
             <br />
+            <label htmlFor='location' className='add-listing__label'>Location</label>
+            <input
+                type='text'
+                name='location'
+                value={formValue?.location || ''}
+                onChange={editListingInput}
+                className='add-listing__input'
+                autoComplete='off'
+            />
+            <br />
             <label htmlFor='description' className='add-listing__label'>Description</label>
             <textarea
                 name='description'
@@ -170,13 +182,13 @@ const EditListing = () => {
             />
             <br />
             <h4>Upload New Image</h4>
+            {image && <><img src={image} alt={image} style={{ width: "300px" }} /><br /></>}
             <input
                 type="file"
                 name="file"
                 placeholder="Upload New Image"
                 onChange={uploadImage}
             />
-            <img src={image} alt={image} style={{ width: "300px" }} />
             <br />
             <div>
                 <button type='submit' className='button'>Save</button>
