@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback, useContext } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
+import MyListings from '../listings/MyListings';
 
 const Profile = () => {
     const [data, setData] = useState(null)
@@ -25,25 +26,35 @@ const Profile = () => {
         }
     }, [token, fetchData]);
 
+    const returnFirstLetter = (word) => {
+        return word[0];
+    }
+
     return (
-        <div>
-            <h2>Profile</h2>
-            <p>Welcome to your profile page!</p>
+        <section className='app__section'>
             {data && data.map((contact) => (
-                <div key={contact.u_id}>
-                    <h3>Name: {contact.full_name}</h3>
-                    <h3>Email: {contact.email}</h3>
-                    <h3>Public Contact Information</h3>
-                    <h4>Email:</h4>
-                    <p>{contact.u_details?.email}</p>
-                    <h4>Phone Number:</h4>
-                    <p>{contact.u_details?.phone}</p>
-                </div>
+                <>
+                    <h2 className='section__title'>Hi {contact.first_name}</h2>
+                    <h3 className='section__subtitle'>Would you like to create a new listing?</h3>
+                    <p><Link to={`/listings/create`} ><button className='button'>Create new listing</button></Link></p>
+                    <h3 className='section__subtitle'>These are your current active listings</h3>
+                    <MyListings />
+                    <div className='profile-details'>
+                        <h3>Your personal details</h3>
+                        <div key={contact.u_id}>
+                            <p>Name: {contact.full_name}</p>
+                            <p>Email: {contact.email}</p>
+                            <h3 className='section__subtitle'>Public contact information for your listings</h3>
+                            <p>Name: {contact.first_name} {returnFirstLetter(contact.last_name)}</p>
+                            {contact.u_details?.email
+                                && <p>Email: {contact.u_details?.email}</p>}
+                            {contact.u_details?.phone
+                                && <p>Phone Number: {contact.u_details?.phone}</p>}
+                        </div>
+                    </div>
+                </>
             ))}
-            <p><Link to={`/listings/create`} ><button>Create new listing</button></Link></p>
-            <p><Link to={`/listings/my-listings`} ><button>See your listings</button></Link></p>
-            {/* <p>{data?.message}</p> */}
-        </div>
+        </section>
     )
 }
 
