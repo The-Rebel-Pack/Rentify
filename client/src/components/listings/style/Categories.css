@@ -16,6 +16,10 @@
   cursor: pointer;
 }
 
+.categories__label:hover {
+  background: var(--primary-color-lighter);
+}
+
 .categories__checkbox {
   display: none;
 }
