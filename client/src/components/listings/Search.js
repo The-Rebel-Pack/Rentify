@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useHistory, useLocation } from "react-router-dom";
 import axios from 'axios';
 import qs from 'qs';
-
 import { ListingsContext } from '../../context/ListingsContext';
 import useDebounce from './useDebounce';
 import './style/Search.css'
@@ -48,24 +47,20 @@ const Search = () => {
 
     const createQueries = useCallback(
         () => {
-            console.log(querySearch, queryCategories, queryPage)
             if (!querySearch && !queryCategories && !queryPage) {
-                console.log('null')
                 return '';
             };
             const getTotalParams = () => {
                 const allParams = [querySearch, queryCategories, queryPage];
                 let count = 0;
                 allParams.forEach(param => {
-                    if (!param) {
-                        return null;
+                    if (param) {
+                        count += 1;
                     }
-                    if (param.length > 0) count += 1;
                 });
                 return count;
             }
             const totalParams = getTotalParams();
-            console.log(totalParams)
 
             let queryParams = ``;
             if (querySearch || queryCategories || queryPage) {
@@ -112,9 +107,7 @@ const Search = () => {
     useEffect(() => {
         const fetchListings = async () => {
             const allParams = createQueries();
-            console.log(`http://localhost:5000/api/listings${allParams}`)
             const res = await axios.get(`http://localhost:5000/api/listings${allParams}`);
-            console.log(res.data)
             setListings(res.data.listings);
             setQuerySearch(debounceSearch);
             setTotalPages(res.data.total_pages);
@@ -124,15 +117,19 @@ const Search = () => {
             setHistoryQueries(`${allParams}`);
         }
         fetchListings(debounceSearch);
-    }, [categories, debounceSearch, debounceCategory, setListings, setHistoryQueries, setFullCount]);
+    }, [categories, queryPage, debounceSearch, debounceCategory, setListings, setHistoryQueries, setFullCount]);
 
     useEffect(() => {
         history.push(createQueries());
-    }, [createQueries])
+    }, [createQueries, queryPage])
 
     useEffect(() => {
         setQueryCategories(createCategoriesValue())
     }, [categories, setQueryCategories, createCategoriesValue])
+
+    useEffect(() => {
+        setQueryPage(1)
+    }, [querySearch, queryCategories])
 
     return (
         <div className='search'>
