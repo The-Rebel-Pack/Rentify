@@ -27,9 +27,6 @@ const NavRouter = (props) => {
                 <Route path="/listings/create" >
                     <CreateListing />
                 </Route>
-                <Route path="/listings/my-listings" >
-                    <MyListings />
-                </Route>
                 <Route path="/listings/edit/:id" >
                     <EditListing />
                 </Route>
