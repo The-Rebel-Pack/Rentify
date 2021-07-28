@@ -124,66 +124,67 @@ const EditListing = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} >
-            <h3 className='add-listing__sub-title'>Choose category for your listing</h3>
-            <select
-                className='add-listing__select'
-                name='c_id'
-                onChange={editListingInput}
-                value={formValue?.c_id || ''}>
-                {categories && categories.map(a =>
-                    <option value={a.c_id} key={a.c_id}>
-                        {a.category}
-                    </option>
-                )}
-            </select>
-            <br />
-            <label htmlFor='title' className='add-listing__label'>Title for your listing</label>
-            <input
-                type='text'
-                name='title'
-                value={formValue?.title || ''}
-                onChange={editListingInput}
-                className='add-listing__input'
-                autoComplete='off'
-                required="required"
-            />
-            <br />
-            <label htmlFor='description' className='add-listing__label'>Description</label>
-            <textarea
-                name='description'
-                value={formValue?.description || ''}
-                onChange={editListingInput}
-                className='add-listing__textarea'
-                required="required"
-            />
-            <br />
-            <label htmlFor='priceperday' className='add-listing__label'>Price per day</label>
-            <input
-                type='number'
-                name='pricePerDay'
-                value={price || ''}
-                onChange={editPrice}
-                className='add-listing__input'
-                autoComplete='off'
-                required="required"
-            />
-            <br />
-            <h4>Upload New Image</h4>
-            <input
-                type="file"
-                name="file"
-                placeholder="Upload New Image"
-                onChange={uploadImage}
-            />
-            <img src={image} alt={image} style={{ width: "300px" }} />
-            <br />
-            <div>
-                <button type='submit' className='button'>Save</button>
-            </div>
-        </form>
-
-
+        <section className='app__section add-listing'>
+            <h2 className='section__title'>Edit Your listing</h2>
+            <form id='add-listing' onSubmit={handleSubmit} >
+                <h3 className='section__sub-title'>Choose category for your listing</h3>
+                <select
+                    className='add-listing__select'
+                    name='c_id'
+                    onChange={editListingInput}
+                    value={formValue?.c_id || ''}>
+                    {categories && categories.map(a =>
+                        <option value={a.c_id} key={a.c_id}>
+                            {a.category}
+                        </option>
+                    )}
+                </select>
+                <br />
+                <label htmlFor='title' className='add-listing__label'>Title for your listing</label>
+                <input
+                    type='text'
+                    name='title'
+                    value={formValue?.title || ''}
+                    onChange={editListingInput}
+                    className='add-listing__input'
+                    autoComplete='off'
+                    required="required"
+                />
+                <br />
+                <label htmlFor='description' className='add-listing__label'>Description</label>
+                <textarea
+                    name='description'
+                    value={formValue?.description || ''}
+                    onChange={editListingInput}
+                    className='add-listing__textarea'
+                    required="required"
+                />
+                <br />
+                <label htmlFor='priceperday' className='add-listing__label'>Price per day</label>
+                <input
+                    type='number'
+                    name='pricePerDay'
+                    value={price || ''}
+                    onChange={editPrice}
+                    className='add-listing__input'
+                    autoComplete='off'
+                    required="required"
+                />
+                <br />
+                <h4 className='section__sub-title'>Upload Image</h4>
+                {image && <><img src={image} alt={image} style={{ width: "300px" }} /><br /></>}
+                <input
+                    type="file"
+                    name="file"
+                    placeholder="Upload New Image"
+                    onChange={uploadImage}
+                />
+                <br />
+                <div>
+                    <button type='submit' className='button'>Save</button>
+                </div>
+            </form>
+        </section>
     )
 }
 
