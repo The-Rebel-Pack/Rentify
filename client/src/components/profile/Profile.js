@@ -41,7 +41,7 @@ const Profile = () => {
                     <h3 className='section__sub-title'>These are your current active listings:</h3>
                     <MyListings />
                     <div className='profile-details'>
-                        <h3>Your personal details</h3>
+                        <h3 className='section__sub-title'>Your personal details</h3>
                         <div key={contact.u_id}>
                             <p>Name: {contact.full_name}</p>
                             <p>Email: {contact.email}</p>
