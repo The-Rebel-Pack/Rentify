@@ -2,9 +2,11 @@ import React, { useState, useContext, useCallback, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useHistory } from "react-router-dom";
 import { AuthContext } from '../../context/AuthContext';
+import { ListingsContext } from '../../context/ListingsContext';
 
 const EditListing = () => {
 
+    const { categories, setCategories } = useContext(ListingsContext);
     const { id } = useParams();
     const { token } = useContext(AuthContext);
     const [currentEdit, setCurrentEdit] = useState(null);
@@ -13,6 +15,19 @@ const EditListing = () => {
     const [image, setImage] = useState("");
 
     const history = useHistory();
+
+    const fetchCategoryData = useCallback(
+        async () => {
+            const resCat = await axios.get('http://localhost:5000/api/listings/categories');
+            setCategories(resCat.data);
+        },
+        [setCategories],
+    );
+
+    useEffect(() => {
+        fetchCategoryData();
+    }, [fetchCategoryData]);
+
 
     const fetchData = useCallback(
         async () => {
@@ -32,17 +47,19 @@ const EditListing = () => {
     }, [token, fetchData]);
 
     useEffect(() => {
-        if (currentEdit?.title && currentEdit?.details?.description && currentEdit?.price?.day && currentEdit?.details?.images) {
+        if (currentEdit?.c_id && currentEdit?.title && currentEdit?.details?.description && currentEdit?.price?.day && currentEdit?.details?.images) {
 
             const { title } = currentEdit;
+            const { c_id } = currentEdit;
+            console.log(c_id);
             const { description } = currentEdit.details;
             const { images } = currentEdit.details;
             const price = currentEdit.price.day;
-            setFormValue({ title, description });
+            setFormValue({ title, description, c_id });
             setPrice(price);
             setImage(images);
         }
-    }, [setFormValue, currentEdit])
+    }, [setFormValue, currentEdit, setPrice, setImage])
 
     const editData = async (data) => {
         try {
@@ -52,14 +69,13 @@ const EditListing = () => {
                 headers: {
                     Authorization: 'Bearer ' + token,
                 },
-                data: data
+                data: console.log(data)
             });
-            //  console.log(res);
             if (res.status === 201) {
                 setCurrentEdit(res.data)
             }
         } catch (err) {
-            return ('err:', err);
+            console.log('err:', err);
         }
     };
 
@@ -81,7 +97,7 @@ const EditListing = () => {
         e.preventDefault();
         await editData({
             ...currentEdit,
-            category: currentEdit.c_id,
+            category: (formValue.c_id),
             title: formValue.title,
             details: {
                 ...currentEdit.details,
@@ -103,6 +119,7 @@ const EditListing = () => {
             ...formValue,
             [name]: value,
         });
+        console.log("formavalue", formValue);
     };
 
     const editPrice = e => {
@@ -112,6 +129,19 @@ const EditListing = () => {
 
     return (
         <form onSubmit={handleSubmit} >
+            <h3 className='add-listing__sub-title'>Choose category for your listing</h3>
+            <select
+                className='add-listing__select'
+                name='c_id'
+                onChange={editListingInput}
+                value={formValue?.c_id || ''}>
+                {categories && categories.map(a =>
+                    <option value={a.c_id} key={a.c_id}>
+                        {a.category}
+                    </option>
+                )}
+            </select>
+            <br />
             <label htmlFor='title' className='add-listing__label'>Title for your listing</label>
             <input
                 type='text'
