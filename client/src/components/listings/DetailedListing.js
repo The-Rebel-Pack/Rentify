@@ -51,10 +51,10 @@ const DetailedListing = () => {
                     <h3 className='listings__details-title'>Details about {detailListings.title}:</h3>
                     <p className='listing__description'>{detailListings.details?.description}</p>
                     <p className='listing__price'>{detailListings.price?.day} kr/day</p>
-                    <div class="listing__meta-details">
+                    <div className="listing__meta-details">
                         <p><FiClock /> Last updated: {detailListings.updated_at}</p>
                     </div>
-                    <div class="listing__contact-details">
+                    <div className="listing__contact-details">
                         {auth ? <>
                             <h3 className='listings__details-title'>Contact owner</h3>
                             <div className='listing__contact-details'>
