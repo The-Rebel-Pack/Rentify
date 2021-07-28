@@ -6,6 +6,7 @@
   font-size: .75rem;
   letter-spacing: .07rem;
   text-transform: uppercase;
+  margin-right: .5rem;
 }
 
 .button:hover {
@@ -32,6 +33,13 @@
   font-weight: var(--font-light);
   font-size: 2.5rem;
   margin-bottom: 1rem;
+}
+
+.section__subtitle {
+  font-weight: var(--font-light);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  margin-top: .5rem;
 }
 
 .clearfix:after {
