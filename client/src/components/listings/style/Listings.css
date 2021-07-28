@@ -15,6 +15,7 @@
 
 .listing__image-container {
   width: 100%;
+  max-width: 500px;
   height: 200px;
   background-position: center;
   -webkit-background-size: cover;

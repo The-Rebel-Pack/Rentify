@@ -49,7 +49,12 @@ VALUES
   ('vehicles'),
   ('furniture'),
   ('clothes'),
-  ('electronics');
+  ('electronics'),
+  ('home'),
+  ('sport'),
+  ('tools & machines'),
+  ('party'),
+  ('boats');
 
 INSERT INTO
   users (u_id, full_name, email, first_name, last_name, u_details)
@@ -83,10 +88,10 @@ INSERT INTO
   listings (title, details, price, c_id, u_id)
 VALUES
   (
-    'Fast car',
-    '{"description": "Very fast car", "images": ["https://images.unsplash.com/photo-1489824904134-891ab64532f1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1778&q=80"]}',
+    'Typing thing',
+    '{"description": "Can type very fast", "images": ["https://images.unsplash.com/photo-1526459181387-e472f440e31c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"]}',
     '{"day": 100}',
-    1,
+    7,
     '1'
   ),
   (
@@ -100,7 +105,7 @@ VALUES
     'Floaty boat',
     '{"description": "Very floaty boat", "images": ["https://images.unsplash.com/photo-1545566239-0b2fb5c50bc6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGJvYXR8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"]}',
     '{"day": 500}',
-    1,
+    9,
     '3'
   ),
   (
@@ -111,10 +116,17 @@ VALUES
     '3'
   ),
   (
-    'Old chair',
-    '{"description": "Very nice chair", "images": ["https://images.unsplash.com/photo-1562113530-57ba467cea38?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y2hhaXJ8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"]}',
+    'Sup',
+    '{"description": "Sporty floaty SUP.", "images": ["https://images.unsplash.com/photo-1517176118179-65244903d13c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80", "https://images.unsplash.com/photo-1615910588337-8e018ce1ee55?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80"]}',
+    '{"day": 120}',
+    6,
+    '3'
+  ),
+  (
+    'Nice home in the woods',
+    '{"description": "Very nice cabin", "images": ["https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"]}',
     '{"day": 300}',
-    2,
+    5,
     '2'
   ),
   (
@@ -122,5 +134,26 @@ VALUES
     '{"description": "Very nice Sony Walkman freestyle", "images": ["https://images.unsplash.com/photo-1611001716885-b3402558a62b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"]}',
     '{"day": 30}',
     4,
+    '2'
+  ),
+  (
+    'Fast car',
+    '{"description": "Very fast car", "images": ["https://images.unsplash.com/photo-1489824904134-891ab64532f1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1778&q=80"]}',
+    '{"day": 100}',
+    1,
+    '1'
+  ),
+  (
+    'Sauna boat',
+    '{"description": "Very floaty sauna", "images": ["https://a0.muscache.com/im/pictures/01306991-ed44-4b34-8c2a-9f25ae5d38a3.jpg?im_w=1200", "https://a0.muscache.com/im/pictures/733c4c9f-1074-468a-b835-0bca721815dc.jpg?im_w=1440", "https://a0.muscache.com/im/pictures/511c7c39-6706-4aca-af1b-dd09a45c851b.jpg?im_w=1440"]}',
+    '{"day": 1000, "3day": 2000}',
+    5,
+    '1'
+  ),
+  (
+    'Wooden chair',
+    '{"description": "Very nice chair", "images": ["https://images.unsplash.com/photo-1562113530-57ba467cea38?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y2hhaXJ8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"]}',
+    '{"day": 300}',
+    2,
     '2'
   );

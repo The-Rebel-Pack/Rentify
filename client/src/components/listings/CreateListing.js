@@ -43,7 +43,7 @@ const CreateListing = () => {
                     "title": listing.title,
                     "details": {
                         "description": listing.description,
-                        "images": [image]
+                        "images": image ? [image] : [],
                     },
                     "price": {
                         "day": listing.pricePerDay
@@ -151,9 +151,9 @@ const CreateListing = () => {
                 <img src={image} alt={image} style={{ width: "300px" }} />
 
                 <br />
-
                 <button type='submit' className='button'>
-                    Add listing</button>
+                    Add listing
+                </button>
             </form>
         </section>
     )
