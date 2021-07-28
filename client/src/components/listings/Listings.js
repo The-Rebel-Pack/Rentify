@@ -1,6 +1,5 @@
-import React, { useEffect, useCallback, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
-import axios from 'axios';
 import { ListingsContext } from '../../context/ListingsContext';
 import Categories from './Categories';
 import './style/Listings.css';

@@ -18,7 +18,7 @@ const MyListings = () => {
             });
             setMyListings(res.data.listings);
         },
-        [setMyListings],
+        [setMyListings, token],
     );
 
     useEffect(() => {
@@ -26,6 +26,13 @@ const MyListings = () => {
             fetchData(token);
         }
     }, [token, fetchData]);
+
+    const handleDelete = (id) => {
+        const newList = myListings.filter((item) => item.l_id !== id);
+
+        setMyListings(newList);
+
+    }
 
     return (
         <section className='app__section listings-section'>
@@ -40,8 +47,9 @@ const MyListings = () => {
                             {listing?.details?.images.length > 0 &&
                                 <img src={listing?.details?.images[0]} alt={listing.title} width="150px" />
                             }
+                            <button className='button' onClick={() => handleDelete(listing.l_id)} >Delete</button>
                             <Link to={`/listings/edit/${listing.l_id}`} ><button className='button'>Edit</button></Link>
-                            <Link to={`/listings/delete/${listing.l_id}`} ><button className='button'>Delete</button></Link>
+                            {/* <Link to={`/listings/delete/${listing.l_id}`} ><button className='button' >Delete</button></Link> */}
                         </div>
                     ))
                     : <h2>You have no listings.</h2>
