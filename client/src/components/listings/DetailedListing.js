@@ -29,7 +29,7 @@ const DetailedListing = () => {
         <section className='app__section listing-section'>
             {detailListings &&
                 <div className='detailed-listing' key={detailListings.l_id} >
-                    <h2 className='listing__title'>{detailListings.title} <Link to={`/?categories=${detailListings.c_id}`} className='clearfix'>
+                    <h2 className='section__title'>{detailListings.title} <Link to={`/?categories=${detailListings.c_id}`} className='clearfix'>
                         <span className='listings__details-category'>
                             <span className='categories__label'>
                                 {detailListings.category}

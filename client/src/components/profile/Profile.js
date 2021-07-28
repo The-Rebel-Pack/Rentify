@@ -26,8 +26,8 @@ const Profile = () => {
     }, [token, fetchData]);
 
     return (
-        <div>
-            <h2>Profile</h2>
+        <section className='app__section'>
+            <h2 className='section__title'>Profile</h2>
             <p>Welcome to your profile page!</p>
             {data && data.map((contact) => (
                 <div key={contact.u_id}>
@@ -40,10 +40,10 @@ const Profile = () => {
                     <p>{contact.u_details?.phone}</p>
                 </div>
             ))}
-            <p><Link to={`/listings/create`} ><button>Create new listing</button></Link></p>
-            <p><Link to={`/listings/my-listings`} ><button>See your listings</button></Link></p>
+            <p><Link to={`/listings/create`} ><button className='button'>Create new listing</button></Link></p>
+            <p><Link to={`/listings/my-listings`} ><button className='button'>See your listings</button></Link></p>
             {/* <p>{data?.message}</p> */}
-        </div>
+        </section>
     )
 }
 
