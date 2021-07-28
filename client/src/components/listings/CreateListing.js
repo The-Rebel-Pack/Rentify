@@ -2,11 +2,13 @@ import React, { useState, useContext, useCallback, useEffect } from 'react';
 import axios from 'axios';
 import { ListingsContext } from '../../context/ListingsContext';
 import { AuthContext } from '../../context/AuthContext';
+import { useHistory } from 'react-router';
 
 const CreateListing = () => {
     const { token } = useContext(AuthContext);
     const { categories, setCategories } = useContext(ListingsContext);
     const [image, setImage] = useState("");
+    const history = useHistory();
     //const [selectedCategory, setSelectedCategory] = useState(1);
     const emptyListing = {
         "title": '',
@@ -77,6 +79,7 @@ const CreateListing = () => {
         e.preventDefault();
         const res = await postData(newListing);
         setImage("");
+        history.push('/listings/my-listings')
         if (res.status === 201) {
             setNewListing(emptyListing);
             //   setSelectedCategory(1)

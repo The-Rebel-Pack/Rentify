@@ -1,6 +1,6 @@
 import React, { useState, useContext, useCallback, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { AuthContext } from '../../context/AuthContext';
 
 const EditListing = () => {
@@ -11,6 +11,8 @@ const EditListing = () => {
     const [formValue, setFormValue] = useState(null);
     const [price, setPrice] = useState(null);
     const [image, setImage] = useState("");
+
+    const history = useHistory();
 
     const fetchData = useCallback(
         async () => {
@@ -91,6 +93,7 @@ const EditListing = () => {
                 day: price
             }
         });
+        history.push('/listings/my-listings');
     }
 
 
