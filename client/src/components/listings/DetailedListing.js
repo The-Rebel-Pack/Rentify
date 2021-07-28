@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useContext } from 'react';
+import React, { useEffect, useCallback, useContext } from 'react';
 import axios from 'axios';
 import { useParams, Link } from "react-router-dom";
 import { AuthContext } from '../../context/AuthContext';
@@ -28,7 +28,7 @@ const DetailedListing = () => {
     return (
         <section className='app__section listing-section'>
             {detailListings &&
-                <div className='detailed-listing' key={detailListings.id} >
+                <div className='detailed-listing' key={detailListings.l_id} >
                     <h2 className='listing__title'>{detailListings.title} <Link to={`/?categories=${detailListings.c_id}`} className='clearfix'>
                         <span className='listings__details-category'>
                             <span className='categories__label'>

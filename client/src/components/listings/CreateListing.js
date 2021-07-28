@@ -59,7 +59,6 @@ const CreateListing = () => {
 
     const uploadImage = async (e) => {
         const files = e.target.files;
-        console.log(files);
         const data = new FormData();
         data.append("file", files[0]);
         data.append("upload_preset", "rentify");
@@ -77,6 +76,7 @@ const CreateListing = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const res = await postData(newListing);
+        setImage("");
         if (res.status === 201) {
             setNewListing(emptyListing);
             //   setSelectedCategory(1)
@@ -148,8 +148,8 @@ const CreateListing = () => {
                     placeholder="Upload Image"
                     onChange={uploadImage}
                 />
-                {console.log(image)}
                 <img src={image} alt={image} style={{ width: "300px" }} />
+
                 <br />
                 <button type='submit' className='button'>
                     Add listing
