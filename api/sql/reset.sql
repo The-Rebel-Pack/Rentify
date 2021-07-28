@@ -89,35 +89,35 @@ INSERT INTO
 VALUES
   (
     'Typing thing',
-    '{"description": "Can type very fast", "images": ["https://images.unsplash.com/photo-1526459181387-e472f440e31c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"]}',
+    '{"description": "Can type very fast", "images": ["https://images.unsplash.com/photo-1526459181387-e472f440e31c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"], "location": "Lund, Skåne, Sweden"}',
     '{"day": 100}',
     7,
     '1'
   ),
   (
     'Fancy car',
-    '{"description": "Very fancy car", "images": ["https://images.unsplash.com/photo-1535732820275-9ffd998cac22?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"]}',
+    '{"description": "Very fancy car", "images": ["https://images.unsplash.com/photo-1535732820275-9ffd998cac22?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"], "location": "Malmö, Skåne, Sweden"}',
     '{"day": 200}',
     1,
     '3'
   ),
   (
     'Floaty boat',
-    '{"description": "Very floaty boat", "images": ["https://images.unsplash.com/photo-1545566239-0b2fb5c50bc6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGJvYXR8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"]}',
+    '{"description": "Very floaty boat", "images": ["https://images.unsplash.com/photo-1545566239-0b2fb5c50bc6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGJvYXR8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"], "location": "Stockholm, Sweden"}',
     '{"day": 500}',
     9,
     '3'
   ),
   (
     'Fancy Batman costume',
-    '{"description": "Best costume for your Batman fantasies", "images": ["https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"]}',
+    '{"description": "Best costume for your Batman fantasies", "images": ["https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"], "location": "Lund, Skåne, Sweden"}',
     '{"day": 150}',
     3,
     '3'
   ),
   (
     'Sup',
-    '{"description": "Sporty floaty SUP.", "images": ["https://images.unsplash.com/photo-1517176118179-65244903d13c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80", "https://images.unsplash.com/photo-1615910588337-8e018ce1ee55?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80"]}',
+    '{"description": "Sporty floaty SUP.", "images": ["https://images.unsplash.com/photo-1517176118179-65244903d13c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80", "https://images.unsplash.com/photo-1615910588337-8e018ce1ee55?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80"], "location": "Malmö, Skåne, Sweden"}',
     '{"day": 120}',
     6,
     '3'

@@ -27,3 +27,9 @@
   font-size: 1.25rem;
   background: var(--primary-color);
 }
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
