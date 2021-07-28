@@ -48,7 +48,6 @@ const Search = () => {
 
     const createQueries = useCallback(
         () => {
-            console.log(querySearch, queryCategories, queryPage)
             if (!querySearch && !queryCategories && !queryPage) {
                 console.log('null')
                 return '';
@@ -57,35 +56,31 @@ const Search = () => {
                 const allParams = [querySearch, queryCategories, queryPage];
                 let count = 0;
                 allParams.forEach(param => {
-                    if (!param) {
-                        return null;
-                    }
                     if (param.length > 0) count += 1;
                 });
                 return count;
             }
             const totalParams = getTotalParams();
-            console.log(totalParams)
 
             let queryParams = ``;
-            if (querySearch || queryCategories || queryPage) {
+            if (querySearch > 0 || queryCategories > 0 || queryPage.length > 0) {
                 queryParams += `?`;
             }
-            if (querySearch && totalParams === 1) {
+            if (querySearch > 0 && totalParams === 1) {
                 queryParams += `search=${querySearch}`;
             }
-            if (queryCategories && totalParams === 1) {
+            if (queryCategories > 0 && totalParams === 1) {
                 queryParams += `categories=${queryCategories}`;
             }
-            if (queryPage && totalParams === 1) {
+            if (queryPage > 0 && totalParams === 1) {
                 queryParams += `page=${queryPage}`;
             }
-            if (querySearch && queryCategories && totalParams === 2) {
+            if (querySearch > 0 && queryCategories > 0 && totalParams === 2) {
                 queryParams += `search=${querySearch}`;
                 queryParams += `&`;
                 queryParams += `categories=${queryCategories}`;
             }
-            if (querySearch && queryPage && totalParams === 2) {
+            if (querySearch > 0 && queryPage > 0 && totalParams === 2) {
                 queryParams += `search=${querySearch}`;
                 queryParams += `&`;
                 queryParams += `page=${queryPage}`;
@@ -111,16 +106,40 @@ const Search = () => {
 
     useEffect(() => {
         const fetchListings = async () => {
+            // let searchParam = ``;
+            // if (searchTerm.length > 1) {
+            //     searchParam = `search=${searchTerm}`
+            // }
+
+            // let categoriesParam = ``;
+            // let selectedCategories = [];
+            // if (categories) {
+            //     selectedCategories = categories.filter(c => c.checked)
+            // }
+            // if (selectedCategories.length > 0) {
+            //     categoriesParam = `categories=${selectedCategories.map(c => c.c_id)}`
+            // }
+            // let apperand = ``;
+            // if (searchTerm && selectedCategories.length > 0) {
+            //     apperand = `&`
+            // }
+
+            // let querySign = ``;
+            // if (searchTerm || selectedCategories.length > 0) {
+            //     querySign = `?`;
+            // }
+            // const res = await axios.get(`http://localhost:5000/api/listings${querySign}${searchParams}${apperand}${categoriesParam}`);
             const allParams = createQueries();
-            console.log(`http://localhost:5000/api/listings${allParams}`)
+            console.log()
             const res = await axios.get(`http://localhost:5000/api/listings${allParams}`);
-            console.log(res.data)
             setListings(res.data.listings);
             setQuerySearch(debounceSearch);
+            setQueryCategories(debounceCategory);
             setTotalPages(res.data.total_pages);
             setCurrentPage(res.data.current_page);
             setFullCount(res.data.full_count);
 
+            // setHistoryQueries(`${querySign}${searchParam}${apperand}${categoriesParam}`);
             setHistoryQueries(`${allParams}`);
         }
         fetchListings(debounceSearch);
@@ -131,8 +150,17 @@ const Search = () => {
     }, [createQueries])
 
     useEffect(() => {
-        setQueryCategories(createCategoriesValue())
-    }, [categories, setQueryCategories, createCategoriesValue])
+        setQueryPage(queryParams.page)
+        setQueryCategories(queryParams.categories)
+        setQuerySearch(queryParams.search)
+    }, [
+        setQueryPage,
+        queryPage,
+        setQueryCategories,
+        queryCategories,
+        setQuerySearch,
+        querySearch
+    ])
 
     return (
         <div className='search'>
