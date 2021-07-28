@@ -82,6 +82,14 @@ VALUES
     'Robert',
     'Olsson',
     '{"phone": "123-456789"}'
+  ),
+  (
+    'ryfC4JSl5sPkmAWOvtq2D4cw3PA2',
+    'Jenny Svensson',
+    'jenny.svensson@appliedtechnology.se',
+    'Jenny',
+    'Svensson',
+    '{"phone": "123-456789"}'
   );
 
 INSERT INTO
@@ -113,7 +121,7 @@ VALUES
     '{"description": "Best costume for your Batman fantasies", "images": ["https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"], "location": "Lund, Skåne, Sweden"}',
     '{"day": 150}',
     3,
-    '3'
+    'ryfC4JSl5sPkmAWOvtq2D4cw3PA2'
   ),
   (
     'Sup',
@@ -134,7 +142,7 @@ VALUES
     '{"description": "Very nice Sony Walkman freestyle", "images": ["https://images.unsplash.com/photo-1611001716885-b3402558a62b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"]}',
     '{"day": 30}',
     4,
-    '2'
+    'ryfC4JSl5sPkmAWOvtq2D4cw3PA2'
   ),
   (
     'Fast car',
