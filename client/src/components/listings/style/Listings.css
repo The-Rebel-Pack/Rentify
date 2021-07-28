@@ -57,4 +57,17 @@
     flex: 1 0 30%;
     margin: .5rem;
   }
+
+  .listings-section__grid--2x2>* {
+    flex: 1 0 45%
+  }
+
+  .listings-section__grid--1x1 {
+    display: block;
+  }
+
+  .listings-section__grid--1x1>* {
+    width: 48%
+  }
+
 }

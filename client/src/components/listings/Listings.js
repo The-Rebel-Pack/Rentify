@@ -11,6 +11,9 @@ const Listings = () => {
     const { listings } = useContext(ListingsContext);
     const { fullCount, querySearch } = useContext(QueryContext);
 
+    const balanceGrid = listings && listings.length === 4 ? ' listings-section__grid--2x2' : '';
+    const balanceGridOne = listings && listings.length === 1 ? ' listings-section__grid--1x1' : '';
+
     return (
         <section className='app__section listings-section'>
             <Categories />
@@ -18,7 +21,7 @@ const Listings = () => {
                 ?
                 <>
                     <Heading heading={`Found ${fullCount} results${querySearch && ' for '}${querySearch}`} />
-                    <section className='listings-section__grid'>
+                    <section className={`listings-section__grid${balanceGrid}${balanceGridOne}`}>
                         {listings.map((listing) => (
                             <Listing key={listing.l_id} listing={listing} />
                         ))}
