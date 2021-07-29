@@ -1,5 +1,6 @@
 import React, { useState, useContext, useCallback, useEffect } from 'react';
 import axios from 'axios';
+import { css } from '@emotion/react'
 import { useParams, useHistory } from "react-router-dom";
 import { AuthContext } from '../../context/AuthContext';
 import { ListingsContext } from '../../context/ListingsContext';
@@ -23,6 +24,7 @@ const EditListing = () => {
     const [formValue, setFormValue] = useState(null);
     const [price, setPrice] = useState(null);
     const [image, setImage] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const history = useHistory();
 
@@ -56,14 +58,15 @@ const EditListing = () => {
     }, [token, fetchData]);
 
     useEffect(() => {
-        if (currentEdit?.c_id && currentEdit?.title && currentEdit?.details?.description && currentEdit?.price?.day && currentEdit?.details?.images) {
+        if (currentEdit?.details?.location && currentEdit?.c_id && currentEdit?.title && currentEdit?.details?.description && currentEdit?.price?.day && currentEdit?.details?.images) {
 
             const { c_id } = currentEdit;
             const { title } = currentEdit;
+            const { location } = currentEdit.details;
             const { description } = currentEdit.details;
             const { images } = currentEdit.details;
             const price = currentEdit.price.day;
-            setFormValue({ title, description, c_id });
+            setFormValue({ title, description, c_id, location });
             setPrice(price);
             setImage(images);
         }
@@ -92,12 +95,14 @@ const EditListing = () => {
         const data = new FormData();
         data.append("file", files[0]);
         data.append("upload_preset", "rentify");
+        setLoading(true)
         const res = await fetch(
             "https://api.cloudinary.com/v1_1/ddenalelw/image/upload",
             { method: "POST", body: data }
         );
         const file = await res.json();
         setImage(file.secure_url);
+        setLoading(false)
     };
 
     const handleSubmit = async (e) => {
@@ -110,6 +115,7 @@ const EditListing = () => {
                 ...currentEdit.details,
                 description: formValue.description,
                 images: [image],
+                location: formValue.location,
             },
             price: {
                 ...currentEdit.price,
@@ -209,8 +215,8 @@ const EditListing = () => {
                 <button className='button button--delete' >
                     <HiOutlineTrash /> Delete
                 </button>
-            </form>
-        </section>
+            </form >
+        </section >
 
 
     )
