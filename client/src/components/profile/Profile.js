@@ -1,3 +1,4 @@
+import './Profile.css';
 import React, { useEffect, useState, useCallback, useContext } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
