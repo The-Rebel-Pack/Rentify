@@ -210,7 +210,7 @@ const EditListing = () => {
                 <br />
                 <br />
                 <button type='submit' className='button'>
-                    Add listing
+                    Save
                 </button>
                 <button className='button button--delete' >
                     <HiOutlineTrash /> Delete

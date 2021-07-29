@@ -15,11 +15,6 @@ const TopMenu = () => {
             Listings
           </NavLink>
         </li>
-        <li className='top-menu__item'>
-          <NavLink to="/" >
-            About
-          </NavLink>
-        </li>
         {auth &&
           <li className='top-menu__item'>
             <NavLink to="/profile" >
