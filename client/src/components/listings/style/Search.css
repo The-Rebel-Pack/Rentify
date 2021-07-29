@@ -29,8 +29,7 @@
 }
 
 .search__button {
-  margin-left: -42px;
-  margin-top: 2px;
+  margin-left: -45px;
   vertical-align: sub;
   background: transparent;
   color: var(--primary-color);

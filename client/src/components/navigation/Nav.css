@@ -16,8 +16,12 @@
   align-items: center;
 }
 
+.top-menu__icon {
+  margin-right: .5rem;
+}
+
 .header__title {
-  margin: 0;
+  margin: 0 1rem 0 0;
   color: var(--light-color);
   display: inline;
 }
