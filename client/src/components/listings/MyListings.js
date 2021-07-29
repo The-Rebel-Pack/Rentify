@@ -39,6 +39,7 @@ const MyListings = () => {
                 Authorization: 'Bearer ' + token,
             }
         });
+        // console.log(res)
         setMyListings(res.data.listings);
     }
 

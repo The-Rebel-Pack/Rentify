@@ -153,7 +153,9 @@ const CreateListing = () => {
                 />
                 <br />
                 <p className='add-listing__label'>Upload an image</p>
-                {image && <><img src={image} alt={image} style={{ width: "300px" }} /><br /></>}
+                {loading ? (
+                    <BeatLoader size={20} color="green" />
+                ) : (image && <><img src={image} alt={image} style={{ width: "300px" }} /><br /></>)}
                 <input
                     type="file"
                     name="file"

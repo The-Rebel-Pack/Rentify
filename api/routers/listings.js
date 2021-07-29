@@ -46,14 +46,9 @@ router.get('/user', middleware.decodeToken, async (req, res, next) => {
     const uid = req.user.uid;
     // console.log(uid);
     const result = await getListingsByOwner(uid, next);
-    if (result.listings[0]) {
-      return res
-        .status(200)
-        .json(result)
-    }
     return res
-      .status(404)
-      .end('Not found')
+      .status(200)
+      .json(result)
   }
   return res
     .status(400)
