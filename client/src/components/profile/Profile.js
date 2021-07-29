@@ -32,7 +32,7 @@ const Profile = () => {
     }
 
     return (
-        <>
+        <section className='profile'>
             {data && data.map((contact) => (
                 <div key='1'>
                     <section className='app__section'>
@@ -61,7 +61,7 @@ const Profile = () => {
                     </section>
                 </div>
             ))}
-        </>
+        </section>
     )
 }
 
