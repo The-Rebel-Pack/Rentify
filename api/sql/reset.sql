@@ -136,14 +136,14 @@ VALUES
     '{"description": "Best costume for your Batman fantasies", "images": ["https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"], "location": "Lund, Skåne, Sweden"}',
     '{"day": 150}',
     3,
-    'ryfC4JSl5sPkmAWOvtq2D4cw3PA2'
+    'Aazr4yslBGVV6rSF4aZPmgpxvlq1'
   ),
   (
     'Sup',
     '{"description": "Sporty floaty SUP.", "images": ["https://images.unsplash.com/photo-1517176118179-65244903d13c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80", "https://images.unsplash.com/photo-1615910588337-8e018ce1ee55?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80"], "location": "Malmö, Skåne, Sweden"}',
     '{"day": 120}',
     6,
-    '3'
+    'Aazr4yslBGVV6rSF4aZPmgpxvlq1'
   ),
   (
     'Nice home in the woods',
