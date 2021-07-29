@@ -5,6 +5,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { AuthContext } from '../../context/AuthContext';
 import { ListingsContext } from '../../context/ListingsContext';
 import { BeatLoader } from "react-spinners";
+import { HiOutlineTrash } from 'react-icons/hi';
 
 const loaderCSS = css`
 margin-top : 25px;
@@ -140,9 +141,9 @@ const EditListing = () => {
 
     return (
         <section className='app__section add-listing'>
-            <h2 className='section__title'>Edit your listings</h2>
+            <h2 className='section__title'>Edit your listing</h2>
             <form onSubmit={handleSubmit} >
-                <h3 className='add-listing__sub-title'>Choose category for your listing</h3>
+                <label htmlFor='c_id' className='add-listing__label'>Choose category for your listing</label>
                 <select
                     className='add-listing__select'
                     name='c_id'
@@ -196,7 +197,7 @@ const EditListing = () => {
                     required="required"
                 />
                 <br />
-                <h4>Upload New Image</h4>
+                <p className='add-listing__label'>Upload an image</p>
                 {loading ? (
                     <BeatLoader css={loaderCSS} size={10} color="green" />
                 ) : (image && <><img src={image} alt={image} style={{ width: "300px" }} /><br /></>)}
@@ -207,11 +208,15 @@ const EditListing = () => {
                     onChange={uploadImage}
                 />
                 <br />
-                <div>
-                    <button type='submit' className='button'>Save</button>
-                </div>
-            </form>
-        </section>
+                <br />
+                <button type='submit' className='button'>
+                    Add listing
+                </button>
+                <button className='button button--delete' >
+                    <HiOutlineTrash /> Delete
+                </button>
+            </form >
+        </section >
 
 
     )

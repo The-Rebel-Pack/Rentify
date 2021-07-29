@@ -90,11 +90,26 @@ VALUES
     'Jenny',
     'Svensson',
     '{"phone": "123-456789"}'
+  ),
+  (
+    'Aazr4yslBGVV6rSF4aZPmgpxvlq1',
+    'Elias Helander',
+    'elias.helander@appliedtechnology.se',
+    'Elias',
+    'Helander',
+    '{"phone": "123-456789"}'
   );
 
 INSERT INTO
   listings (title, details, price, c_id, u_id)
 VALUES
+  (
+    'Keyboard',
+    '{"description": "Can type very fast", "images": ["https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2900&q=80"], "location": "Stockholm, Sweden"}',
+    '{"day": 100}',
+    4,
+    'Aazr4yslBGVV6rSF4aZPmgpxvlq1'
+  ),
   (
     'Typing thing',
     '{"description": "Can type very fast", "images": ["https://images.unsplash.com/photo-1526459181387-e472f440e31c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"], "location": "Lund, Skåne, Sweden"}',
