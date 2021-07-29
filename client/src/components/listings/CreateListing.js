@@ -1,10 +1,19 @@
 import React, { useState, useContext, useCallback, useEffect } from 'react';
 import axios from 'axios';
+import { css } from '@emotion/react'
 import { ListingsContext } from '../../context/ListingsContext';
 import { AuthContext } from '../../context/AuthContext';
 import { useHistory } from 'react-router';
 import './style/EditListing.css';
 import { BeatLoader } from "react-spinners";
+
+const loaderCSS = css`
+margin-top : 25px;
+margin-bottom : 25px;
+display: flex;
+align-items: center;
+margin: 0 auto;
+border-color: red;`
 
 const CreateListing = () => {
     const { token } = useContext(AuthContext);
@@ -160,9 +169,8 @@ const CreateListing = () => {
                 <br />
                 <p className='add-listing__label'>Upload an image</p>
                 {loading ? (
-                    <BeatLoader size={20} color="green" />
+                    <BeatLoader css={loaderCSS} size={20} color="green" />
                 ) : (image && <><img src={image} alt={image} style={{ width: "300px" }} /><br /></>)}
-                {image && <><img src={image} alt={image} style={{ width: "300px" }} /><br /></>}
                 <input
                     type="file"
                     name="file"
