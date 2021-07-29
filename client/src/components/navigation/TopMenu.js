@@ -23,7 +23,7 @@ const TopMenu = () => {
         {auth &&
           <li className='top-menu__item'>
             <NavLink to="/profile" >
-              Profile
+              My Rentify
             </NavLink>
           </li>
         }

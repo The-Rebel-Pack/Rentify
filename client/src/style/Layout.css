@@ -10,6 +10,10 @@
   min-height: 60vh;
 }
 
+.profile .app__section {
+  min-height: 10vh;
+}
+
 @media screen and (min-width: 400px) {
   .app__main {
     padding: 1rem;

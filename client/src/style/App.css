@@ -9,14 +9,8 @@
   margin-right: .5rem;
 }
 
-.button:hover {
-  background: var(--primary-color-lighter);
-}
-
-.button:focus {
-  border: var(--secondary-color) solid 1px;
-  outline: none;
-  background: var(--primary-color-lighter);
+.button--delete {
+  background: var(--font-color);
 }
 
 .button--icon {
@@ -27,6 +21,28 @@
   border-radius: 50%;
   font-size: 1.25rem;
   background: var(--primary-color);
+}
+
+.button:focus {
+  border: var(--secondary-color) solid 1px;
+  outline: none;
+  background: var(--primary-color-lighter);
+}
+
+.button:hover {
+  background: var(--secondary-color-lighter);
+}
+
+.button--delete:hover {
+  background: var(--font-color-meta);
+}
+
+.button--icon:hover {
+  background: var(--primary-color-lighter);
+}
+
+.button--icon:last-child {
+  margin-right: 0;
 }
 
 .section__title {

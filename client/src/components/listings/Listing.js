@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { HiOutlineTrash, HiOutlineLocationMarker } from 'react-icons/hi';
+import { RiPriceTag3Line } from 'react-icons/ri';
 
 const Listing = ({ listing, handleDelete }) => {
     return (
@@ -25,13 +27,21 @@ const Listing = ({ listing, handleDelete }) => {
                             {listing.category}
                         </span>
                     </span></h2>
-                    <span className='listings__details-price'>{listing?.price?.day} kr/day</span>
+                    <span className='listings__details-price'><RiPriceTag3Line /> {listing?.price?.day} kr/day</span>
+                    <br />
+                    <span className='listings__details-location'><HiOutlineLocationMarker /> {listing?.details?.location || 'Stockholm, Sweden'}</span>
                 </div>
             </Link>
             {handleDelete &&
                 <>
-                    <Link to={`/listings/edit/${listing.l_id}`} ><button className='button'>Edit</button></Link>
-                    <button className='button' onClick={() => handleDelete(listing.l_id)} >Delete</button>
+                    <Link to={`/listings/edit/${listing.l_id}`} >
+                        <button className='button'>
+                            Edit
+                        </button>
+                    </Link>
+                    <button className='button button--delete' onClick={() => handleDelete(listing.l_id)} >
+                        <HiOutlineTrash /> Delete
+                    </button>
                 </>
             }
         </div>

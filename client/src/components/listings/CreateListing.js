@@ -104,7 +104,7 @@ const CreateListing = () => {
         <section className='app__section add-listing'>
             <h2 className='section__title'>Create a new listing</h2>
             <form id='add-listing' onSubmit={handleSubmit}>
-                <h3 className='section__sub-title'>Choose category for your listing</h3>
+                <label htmlFor='c_id' className='add-listing__label'>Choose category for your listing</label>
                 <select
                     className='add-listing__select'
                     name='c_id'
@@ -158,15 +158,18 @@ const CreateListing = () => {
                     required="required"
                 />
                 <br />
-                <h4 className='section__sub-title'>Upload Image</h4>
+                <p className='add-listing__label'>Upload an image</p>
                 {loading ? (
                     <BeatLoader size={20} color="green" />
-                ) : (image && <><img src={image} alt={image} style={{ width: "300px" }} /><br /></>)}                <input
+                ) : (image && <><img src={image} alt={image} style={{ width: "300px" }} /><br /></>)}
+                {image && <><img src={image} alt={image} style={{ width: "300px" }} /><br /></>}
+                <input
                     type="file"
                     name="file"
                     placeholder="Upload Image"
                     onChange={uploadImage}
                 />
+                <br />
                 <br />
                 <button type='submit' className='button'>
                     Add listing
