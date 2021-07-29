@@ -1,8 +1,18 @@
 import React, { useState, useContext, useCallback, useEffect } from 'react';
 import axios from 'axios';
+import { css } from '@emotion/react'
 import { useParams, useHistory } from "react-router-dom";
 import { AuthContext } from '../../context/AuthContext';
 import { ListingsContext } from '../../context/ListingsContext';
+import { BeatLoader } from "react-spinners";
+
+const loaderCSS = css`
+margin-top : 25px;
+margin-bottom : 25px;
+display: flex;
+align-items: center;
+margin: 0 auto;
+border-color: red;`
 
 const EditListing = () => {
 
@@ -13,6 +23,7 @@ const EditListing = () => {
     const [formValue, setFormValue] = useState(null);
     const [price, setPrice] = useState(null);
     const [image, setImage] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const history = useHistory();
 
@@ -46,14 +57,15 @@ const EditListing = () => {
     }, [token, fetchData]);
 
     useEffect(() => {
-        if (currentEdit?.c_id && currentEdit?.title && currentEdit?.details?.description && currentEdit?.price?.day && currentEdit?.details?.images) {
+        if (currentEdit?.details?.location && currentEdit?.c_id && currentEdit?.title && currentEdit?.details?.description && currentEdit?.price?.day && currentEdit?.details?.images) {
 
             const { c_id } = currentEdit;
             const { title } = currentEdit;
+            const { location } = currentEdit.details;
             const { description } = currentEdit.details;
             const { images } = currentEdit.details;
             const price = currentEdit.price.day;
-            setFormValue({ title, description, c_id });
+            setFormValue({ title, description, c_id, location });
             setPrice(price);
             setImage(images);
         }
@@ -82,12 +94,14 @@ const EditListing = () => {
         const data = new FormData();
         data.append("file", files[0]);
         data.append("upload_preset", "rentify");
+        setLoading(true)
         const res = await fetch(
             "https://api.cloudinary.com/v1_1/ddenalelw/image/upload",
             { method: "POST", body: data }
         );
         const file = await res.json();
         setImage(file.secure_url);
+        setLoading(false)
     };
 
     const handleSubmit = async (e) => {
@@ -100,6 +114,7 @@ const EditListing = () => {
                 ...currentEdit.details,
                 description: formValue.description,
                 images: [image],
+                location: formValue.location,
             },
             price: {
                 ...currentEdit.price,
@@ -124,64 +139,79 @@ const EditListing = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} >
-            <h3 className='add-listing__sub-title'>Choose category for your listing</h3>
-            <select
-                className='add-listing__select'
-                name='c_id'
-                onChange={editListingInput}
-                value={formValue?.c_id || ''}>
-                {categories && categories.map(a =>
-                    <option value={a.c_id} key={a.c_id}>
-                        {a.category}
-                    </option>
-                )}
-            </select>
-            <br />
-            <label htmlFor='title' className='add-listing__label'>Title for your listing</label>
-            <input
-                type='text'
-                name='title'
-                value={formValue?.title || ''}
-                onChange={editListingInput}
-                className='add-listing__input'
-                autoComplete='off'
-                required="required"
-            />
-            <br />
-            <label htmlFor='description' className='add-listing__label'>Description</label>
-            <textarea
-                name='description'
-                value={formValue?.description || ''}
-                onChange={editListingInput}
-                className='add-listing__textarea'
-                required="required"
-            />
-            <br />
-            <label htmlFor='priceperday' className='add-listing__label'>Price per day</label>
-            <input
-                type='number'
-                name='pricePerDay'
-                value={price || ''}
-                onChange={editPrice}
-                className='add-listing__input'
-                autoComplete='off'
-                required="required"
-            />
-            <br />
-            <h4>Upload New Image</h4>
-            <input
-                type="file"
-                name="file"
-                placeholder="Upload New Image"
-                onChange={uploadImage}
-            />
-            <img src={image} alt={image} style={{ width: "300px" }} />
-            <br />
-            <div>
-                <button type='submit' className='button'>Save</button>
-            </div>
-        </form>
+        <section className='app__section add-listing'>
+            <h2 className='section__title'>Edit your listings</h2>
+            <form onSubmit={handleSubmit} >
+                <h3 className='add-listing__sub-title'>Choose category for your listing</h3>
+                <select
+                    className='add-listing__select'
+                    name='c_id'
+                    onChange={editListingInput}
+                    value={formValue?.c_id || ''}>
+                    {categories && categories.map(a =>
+                        <option value={a.c_id} key={a.c_id}>
+                            {a.category}
+                        </option>
+                    )}
+                </select>
+                <br />
+                <label htmlFor='title' className='add-listing__label'>Title for your listing</label>
+                <input
+                    type='text'
+                    name='title'
+                    value={formValue?.title || ''}
+                    onChange={editListingInput}
+                    className='add-listing__input'
+                    autoComplete='off'
+                    required="required"
+                />
+                <br />
+                <label htmlFor='location' className='add-listing__label'>Location</label>
+                <input
+                    type='text'
+                    name='location'
+                    value={formValue?.location || ''}
+                    onChange={editListingInput}
+                    className='add-listing__input'
+                    autoComplete='off'
+                />
+                <br />
+                <label htmlFor='description' className='add-listing__label'>Description</label>
+                <textarea
+                    name='description'
+                    value={formValue?.description || ''}
+                    onChange={editListingInput}
+                    className='add-listing__textarea'
+                    required="required"
+                />
+                <br />
+                <label htmlFor='priceperday' className='add-listing__label'>Price per day</label>
+                <input
+                    type='number'
+                    name='pricePerDay'
+                    value={price || ''}
+                    onChange={editPrice}
+                    className='add-listing__input'
+                    autoComplete='off'
+                    required="required"
+                />
+                <br />
+                <h4>Upload New Image</h4>
+                {loading ? (
+                    <BeatLoader css={loaderCSS} size={10} color="green" />
+                ) : (image && <><img src={image} alt={image} style={{ width: "300px" }} /><br /></>)}
+                <input
+                    type="file"
+                    name="file"
+                    placeholder="Upload New Image"
+                    onChange={uploadImage}
+                />
+                <br />
+                <div>
+                    <button type='submit' className='button'>Save</button>
+                </div>
+            </form>
+        </section>
 
 
     )

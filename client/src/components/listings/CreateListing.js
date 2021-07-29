@@ -4,6 +4,7 @@ import { ListingsContext } from '../../context/ListingsContext';
 import { AuthContext } from '../../context/AuthContext';
 import { useHistory } from 'react-router';
 import './style/EditListing.css';
+import { BeatLoader } from "react-spinners";
 
 const CreateListing = () => {
     const { token } = useContext(AuthContext);
@@ -19,6 +20,7 @@ const CreateListing = () => {
         "pricePerDay": '',
     }
     const [newListing, setNewListing] = useState(emptyListing);
+    const [loading, setLoading] = useState(false);
 
     const fetchData = useCallback(
         async () => {
@@ -66,12 +68,16 @@ const CreateListing = () => {
         const data = new FormData();
         data.append("file", files[0]);
         data.append("upload_preset", "rentify");
+        setLoading(true);
+
         const res = await fetch(
             "https://api.cloudinary.com/v1_1/ddenalelw/image/upload",
             { method: "POST", body: data }
         );
         const file = await res.json();
         setImage(file.secure_url);
+        setLoading(false);
+
     };
 
     const handleSubmit = async (e) => {
@@ -103,7 +109,7 @@ const CreateListing = () => {
                     className='add-listing__select'
                     name='c_id'
                     onChange={newListingInput}
-                    value={newListing.c_id}>
+                    value={newListing.c_id || ''}>
                     {categories && categories.map(a =>
                         <option value={a.c_id} key={a.c_id}>
                             {a.category}
@@ -115,7 +121,7 @@ const CreateListing = () => {
                 <input
                     type='text'
                     name='title'
-                    value={newListing.title}
+                    value={newListing.title || ''}
                     onChange={newListingInput}
                     className='add-listing__input'
                     autoComplete='off'
@@ -126,7 +132,7 @@ const CreateListing = () => {
                 <input
                     type='text'
                     name='location'
-                    value={newListing.location}
+                    value={newListing.location || ''}
                     onChange={newListingInput}
                     className='add-listing__input'
                     autoComplete='off'
@@ -135,7 +141,7 @@ const CreateListing = () => {
                 <label htmlFor='description' className='add-listing__label'>Description</label>
                 <textarea
                     name='description'
-                    value={newListing.description}
+                    value={newListing.description || ''}
                     onChange={newListingInput}
                     className='add-listing__textarea'
                     required="required"
@@ -145,7 +151,7 @@ const CreateListing = () => {
                 <input
                     type='number'
                     name='pricePerDay'
-                    value={newListing.pricePerDay}
+                    value={newListing.pricePerDay || ''}
                     onChange={newListingInput}
                     className='add-listing__input'
                     autoComplete='off'
@@ -153,6 +159,9 @@ const CreateListing = () => {
                 />
                 <br />
                 <p className='add-listing__label'>Upload an image</p>
+                {loading ? (
+                    <BeatLoader size={20} color="green" />
+                ) : (image && <><img src={image} alt={image} style={{ width: "300px" }} /><br /></>)}
                 {image && <><img src={image} alt={image} style={{ width: "300px" }} /><br /></>}
                 <input
                     type="file"

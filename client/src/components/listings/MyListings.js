@@ -33,7 +33,7 @@ const MyListings = () => {
     const deleteListing = async (id) => {
         await axios.delete(`http://localhost:5000/api/listings/${id}`);
         // setMyListings(res.data);
-        // temporary fix to update state
+        // temporary fix to update state!!!!!!
         const res = await axios.get('http://localhost:5000/api/listings/user', {
             headers: {
                 Authorization: 'Bearer ' + token,
