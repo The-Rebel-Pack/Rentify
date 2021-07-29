@@ -37,7 +37,7 @@ const MyListings = () => {
 
     const handleDelete = (id) => {
         deleteListing(id);
-        history.push('/listings/profile')
+        history.push('/profile')
     }
 
     return (
