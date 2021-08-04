@@ -3,15 +3,16 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const credentials = {
-  "user": process.env.DB_USER,
-  "host": process.env.DB_HOST,
-  "database": process.env.DB_DATABASE,
-  "password": process.env.DB_PASSWORD,
-  "port": process.env.DB_PORT
-}
 
-const pool = new Pool(credentials);
+const databaseConfig = {
+  connectionString: process.env.DB_ELEPHANTSQL_URL,
+  max: 20,
+  idleTimeoutMillis: 1000,
+  connectionTimeoutMillis: 1000,
+  maxUses: 7500
+};
+
+const pool = new Pool(databaseConfig);
 
 module.exports = {
   query: (text, params) => {
