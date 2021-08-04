@@ -40,7 +40,7 @@ const Login = () => {
       }
       )
       .catch((err) => {
-        setAuth(false);
+        console.log(err);
       })
   };
 
