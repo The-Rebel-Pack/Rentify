@@ -15,6 +15,7 @@ Project is created with:
 * PostgreSQL
 * React
 * Firebase
+* Google Cloud Run
 	
 ## Setup
 First, make sure that you have Docker installed.
