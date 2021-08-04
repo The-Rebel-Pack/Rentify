@@ -1,10 +1,12 @@
+# Rentify
+
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
 
 ## General info
-A platform where you can rent anything from your peers. Build as a full stack application.
+A platform where you can rent anything from your peers. Built as a full stack application.
 	
 ## Technologies
 Project is created with:
