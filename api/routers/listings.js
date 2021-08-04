@@ -16,7 +16,7 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/categories', async (req, res, next) => {
-  const rows = await getAllCategories();
+  const rows = await getAllCategories(next);
   if (rows[0]) {
     return res
       .status(200)

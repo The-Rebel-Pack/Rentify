@@ -1,21 +1,6 @@
 version: '3.9'
 
 services:
-  # api:
-  #   build: ./api
-  #   ports:
-  #     - '5000:5000'
-  # client:
-  #   build: ./client
-  #   environment:
-  #     CHOKIDAR_USEPOLLING: "true"
-  #   volumes:
-  #     - /app/node_modules
-  #     - ./client:/app
-  #   ports:
-  #     - '3000:300l0'
-  #   depends_on: 
-  #     - api
   db:
     image: 'postgres'
     environment:
@@ -23,7 +8,6 @@ services:
       POSTGRES_USER: 'docker'
     volumes:
       - data:/var/lib/postgresql/data
-    # ports needed for db scripts (knex)
     ports: 
       - '5432:5432'
 
