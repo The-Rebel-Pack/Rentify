@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { ListingsContext } from '../../context/ListingsContext';
 import { QueryContext } from '../../context/QueryContext';
 import Categories from './Categories';

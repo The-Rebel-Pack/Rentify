@@ -28,7 +28,6 @@ app.get('/db/reset', async (req, res, next) => {
 
 
 app.get('/api/protectedroute', middleware.decodeToken, (req, res) => {
-  console.log(req.user)
   return res.json({ message: "this is a protected route, needs authorization token in header" });
 });
 
@@ -41,7 +40,6 @@ app.use(function (req, res, next) {
 });
 
 app.use(function (err, req, res, next) {
-  console.log('Error:', err.status, err.message);
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   res.status(err.status || 500);

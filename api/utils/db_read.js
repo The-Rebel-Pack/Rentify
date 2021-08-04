@@ -7,7 +7,6 @@ const getAllUsers = async (next) => {
   try {
     const usersGetList = await fs.readFile('./sql/users_get_list.sql');
     const res = await db.query(usersGetList.toString());
-    if (res) console.log(`Got ${res.rowCount} users`);
     return res.rows;
   } catch (err) {
     return next(err);

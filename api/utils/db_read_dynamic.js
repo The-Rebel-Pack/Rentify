@@ -39,22 +39,17 @@ const getListings = async (query) => {
         getListingsStr = dynamicSearchSql(searchArray, getListingsStr);
       }
       getListingsStr = dynamicCatsSql(catsArray, getListingsStr, searchTerms)
-      // console.log(getListingsStr);
       const res = await db.query(getListingsStr, [page, ...searchArray, ...catsArray]);
-      console.log(`Got ${res.rowCount} listings from search "${search}" and/or categories "${catsArray}"`);
       return addPagination(res.rows, query);
     }
     if (searchTerms) {
       getListingsStr = getListingsStr.replace('l.c_id = $2', '');
       getListingsStr = dynamicSearchSql(searchArray, getListingsStr);
-      // console.log(getListingsStr);
       const res = await db.query(getListingsStr, [page, ...searchArray]);
-      console.log(`Got ${res.rowCount} listings from search "${search}"`);
       return addPagination(res.rows, query);
     }
     const getListingsSql = await fs.readFile('./sql/listings_get_list.sql');
     const res = await db.query(getListingsSql.toString(), [page]);
-    console.log(`Got ${res.rowCount} listings`);
     return addPagination(res.rows, query);
   } catch (err) {
     console.error(err.message || err);

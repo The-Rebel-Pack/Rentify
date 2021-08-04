@@ -43,7 +43,7 @@ const Categories = () => {
             }
             setCategories(newStatusCategories);
         },
-        [setCategories],
+        [setCategories, location],
     );
 
     useEffect(() => {
@@ -68,7 +68,7 @@ const Categories = () => {
                             <input
                                 type="checkbox"
                                 name={c.category}
-                                onChange={() => console.log('Checkbox clicked')}
+                                onChange={() => handleChange(idx)}
                                 checked={c.checked || false}
                                 className='categories__checkbox'
                             />

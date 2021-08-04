@@ -5,10 +5,8 @@ const createHttpError = (code, message) => {
 };
 
 const validateNewUser = (userInput) => {
-  console.log(userInput)
   const { name, email, id } = userInput;
   const userDetails = {};
-  // first time we guess the first and last name
   const firstName = name.match(/([^\s]*)/);
   const lastNames = name.match(/\s(.*)/);
   userDetails.u_id = id;
@@ -28,7 +26,6 @@ const validateUser = (id, userInput) => {
   userDetails.first_name = first_name;
   userDetails.last_name = last_name;
   userDetails.u_details = JSON.stringify(details);
-  console.log(userDetails);
   return userDetails;
 }
 
@@ -57,7 +54,6 @@ const validateListing = (userInput) => {
   listingDetails.details = JSON.stringify(details);
   listingDetails.price = JSON.stringify(price);
   listingDetails.u_id = u_id;
-  console.log({ listingDetails });
   return listingDetails;
 }
 

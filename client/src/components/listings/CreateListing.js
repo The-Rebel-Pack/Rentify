@@ -45,7 +45,6 @@ const CreateListing = () => {
 
     const postData = async (listing) => {
         try {
-            // console.log('Triggered post listing: ', listing)
             const res = await axios({
                 method: 'POST',
                 url: 'http://localhost:5000/api/listings',
@@ -96,8 +95,6 @@ const CreateListing = () => {
         if (res.status === 201) {
             setNewListing(emptyListing);
             history.push('/profile')
-        } else {
-            console.log('Post not inserted', res);
         }
     };
 

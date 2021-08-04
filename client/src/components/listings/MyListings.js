@@ -1,5 +1,4 @@
-import React, { useEffect, useCallback, useContext, useState } from 'react';
-import { Link, useHistory } from "react-router-dom";
+import React, { useEffect, useCallback, useContext } from 'react';
 import axios from 'axios';
 import './style/Listings.css';
 import { AuthContext } from '../../context/AuthContext';
@@ -9,8 +8,6 @@ import Listing from './Listing';
 const MyListings = () => {
     const { token } = useContext(AuthContext);
     const { myListings, setMyListings } = useContext(ListingsContext);
-
-    const history = useHistory();
 
     const fetchData = useCallback(
         async () => {
@@ -32,20 +29,16 @@ const MyListings = () => {
 
     const deleteListing = async (id) => {
         await axios.delete(`http://localhost:5000/api/listings/${id}`);
-        // setMyListings(res.data);
-        // temporary fix to update state!!!!!!
         const res = await axios.get('http://localhost:5000/api/listings/user', {
             headers: {
                 Authorization: 'Bearer ' + token,
             }
         });
-        // console.log(res)
         setMyListings(res.data.listings);
     }
 
     const handleDelete = (id) => {
         deleteListing(id);
-        // history.push('/profile');
     }
 
     return (

@@ -26,9 +26,8 @@ const Login = () => {
       .then( async (userCred) => {
         if (userCred) {
           setAuth(true);
-          // console.log(userCred);
           window.localStorage.setItem('auth', 'true');
-          const response = await axios({
+          await axios({
             method: 'POST',
             url: 'http://localhost:5000/api/users',
             data: {
@@ -37,12 +36,11 @@ const Login = () => {
               "name": userCred.user.displayName
             },
           });
-          console.log(response);
         }
       }
       )
       .catch((err) => {
-        console.log(err.message)
+        setAuth(false);
       })
   };
 

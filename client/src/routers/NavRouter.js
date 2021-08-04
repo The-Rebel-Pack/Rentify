@@ -10,7 +10,6 @@ import Listings from '../components/listings/Listings';
 import DetailedListing from '../components/listings/DetailedListing';
 import CreateListing from '../components/listings/CreateListing';
 import EditListing from '../components/listings/EditListing';
-import MyListings from '../components/listings/MyListings';
 
 const NavRouter = (props) => {
 

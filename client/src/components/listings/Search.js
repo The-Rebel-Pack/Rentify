@@ -113,7 +113,7 @@ const Search = () => {
 
     useEffect(() => {
         history.push(createQueries());
-    }, [createQueries, queryPage])
+    }, [createQueries, queryPage, history])
 
     useEffect(() => {
         setQueryCategories(createCategoriesValue())

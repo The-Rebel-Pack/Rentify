@@ -8,7 +8,6 @@ const { addListing, editListing } = require('../utils/db_create');
 const { validateListing } = require('../utils/validation');
 
 router.get('/', async (req, res, next) => {
-  // console.log(req.user);
   const result = await getListings(req.query);
   return res
     .status(200)
@@ -28,7 +27,6 @@ router.get('/categories', async (req, res, next) => {
 });
 
 router.get('/user/:id', async (req, res, next) => {
-  // admin only
   const uid = req.params.id;
   const rows = await getListingsByOwner(uid, next);
   if (rows) {
@@ -44,7 +42,6 @@ router.get('/user/:id', async (req, res, next) => {
 router.get('/user', middleware.decodeToken, async (req, res, next) => {
   if (req.user && req.user.uid) {
     const uid = req.user.uid;
-    // console.log(uid);
     const result = await getListingsByOwner(uid, next);
     return res
       .status(200)
@@ -83,7 +80,6 @@ router.post('/:id', middleware.decodeToken, async (req, res, next) => {
 
 router.post('/', middleware.decodeToken, async (req, res, next) => {
   const uid = req.user.uid;
-  //console.log('incoming post:', req.body);
   try {
     const listingDetails = validateListing({ ...req.body, u_id: uid });
     const rows = await addListing(listingDetails);
