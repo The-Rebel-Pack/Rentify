@@ -12,25 +12,15 @@ A platform where you can rent anything from your peers. Built as a full stack ap
 Project is created with:
 * Node.js
 * Express.js
+* ElephantSQL
 * PostgreSQL
 * React
 * Firebase
-* Google Cloud Run
 	
 ## Setup
 First, make sure that you have Docker installed.
 
 Prepare the projects .env files:
-
-Create .env in root folder
-```
-$ touch .env
-```
-Add the following and insert your own values:
-```
-POSTGRES_PASSWORD=<password to postgres>
-POSTGRES_USER=<user to postgres>
-```
 
 Create .env in client folder
 ```
@@ -65,11 +55,7 @@ FIREBASE_AUTH_URI=https://accounts.google.com/o/oauth2/auth
 FIREBASE_TOKEN_URI=https://oauth2.googleapis.com/token
 FIREBASE_AUTH_PROVIDER_X509_CERT_URL=https://www.googleapis.com/oauth2/v1/certs
 FIREBASE_CLIENT_X509_CERT_URL=<firebase client x509 cert URL>
-DB_USER=<docker user>
-DB_HOST=<databases host>
-DB_DATABASE=<database name>
-DB_PASSWORD=<database password>
-DB_PORT=<database port>
+DB_ELEPHANTSQL_URL=<elephant db connection string>
 ```
 
 Run Docker on you computer.
@@ -79,14 +65,4 @@ To run this project, install it locally using npm:
 In terminal
 ```
 $ docker-compose up --build -d
-$ cd client
-$ npm install
-$ npm start
-```
-
-In a new terminal
-```
-$ cd api
-$ npm install
-$ npm start
 ```
