@@ -55,12 +55,12 @@ FIREBASE_AUTH_URI=https://accounts.google.com/o/oauth2/auth
 FIREBASE_TOKEN_URI=https://oauth2.googleapis.com/token
 FIREBASE_AUTH_PROVIDER_X509_CERT_URL=https://www.googleapis.com/oauth2/v1/certs
 FIREBASE_CLIENT_X509_CERT_URL=<firebase client x509 cert URL>
-DB_ELEPHANTSQL_URL=<elephant db connection string>
+DB_ELEPHANTSQL_URL=<ElephantSQL database connection string>
 ```
 
 Run Docker on you computer.
 
-To run this project, install it locally using npm:
+Run the Docker-compose to run the project locally
 
 In terminal
 ```
