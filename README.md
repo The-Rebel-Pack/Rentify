@@ -27,7 +27,7 @@ Create .env in client folder
 $ cd client/
 $ touch .env
 ```
-Add the following and insert your own values:
+Inside "../client/.env", add the following and insert your own values:
 ```
 REACT_APP_FIREBASE_APIKEY=<firebase API key>
 REACT_APP_FIREBASE_AUTHDOMAIN=<firebase auth domain>
@@ -43,7 +43,7 @@ Create .env in api folder
 $ cd ../api/
 $ touch .env
 ```
-Add the following and insert your own values:
+Inside "../api/.env", add the following and insert your own values:
 ```
 FIREBASE_TYPE=service_account
 FIREBASE_PROJECT_ID=<firebase project id>
