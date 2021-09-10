@@ -7,6 +7,9 @@
 
 ## General info
 A platform where you can rent anything from your peers. Built as a full stack application.
+
+## Live Demo
+https://wizardly-neumann-71b19c.netlify.app/
 	
 ## Technologies
 Project is created with:
