@@ -11,7 +11,7 @@ const MyListings = () => {
 
     const fetchData = useCallback(
         async () => {
-            const res = await axios.get('http://localhost:5000/api/listings/user', {
+            const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/listings/user`, {
                 headers: {
                     Authorization: 'Bearer ' + token,
                 }
@@ -28,8 +28,8 @@ const MyListings = () => {
     }, [token, fetchData]);
 
     const deleteListing = async (id) => {
-        await axios.delete(`http://localhost:5000/api/listings/${id}`);
-        const res = await axios.get('http://localhost:5000/api/listings/user', {
+        await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/listings/${id}`);
+        const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/listings/user`, {
             headers: {
                 Authorization: 'Bearer ' + token,
             }

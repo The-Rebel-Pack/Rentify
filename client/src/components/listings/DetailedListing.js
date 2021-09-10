@@ -15,7 +15,7 @@ const DetailedListing = () => {
 
     const fetchData = useCallback(
         async () => {
-            const res = await axios.get(`http://localhost:5000/api/listings/${id}`);
+            const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/listings/${id}`);
             setDetailListings(res.data[0]);
         },
         [setDetailListings, id],

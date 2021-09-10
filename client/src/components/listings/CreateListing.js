@@ -33,7 +33,7 @@ const CreateListing = () => {
 
     const fetchData = useCallback(
         async () => {
-            const resCat = await axios.get('http://localhost:5000/api/listings/categories');
+            const resCat = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/listings/categories`);
             setCategories(resCat.data);
         },
         [setCategories],
@@ -47,7 +47,7 @@ const CreateListing = () => {
         try {
             const res = await axios({
                 method: 'POST',
-                url: 'http://localhost:5000/api/listings',
+                url: `${process.env.REACT_APP_API_BASE_URL}/api/listings`,
                 headers: {
                     Authorization: 'Bearer ' + token,
                 },

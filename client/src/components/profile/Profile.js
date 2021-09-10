@@ -12,7 +12,7 @@ const Profile = () => {
 
     const fetchData = useCallback(
         async (token) => {
-            const res = await axios.get('http://localhost:5000/api/users/unique', {
+            const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/unique`, {
                 headers: {
                     Authorization: 'Bearer ' + token,
                 }

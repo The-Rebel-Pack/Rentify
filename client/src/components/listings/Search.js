@@ -102,7 +102,7 @@ const Search = () => {
     useEffect(() => {
         const fetchListings = async () => {
             const allParams = createQueries();
-            const res = await axios.get(`http://localhost:5000/api/listings${allParams}`);
+            const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/listings${allParams}`);
             setListings(res.data.listings);
             setTotalPages(res.data.total_pages);
             setCurrentPage(res.data.current_page);

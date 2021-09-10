@@ -21,7 +21,7 @@ const Categories = () => {
                 ? searchParams.categories.split(',').map(c => parseInt(c))
                 : null;
 
-            const res = await axios.get('http://localhost:5000/api/listings/categories');
+            const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/listings/categories`);
             const withCheckStatus = res.data.map((c) => (
                 {
                     ...c,

@@ -30,7 +30,7 @@ const EditListing = () => {
 
     const fetchCategoryData = useCallback(
         async () => {
-            const resCat = await axios.get('http://localhost:5000/api/listings/categories');
+            const resCat = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/listings/categories`);
             setCategories(resCat.data);
         },
         [setCategories],
@@ -42,7 +42,7 @@ const EditListing = () => {
 
     const fetchData = useCallback(
         async () => {
-            const res = await axios.get(`http://localhost:5000/api/listings/${id}`, {
+            const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/listings/${id}`, {
                 headers: {
                     Authorization: 'Bearer ' + token,
                 }
@@ -76,7 +76,7 @@ const EditListing = () => {
         try {
             const res = await axios({
                 method: 'POST',
-                url: `http://localhost:5000/api/listings/${id}`,
+                url: `${process.env.REACT_APP_API_BASE_URL}/api/listings/${id}`,
                 headers: {
                     Authorization: 'Bearer ' + token,
                 },

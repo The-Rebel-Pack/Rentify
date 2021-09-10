@@ -36,6 +36,7 @@ REACT_APP_FIREBASE_PROJECTID=<firebase project id>
 REACT_APP_FIREBASE_STORAGEBUCKET=<firebase storage bucket>
 REACT_APP_FIREBASE_MESSAGINGSENDERID=<firebase messaging sender id>
 REACT_APP_FIREBASE_APPID=<firebase app id>
+REACT_APP_API_BASE_URL=http://localhost:5000 or <api base url for production>
 ```
 
 Create .env in api folder
