@@ -29,7 +29,7 @@ const Login = () => {
           window.localStorage.setItem('auth', 'true');
           await axios({
             method: 'POST',
-            url: 'http://localhost:5000/api/users',
+            url: `${process.env.REACT_APP_API_BASE_URL}/api/users`,
             data: {
               "id": userCred.user.uid,
               "email": userCred.user.email,
