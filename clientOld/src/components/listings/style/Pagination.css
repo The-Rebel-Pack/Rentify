@@ -1,0 +1,27 @@
+.pagination {
+  display: block;
+  margin-top: 1rem;
+  width: 100%;
+  text-align: center;
+}
+
+.pagination__button {
+  width: 30px;
+  height: 30px;
+  margin: 2px;
+  padding: 0px 0px 1px 2px;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  border-radius: 50%;
+  font-size: .85rem;
+  background: var(--light-color);
+}
+
+.pagination__button:hover {
+  background: var(--primary-color-more-lighter);
+}
+
+.pagination__button--current {
+  background: var(--primary-color);
+  color: white;
+}

@@ -1,0 +1,16 @@
+.footer {
+  font-size: .9rem;
+  background: var(--primary-color-more-lighter) url(https://images.unsplash.com/photo-1506784693919-ef06d93c28d2?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fGdyZWVufGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60) no-repeat center center fixed;
+  background-size: cover;
+  padding: 1rem 1rem 10rem;
+  margin: 2rem -1rem -1rem;
+}
+
+.footer,
+.footer a {
+  color: var(--font-color-meta);
+}
+
+.footer__title {
+  font-weight: var(--font-weight-light);
+}

@@ -1,0 +1,16 @@
+.add-listing__input,
+.add-listing__select,
+textarea {
+  width: 100%;
+  margin-bottom: .5rem;
+  padding: .5rem;
+  border: #8F9E8B solid 1px;
+  border-radius: 0.25rem;
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.add-listing__input:focus {
+  border: #5B7876 solid 2px;
+  outline: none;
+}
