@@ -1,13 +1,8 @@
-import React from 'react';
-import Footer from './components/footer/Footer';
-import Nav from './components/navigation/Nav';
-
-const App = () => {
+function App() {
   return (
-    <main className="app__main">
-      <Nav />
-      <Footer />
-    </main>
+    <div className="App">
+      <h1>Rentify 2.0</h1>
+    </div>
   );
 }
 
