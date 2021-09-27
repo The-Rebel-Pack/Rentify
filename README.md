@@ -70,3 +70,9 @@ In terminal
 ```
 $ docker-compose up --build -d
 ```
+
+It will now run on http://localhost:3000
+
+But before you get started, you should populate the database by running http://localhost:5000/db/reset
+
+Now try to visit http://localhost:3000 again
