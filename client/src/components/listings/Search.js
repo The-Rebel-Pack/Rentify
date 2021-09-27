@@ -6,12 +6,15 @@ import useDebounce from './useDebounce';
 import './style/Search.css'
 import { FaSearch } from 'react-icons/fa';
 import { QueryContext } from '../../context/QueryContext';
+import { updateStateObject } from '../../utils/updateStateObject';
 
 const Search = () => {
     let history = useHistory();
 
     const { categories, setListings } = useContext(ListingsContext);
     const {
+        query,
+        setQuery,
         setFullCount,
         setTotalPages,
         setCurrentPage,
@@ -107,6 +110,8 @@ const Search = () => {
             setTotalPages(res.data.total_pages);
             setCurrentPage(res.data.current_page);
             setFullCount(res.data.full_count);
+            updateStateObject(setQuery, 'testkey', '1')
+            updateStateObject(setQuery, 'anotherkey', '2')
         }
         fetchListings(debounceSearch);
     }, [categories, queryPage, debounceSearch, debounceCategory, setListings, setFullCount, createQueries, setCurrentPage, setTotalPages]);
@@ -130,7 +135,7 @@ const Search = () => {
                     id="search"
                     value={querySearch || ''}
                     type="text"
-                    onChange={(e) => setQuerySearch(e.target.value)}
+                    onChange={(e) => updateStateObject(setQuery, 'search', e.target.value)}
                     autoComplete='off'
                     placeholder='Start your search'
                     className='search__input'

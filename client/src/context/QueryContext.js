@@ -3,13 +3,20 @@ import React, { createContext, useState } from 'react'
 export const QueryContext = createContext();
 
 const QueryContextProvider = (props) => {
+    const [query, setQuery] = useState({
+        fullCount: '',
+        totalPages: '',
+        currentPage: '',
+        getPage: '',
+        categories: '',
+        search: ''
+    })
     const [fullCount, setFullCount] = useState('')
     const [totalPages, setTotalPages] = useState('');
     const [currentPage, setCurrentPage] = useState('');
     const [queryPage, setQueryPage] = useState('');
     const [queryCategories, setQueryCategories] = useState('')
     const [querySearch, setQuerySearch] = useState('');
-
 
     const value = {
         fullCount,
@@ -23,7 +30,9 @@ const QueryContextProvider = (props) => {
         queryCategories,
         setQueryCategories,
         querySearch,
-        setQuerySearch
+        setQuerySearch,
+        query,
+        setQuery
     }
 
     return (
