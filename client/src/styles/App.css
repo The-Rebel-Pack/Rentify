@@ -1,0 +1,66 @@
+.button {
+  padding: .75rem;
+  border-radius: 0.25rem;
+  background: var(--secondary-color);
+  color: white;
+  font-size: .75rem;
+  letter-spacing: .07rem;
+  text-transform: uppercase;
+  margin-right: .5rem;
+}
+
+.button--delete {
+  background: var(--font-color);
+}
+
+.button--icon {
+  width: 40px;
+  height: 40px;
+  margin: 2px;
+  padding: 4px 0px 0 0;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  background: var(--primary-color);
+}
+
+.button:focus {
+  border: var(--secondary-color) solid 1px;
+  outline: none;
+  background: var(--primary-color-lighter);
+}
+
+.button:hover {
+  background: var(--secondary-color-lighter);
+}
+
+.button--delete:hover {
+  background: var(--font-color-meta);
+}
+
+.button--icon:hover {
+  background: var(--primary-color-lighter);
+}
+
+.button--icon:last-child {
+  margin-right: 0;
+}
+
+.section__title {
+  font-weight: var(--font-light);
+  font-size: 2.5rem;
+  line-height: 2.6rem;
+  margin-bottom: 1rem;
+}
+
+.section__sub-title {
+  font-weight: var(--font-light);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  margin-top: .5rem;
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}

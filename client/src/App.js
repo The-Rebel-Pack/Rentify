@@ -1,29 +1,46 @@
 import React, { useContext, useEffect } from 'react';
-import axios from 'axios';
-import config from './config';
 import { ListingsContext } from './contexts/ListingsContext';
-import { Listings } from './components/listings/Listings';
+import { QueryContext } from './contexts/QueryContext';
 
-
+import { Header } from "./components/header/Header";
+import MainContent from './routers/Router';
+import { Footer } from "./components/footer/Footer";
+import requestListings from './utils/requestListings';
+import requestCategories from './utils/requestCategories';
 
 function App() {
-  const { setListings } = useContext(ListingsContext);
+  const { setListings, setListingStats, setCategories } = useContext(ListingsContext);
+  const { query } = useContext(QueryContext);
 
-  const getListings = async () => {
-    const res = await axios.get(`${config.apiUrl}/api/listings`);
-    console.log(res.data.listings)
-    return setListings(res.data.listings)
-  };
+  useEffect(() => {
+    const loadListings = async (query) => {
+      const data = await requestListings(query);
+      setListingStats({
+        fullCount: data.full_count,
+        totalPages: data.total_pages,
+        currentPage: data.current_page
+      })
+      return setListings(data.listings);
+    }
 
+    loadListings(query);
 
-useEffect(() => {
-  getListings();
-}, [])
+  }, [query, setListingStats, setListings])
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      const data = await requestCategories();
+      return setCategories(data)
+    }
+
+    loadCategories();
+  }, [setCategories])
 
   return (
     <div className="App">
-      <h1>Rentify 2.0</h1>
-      <Listings/>
+      <Header />
+      <MainContent />
+      <Footer />
     </div>
   );
 }
