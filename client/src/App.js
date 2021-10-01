@@ -19,22 +19,23 @@ function App() {
 
   useEffect(() => {
     const strippedQuery = Object.entries(query).reduce((a, [k, v]) => (v && v.length > 0 ? (a[k] = v, a) : a), {});
-    history.push('?' + new URLSearchParams(strippedQuery).toString());
+    if(strippedQuery.hasOwnProperty('categories') || strippedQuery.hasOwnProperty('page') || strippedQuery.hasOwnProperty('search')) {
+      console.log('push this',strippedQuery)
+      history.push('?' + new URLSearchParams(strippedQuery).toString());
+    }
   }, [query, history]);
 
   useEffect(() => {
     const loadListings = async (query) => {
 
-      // let requestobject;
-      // if (location.search) {
-      //   console.log('ta gamla');
-      //   requestobject = location.search;
-      // } else {
-      //   console.log('gör ny');
-      //   requestobject = convertQueryObject(query);
-      // }
+      let requestobject;
+      if (location.search) {
+        requestobject = location.search;
+      } else {
+        requestobject = queryObjectToString(query);
+      }
 
-      const data = await requestListings(queryObjectToString(query));
+      const data = await requestListings(requestobject);
 
       setListingStats({
         fullCount: data.full_count,

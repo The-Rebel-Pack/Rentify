@@ -1,10 +1,10 @@
+import './Listings.css';
 import React, { useContext } from 'react';
 import { ListingsContext } from '../../contexts/ListingsContext';
 import Listing from './Listing';
 import ListingsTitle from './ListingsTitle';
 import Categories from '../filter/Categories';
 import Pagination from '../pagination/Pagination';
-import './Listings.css';
 
 const Listings = () => {
   const { listings } = useContext(ListingsContext);
