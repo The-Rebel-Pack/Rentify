@@ -15,6 +15,7 @@ const Category = ({ category, id, isSelected }) => {
       }
       return {
         ...prevState,
+        page: '',
         categories: newCategories
       }
     });

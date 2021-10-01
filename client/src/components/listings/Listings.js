@@ -1,8 +1,9 @@
-import React, { useContext, } from 'react';
+import React, { useContext } from 'react';
 import { ListingsContext } from '../../contexts/ListingsContext';
 import Listing from './Listing';
 import ListingsTitle from './ListingsTitle';
 import Categories from '../filter/Categories';
+import Pagination from '../pagination/Pagination';
 import './Listings.css';
 
 const Listings = () => {
@@ -19,6 +20,7 @@ const Listings = () => {
           <Listing key={listing.l_id} listing={listing} />
         ))}
       </section>
+      <Pagination />
     </section>
   );
 };
