@@ -11,8 +11,7 @@ const Category = ({ category, id, isSelected }) => {
       if (prevCategories && prevCategories.find((cat) => cat === id)) {
         newCategories = prevCategories.filter((cat) => cat !== id);
       } else {
-        newCategories = prevCategories;
-        newCategories.push(id);
+        newCategories = [...prevCategories, id];
       }
       return {
         ...prevState,

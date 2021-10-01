@@ -7,7 +7,7 @@ import {
 
 import Listings from '../components/listings/Listings';
 
-const MainContent = (props) => {
+const ContentRouter = (props) => {
 
   return (
     <Router>
@@ -33,4 +33,4 @@ const MainContent = (props) => {
   )
 }
 
-export default MainContent;
+export default ContentRouter;

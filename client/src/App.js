@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { ListingsContext } from './contexts/ListingsContext';
 import { QueryContext } from './contexts/QueryContext';
 
-import { Header } from "./components/header/Header";
+import Header from "./components/header/Header";
 import MainContent from './routers/Router';
 import { Footer } from "./components/footer/Footer";
 import requestListings from './utils/requestListings';
@@ -37,11 +37,11 @@ function App() {
   }, [setCategories])
 
   return (
-    <div className="App">
+    <main className="app__main">
       <Header />
       <MainContent />
       <Footer />
-    </div>
+    </main>
   );
 }
 

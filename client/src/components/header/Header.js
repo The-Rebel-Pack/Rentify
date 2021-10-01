@@ -1,9 +1,15 @@
 import React from 'react'
+import Navigation from './Navigation';
+import Search from '../search/Search';
+import './Header.css';
 
-export const Header = () => {
+const Header = () => {
   return (
-    <div>
-      Rentify 2.0 Header
-    </div>
+    <header className='header'>
+      <Navigation />
+      <Search />
+    </header>
   )
 }
+
+export default Header
