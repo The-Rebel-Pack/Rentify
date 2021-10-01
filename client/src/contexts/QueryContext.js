@@ -4,7 +4,8 @@ export const QueryContext = createContext();
 
 const QueryContextProvider = ({ children }) => {
   const [query, setQuery] = useState({
-    categories: []
+    categories: [],
+    search: '',
   });
   return (
     <QueryContext.Provider value={{ query, setQuery }}>

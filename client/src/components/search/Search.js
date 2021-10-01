@@ -16,12 +16,14 @@ const Search = () => {
   };
 
   useEffect(() => {
-    return setQuery(prevState => ({
-      ...prevState,
-      page: '',
-      search: debouncedSearchTerm || ''
-    }));
-  }, [debouncedSearchTerm]);
+    if (query.search !== debouncedSearchTerm) {
+      return setQuery(prevState => ({
+        ...prevState,
+        page: '',
+        search: debouncedSearchTerm || ''
+      }))
+    };
+  }, [debouncedSearchTerm, setQuery, query]);
 
   return (
     <div className='search'>
