@@ -6,7 +6,7 @@ import './Search.css';
 
 const Search = () => {
   const { query, setQuery } = useContext(QueryContext);
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState(query.search);
 
   const debouncedSearchTerm = useDebounce(searchInput, 200);
 
@@ -21,7 +21,7 @@ const Search = () => {
         ...prevState,
         page: '',
         search: debouncedSearchTerm || ''
-      }))
+      }));
     };
   }, [debouncedSearchTerm, setQuery, query]);
 

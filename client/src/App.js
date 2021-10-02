@@ -18,25 +18,17 @@ function App() {
   let location = useLocation();
 
   useEffect(() => {
+    let newParams = '';
     const strippedQuery = Object.entries(query).reduce((a, [k, v]) => (v && v.length > 0 ? (a[k] = v, a) : a), {});
-    if(strippedQuery.hasOwnProperty('categories') || strippedQuery.hasOwnProperty('page') || strippedQuery.hasOwnProperty('search')) {
-      console.log('push this',strippedQuery)
-      history.push('?' + new URLSearchParams(strippedQuery).toString());
+    if (strippedQuery.hasOwnProperty('categories') || strippedQuery.hasOwnProperty('page') || strippedQuery.hasOwnProperty('search')) {
+      newParams = '?' + new URLSearchParams(strippedQuery).toString();
     }
-  }, [query, history]);
+    if (location.search !== newParams) history.push(newParams);
+  }, [query, history, location]);
 
   useEffect(() => {
     const loadListings = async (query) => {
-
-      let requestobject;
-      if (location.search) {
-        requestobject = location.search;
-      } else {
-        requestobject = queryObjectToString(query);
-      }
-
-      const data = await requestListings(requestobject);
-
+      const data = await requestListings(queryObjectToString(query));
       setListingStats({
         fullCount: data.full_count,
         totalPages: data.total_pages,
@@ -44,7 +36,6 @@ function App() {
       });
       return setListings(data.listings);
     };
-
     loadListings(query);
   }, [query, setListingStats, setListings]);
 
@@ -53,7 +44,6 @@ function App() {
       const data = await requestCategories();
       return setCategories(data);
     };
-
     loadCategories();
   }, [setCategories]);
 

@@ -1,9 +1,15 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react';
 import { QueryContext } from '../../contexts/QueryContext';
-// import { updateStateObject } from '../../utils/updateStateObject';
 
-const Category = ({ category, id, isSelected }) => {
-  const { setQuery } = useContext(QueryContext);
+const Category = ({ category, id }) => {
+
+  const { query, setQuery } = useContext(QueryContext);
+  const [isSelected, setIsSelected] = useState(query.categories.includes(id));
+
+  useEffect(() => {
+    setIsSelected(query.categories.includes(id));
+  }, [query, id]);
+
   const toggleCategory = (id) => {
     setQuery(prevState => {
       const prevCategories = prevState.categories;
@@ -17,16 +23,16 @@ const Category = ({ category, id, isSelected }) => {
         ...prevState,
         page: '',
         categories: newCategories
-      }
+      };
     });
-    // updateStateObject(setQuery, 'categories', id);
-  }
+  };
+
   const classes = `categories__label${isSelected ? ' categories__label--selected' : ''}`;
   return (
     <li className={classes} onClick={() => toggleCategory(id)}>
       {category}
     </li>
-  )
-}
+  );
+};
 
-export default Category
+export default Category;
