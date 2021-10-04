@@ -18,7 +18,7 @@ const ListingsTitle = () => {
       {listingStats.fullCount > 1 &&
         <>Found {listingStats.fullCount} listings</>
       }
-      {query && query.search &&
+      {/* {query && query.search &&
         <> containing "{query.search}"</>
       }
       {categories.length > 0 && query && query.categories.length > 0 &&
@@ -26,7 +26,7 @@ const ListingsTitle = () => {
           const cat = categories.find((cat) => cat.c_id === c_id);
           return cat.category;
         }).join(', ')}</>
-      }
+      } */}
     </h2>
   );
 };

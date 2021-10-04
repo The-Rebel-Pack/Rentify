@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useRef, useEffect } from 'react';
 import { useLocation } from "react-router-dom";
 import queryStringToObject from '../utils/queryStringToObject';
 
@@ -22,8 +22,14 @@ const QueryContextProvider = ({ children }) => {
     page: locationObject?.page ? locationObject.page : 1,
   });
 
+  const queryParams = useRef({})
+
+  useEffect(() => {
+    queryParams.current = new URLSearchParams(location.search).get("search");
+  }, [location.search])
+
   return (
-    <QueryContext.Provider value={{ query, setQuery }}>
+    <QueryContext.Provider value={{ query, setQuery, queryParams }}>
       {children}
     </QueryContext.Provider>
   );
