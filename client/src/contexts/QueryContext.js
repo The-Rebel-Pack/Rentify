@@ -22,7 +22,15 @@ const QueryContextProvider = ({ children }) => {
     page: locationObject?.page ? locationObject.page : 1,
   });
 
-  const queryParams = useRef({})
+  const queryParams = useRef({
+    search: "",
+    categories: []
+  })
+
+  // queryParams.current = {
+  //   ...queryParams.current,
+  //   categories: 
+  // }
 
   useEffect(() => {
     queryParams.current = new URLSearchParams(location.search).get("search");

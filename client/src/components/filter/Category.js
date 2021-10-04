@@ -45,7 +45,7 @@ const Category = ({ category, id }) => {
   }
 
   const toggleCategory = (id) => {
-    parameterName => ({setValue: })
+    // parameterName => ({setValue: })
     const oldParams = new URLSearchParams(location.search);
     const newCategories = updateCategories(id, oldParams.get('categories'));
     oldParams.set('categories', newCategories.join(','));
