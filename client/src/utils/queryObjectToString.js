@@ -1,5 +1,7 @@
+import removeEmptyParams from "./removeEmptyParams";
+
 const queryObjectToString = (query) => {
-  const strippedQuery = Object.entries(query).reduce((a, [k, v]) => (v && v.length > 0 ? (a[k] = v, a) : a), {});
+  const strippedQuery = removeEmptyParams(query);
   return new URLSearchParams(strippedQuery).toString();
 };
 

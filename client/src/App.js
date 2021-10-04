@@ -9,6 +9,7 @@ import { Footer } from "./components/footer/Footer";
 import requestListings from './utils/requestListings';
 import queryObjectToString from './utils/queryObjectToString';
 import requestCategories from './utils/requestCategories';
+import removeEmptyParams from './utils/removeEmptyParams';
 
 function App() {
   const { setListings, setListingStats, setCategories } = useContext(ListingsContext);
@@ -18,12 +19,18 @@ function App() {
   let location = useLocation();
 
   useEffect(() => {
+    if (history.action === 'POP') {
+      return;
+    }
     let newParams = '';
-    const strippedQuery = Object.entries(query).reduce((a, [k, v]) => (v && v.length > 0 ? (a[k] = v, a) : a), {});
+    const strippedQuery = removeEmptyParams(query);
     if (strippedQuery.hasOwnProperty('categories') || strippedQuery.hasOwnProperty('page') || strippedQuery.hasOwnProperty('search')) {
       newParams = '?' + new URLSearchParams(strippedQuery).toString();
     }
-    if (location.search !== newParams) history.push(newParams);
+    if (location.search !== newParams) {
+      // console.log("push to history", history.action)
+      history.push(newParams);
+    }
   }, [query, history, location]);
 
   useEffect(() => {

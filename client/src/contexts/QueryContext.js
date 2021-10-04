@@ -19,6 +19,7 @@ const QueryContextProvider = ({ children }) => {
   const [query, setQuery] = useState({
     categories: locationObject?.categories ? locationObject.categories : [],
     search: locationObject?.search ? locationObject.search : '',
+    page: locationObject?.page ? locationObject.page : 1,
   });
 
   return (
