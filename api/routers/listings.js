@@ -1,96 +1,82 @@
 const express = require('express');
 const router = express.Router();
-const middleware = require('../middleware');
+const authenticate = require('../middleware/authenticate');
 
-const { getAllCategories, getListing, getListingsByOwner, deleteListing } = require('../utils/db_read');
+const {
+  getAllCategories,
+  getListing,
+  getListingsByOwner,
+} = require('../utils/db_read');
 const { getListings } = require('../utils/db_read_dynamic');
-const { addListing, editListing } = require('../utils/db_create');
+const {
+  addListing,
+  editListing,
+  deleteListing,
+} = require('../utils/db_create');
 const { validateListing } = require('../utils/validation');
 
 router.get('/', async (req, res, next) => {
   const result = await getListings(req.query);
-  return res
-    .status(200)
-    .json(result)
+  return res.status(200).json(result);
 });
 
 router.get('/categories', async (req, res, next) => {
   const rows = await getAllCategories(next);
   if (rows[0]) {
-    return res
-      .status(200)
-      .json(rows)
+    return res.status(200).json(rows || []);
   }
-  return res
-    .status(200)
-    .end('No categories to show')
+  return res.status(200).end('No categories to show');
 });
 
 router.get('/user/:id', async (req, res, next) => {
   const uid = req.params.id;
   const rows = await getListingsByOwner(uid, next);
   if (rows) {
-    return res
-      .status(200)
-      .json(rows)
+    return res.status(200).json(rows);
   }
-  return res
-    .status(404)
-    .end('Not found')
-});
-
-router.get('/user', middleware.decodeToken, async (req, res, next) => {
-  if (req.user && req.user.uid) {
-    const uid = req.user.uid;
-    const result = await getListingsByOwner(uid, next);
-    return res
-      .status(200)
-      .json(result)
-  }
-  return res
-    .status(400)
-    .end('No user id provided')
+  return res.status(404).end('Not found');
 });
 
 router.get('/:id', async (req, res, next) => {
   const rows = await getListing(req.params.id, next);
   if (rows[0]) {
-    return res
-      .status(200)
-      .json(rows)
+    return res.status(200).json(rows);
   }
-  return res
-    .status(404)
-    .end('Not found')
+  return res.status(404).end('Not found');
 });
 
-router.post('/:id', middleware.decodeToken, async (req, res, next) => {
+router.use(authenticate);
+
+router.get('/user', async (req, res, next) => {
+  if (req.user && req.user.uid) {
+    const uid = req.user.uid;
+    const result = await getListingsByOwner(uid, next);
+    return res.status(200).json(result);
+  }
+  return res.status(400).end('No user id provided');
+});
+
+router.post('/:id', async (req, res, next) => {
   const uid = req.user.uid;
   try {
     const listingDetails = validateListing({ ...req.body, u_id: uid });
     listingDetails.l_id = req.params.id;
     const rows = await editListing(listingDetails);
-    res
-      .status(201)
-      .json(rows)
+    res.status(201).json(rows);
   } catch (err) {
     next(err);
   }
 });
 
-router.post('/', middleware.decodeToken, async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   const uid = req.user.uid;
   try {
     const listingDetails = validateListing({ ...req.body, u_id: uid });
     const rows = await addListing(listingDetails);
     if (rows[0]) {
-      return res
-        .status(201)
-        .json(rows)
+      return res.status(201).json(rows);
     }
-    return res
-      .status(500)
-      .end('Not created')
+    return res.status(500).end('Not created');
   } catch (err) {
     next(err);
   }
@@ -99,9 +85,7 @@ router.post('/', middleware.decodeToken, async (req, res, next) => {
 router.delete('/:id', async (req, res) => {
   const rows = await deleteListing(req.params.id);
   if (rows) {
-    return res
-      .status(204)
-      .end('Deleted successfully')
+    return res.status(204).end('Deleted successfully');
   }
 });
 

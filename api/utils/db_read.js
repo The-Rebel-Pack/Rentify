@@ -33,16 +33,6 @@ const getUser = async (id, next) => {
   }
 };
 
-const deleteListing = async (id, next) => {
-  try {
-    const deleteListingById = await fs.readFile('./sql/listings_delete_by_id.sql');
-    const res = await db.query(deleteListingById.toString(), [id]);
-    return res.rows;
-  } catch (err) {
-    return next(err);
-  }
-};
-
 const findUserByEmail = async (email, next) => {
   try {
     const getUserByEmail = await fs.readFile('./sql/users_get_by_email.sql');
@@ -91,6 +81,5 @@ module.exports = {
   findUserByEmail,
   getAllCategories,
   getListing,
-  getListingsByOwner,
-  deleteListing
+  getListingsByOwner
 };

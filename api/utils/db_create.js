@@ -67,6 +67,16 @@ const editListing = async (listingDetails) => {
   }
 };
 
+const deleteListing = async (id, next) => {
+  try {
+    const deleteListingById = await fs.readFile('./sql/listings_delete_by_id.sql');
+    const res = await db.query(deleteListingById.toString(), [id]);
+    return res.rows;
+  } catch (err) {
+    return next(err);
+  }
+};
+
 const editUser = async (userDetails) => {
   try {
     const editUser = await fs.readFile('./sql/users_edit.sql');
@@ -90,5 +100,6 @@ module.exports = {
   editUser,
   addListing,
   resetDb,
-  editListing
+  editListing,
+  deleteListing
 };
