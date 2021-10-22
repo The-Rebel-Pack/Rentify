@@ -1,12 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const authenticate = require('../middleware/authenticate');
+const getAllCategories = require('../middleware/getCategories');
 
-const {
-  getAllCategories,
-  getListing,
-  getListingsByOwner,
-} = require('../utils/db_read');
+const { getListing, getListingsByOwner } = require('../utils/db_read');
 const { getListings } = require('../utils/db_read_dynamic');
 const {
   addListing,
@@ -20,12 +17,8 @@ router.get('/', async (req, res, next) => {
   return res.status(200).json(result);
 });
 
-router.get('/categories', async (req, res, next) => {
-  const rows = await getAllCategories(next);
-  if (rows[0]) {
-    return res.status(200).json(rows || []);
-  }
-  return res.status(200).end('No categories to show');
+router.get('/categories', getAllCategories, (req, res, next) => {
+  return res.status(200).json(req.data);
 });
 
 router.get('/user/:id', async (req, res, next) => {
