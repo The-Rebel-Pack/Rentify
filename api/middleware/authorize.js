@@ -1,7 +1,7 @@
 const admin = require('../config/firebase-config');
 const { createHttpError } = require('../utils/validation');
 
-const authenticate = async (req, res, next) => {
+const authorize = async (req, res, next) => {
   try {
     const token =
       req.headers && req.headers.authorization
@@ -20,4 +20,4 @@ const authenticate = async (req, res, next) => {
   }
 };
 
-module.exports = authenticate;
+module.exports = authorize;

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const authenticate = require('../middleware/authenticate');
+const authorize = require('../middleware/authorize');
 const getAllCategories = require('../middleware/getCategories');
 const getListings = require('../middleware/getListings');
 const getListingsByUser = require('../middleware/getListingsByUser');
@@ -25,11 +25,11 @@ router.get('/:id', getSingleListing, (req, res) => {
   return res.status(200).json(req.data);
 });
 
-router.post('/:id', authenticate, postListing, (req, res) => {
+router.post('/:id', authorize, postListing, (req, res) => {
   return res.status(201).json(req.data);
 });
 
-router.post('/', authenticate, postListing, (req, res) => {
+router.post('/', authorize, postListing, (req, res) => {
   return res.status(201).json(req.data);
 });
 

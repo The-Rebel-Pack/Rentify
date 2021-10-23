@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const authenticate = require('../middleware/authenticate');
+const authorize = require('../middleware/authorize');
 
 router.use(express.json());
 
@@ -8,12 +8,7 @@ const { getAllUsers, getUser, findUserByEmail } = require('../utils/db_read');
 const { addUser, editUser } = require('../utils/db_create');
 const { validateUser, validateNewUser } = require('../utils/validation');
 
-router.get('/', async (req, res) => {
-  const rows = await getAllUsers();
-  res.status(200).json(rows);
-});
-
-router.get('/unique', authenticate, async (req, res) => {
+router.get('/unique', authorize, async (req, res) => {
   const uid = req.user.uid;
   const rows = await getUser(uid);
   if (rows[0]) {
@@ -22,7 +17,7 @@ router.get('/unique', authenticate, async (req, res) => {
   return res.status(404).end('Not found');
 });
 
-router.post('/unique', authenticate, async (req, res, next) => {
+router.post('/unique', authorize, async (req, res, next) => {
   try {
     const uid = req.user.uid;
     const userDetails = validateUser(uid, req.body);
@@ -33,7 +28,7 @@ router.post('/unique', authenticate, async (req, res, next) => {
   }
 });
 
-router.post('/', authenticate, async (req, res, next) => {
+router.post('/', authorize, async (req, res, next) => {
   try {
     const userExists = await findUserByEmail(req.body.email);
     if (userExists) {
@@ -45,6 +40,11 @@ router.post('/', authenticate, async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+});
+
+router.get('/', async (req, res) => {
+  const rows = await getAllUsers();
+  res.status(200).json(rows);
 });
 
 module.exports = router;
