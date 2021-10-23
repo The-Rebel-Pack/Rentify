@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const authenticate = require('../middleware/authenticate');
 const getAllCategories = require('../middleware/getCategories');
+const getListingsByUser = require('../middleware/getListingsByUser');
+const addPagination = require('../middleware/addPagination');
 
-const { getListing, getListingsByOwner } = require('../utils/db_read');
+const { getListing } = require('../utils/db_read');
 const { getListings } = require('../utils/db_read_dynamic');
 const {
   addListing,
@@ -21,13 +23,8 @@ router.get('/categories', getAllCategories, (req, res, next) => {
   return res.status(200).json(req.data);
 });
 
-router.get('/user/:id', async (req, res, next) => {
-  const uid = req.params.id;
-  const rows = await getListingsByOwner(uid, next);
-  if (rows) {
-    return res.status(200).json(rows);
-  }
-  return res.status(404).end('Not found');
+router.get('/user/:id', getListingsByUser, addPagination, (req, res, next) => {
+  return res.status(200).json(req.data);
 });
 
 router.get('/:id', async (req, res, next) => {
