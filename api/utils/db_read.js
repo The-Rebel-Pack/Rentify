@@ -1,6 +1,5 @@
 const fs = require('fs').promises;
 const db = require('../config/db');
-const { addPagination } = require('./addPagination');
 const moment = require('moment');
 
 const getAllUsers = async (next) => {
@@ -55,22 +54,9 @@ const getListing = async (id, next) => {
   }
 };
 
-const getListingsByOwner = async (id, next) => {
-  try {
-    const getListingById = await fs.readFile(
-      './sql/listings_get_list_owner.sql'
-    );
-    const res = await db.query(getListingById.toString(), [id]);
-    return addPagination(res.rows);
-  } catch (err) {
-    return next(err);
-  }
-};
-
 module.exports = {
   getAllUsers,
   getUser,
   findUserByEmail,
   getListing,
-  getListingsByOwner,
 };
