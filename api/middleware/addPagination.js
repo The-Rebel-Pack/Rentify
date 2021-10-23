@@ -1,5 +1,4 @@
 const addPagination = async (req, res, next) => {
-  console.log(req.query.page);
   let full_count;
   if (req.data.listings.length > 0) {
     full_count = Number(req.data.listings[0].full_count);
