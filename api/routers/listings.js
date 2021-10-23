@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const authenticate = require('../middleware/authenticate');
 const getAllCategories = require('../middleware/getCategories');
+const getListings = require('../middleware/getListings');
 const getListingsByUser = require('../middleware/getListingsByUser');
 const addPagination = require('../middleware/addPagination');
 
 const { getListing } = require('../utils/db_read');
-const { getListings } = require('../utils/db_read_dynamic');
 const {
   addListing,
   editListing,
@@ -14,9 +14,8 @@ const {
 } = require('../utils/db_create');
 const { validateListing } = require('../utils/validation');
 
-router.get('/', async (req, res, next) => {
-  const result = await getListings(req.query);
-  return res.status(200).json(result);
+router.get('/', getListings, addPagination, (req, res, next) => {
+  return res.status(200).json(req.data);
 });
 
 router.get('/categories', getAllCategories, (req, res, next) => {
