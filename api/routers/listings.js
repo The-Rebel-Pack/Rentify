@@ -7,8 +7,7 @@ const getListingsByUser = require('../middleware/getListingsByUser');
 const getSingleListing = require('../middleware/getSingleListing');
 const addPagination = require('../middleware/addPagination');
 const postListing = require('../middleware/postListing');
-
-const { deleteListing } = require('../utils/db_create');
+const deleteListing = require('../middleware/deleteListing');
 
 router.get('/', getListings, addPagination, (req, res) => {
   return res.status(200).json(req.data);
@@ -34,11 +33,8 @@ router.post('/', authenticate, postListing, (req, res) => {
   return res.status(201).json(req.data);
 });
 
-router.delete('/:id', authenticate, async (req, res) => {
-  const rows = await deleteListing(req.params.id);
-  if (rows) {
-    return res.status(204).end('Deleted successfully');
-  }
+router.delete('/:id', deleteListing, (req, res) => {
+  return res.status(204).end('Deleted successfully');
 });
 
 module.exports = router;
