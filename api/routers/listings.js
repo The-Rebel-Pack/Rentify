@@ -4,9 +4,9 @@ const authenticate = require('../middleware/authenticate');
 const getAllCategories = require('../middleware/getCategories');
 const getListings = require('../middleware/getListings');
 const getListingsByUser = require('../middleware/getListingsByUser');
+const getSingleListing = require('../middleware/getSingleListing');
 const addPagination = require('../middleware/addPagination');
 
-const { getListing } = require('../utils/db_read');
 const {
   addListing,
   editListing,
@@ -14,24 +14,20 @@ const {
 } = require('../utils/db_create');
 const { validateListing } = require('../utils/validation');
 
-router.get('/', getListings, addPagination, (req, res, next) => {
+router.get('/', getListings, addPagination, (req, res) => {
   return res.status(200).json(req.data);
 });
 
-router.get('/categories', getAllCategories, (req, res, next) => {
+router.get('/categories', getAllCategories, (req, res) => {
   return res.status(200).json(req.data);
 });
 
-router.get('/user/:id', getListingsByUser, addPagination, (req, res, next) => {
+router.get('/user/:id', getListingsByUser, addPagination, (req, res) => {
   return res.status(200).json(req.data);
 });
 
-router.get('/:id', async (req, res, next) => {
-  const rows = await getListing(req.params.id, next);
-  if (rows[0]) {
-    return res.status(200).json(rows);
-  }
-  return res.status(404).end('Not found');
+router.get('/:id', getSingleListing, (req, res) => {
+  return res.status(200).json(req.data);
 });
 
 router.use(authenticate);
