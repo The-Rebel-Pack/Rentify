@@ -1,3 +1,5 @@
+const fs = require('fs').promises;
+const db = require('../config/db');
 const { validateListing } = require('../utils/validation');
 
 const postListing = async (req, res, next) => {

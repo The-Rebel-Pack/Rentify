@@ -17,7 +17,7 @@ router.get('/categories', getAllCategories, (req, res) => {
   return res.status(200).json(req.data);
 });
 
-router.get('/user/:id?', getListingsByUser, addPagination, (req, res) => {
+router.get('/user/:id?', authorize, getListingsByUser, addPagination, (req, res) => {
   return res.status(200).json(req.data);
 });
 

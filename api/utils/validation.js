@@ -1,6 +1,7 @@
 const createHttpError = (code, message) => {
   const err = new Error(message);
   err.status = code || 500;
+  console.log(err)
   return err;
 };
 
