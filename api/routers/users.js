@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const authorize = require('../middleware/authorize');
+const postUser = require('../middleware/postUser');
 
 router.use(express.json());
 
 const { getAllUsers, getUser, findUserByEmail } = require('../utils/db_read');
-const { addUser, editUser } = require('../utils/db_create');
-const { validateUser, validateNewUser } = require('../utils/validation');
 
 router.get('/unique', authorize, async (req, res) => {
   const uid = req.user.uid;
@@ -17,29 +16,12 @@ router.get('/unique', authorize, async (req, res) => {
   return res.status(404).end('Not found');
 });
 
-router.post('/unique', authorize, async (req, res, next) => {
-  try {
-    const uid = req.user.uid;
-    const userDetails = validateUser(uid, req.body);
-    const rows = await editUser(userDetails);
-    res.status(201).json(rows);
-  } catch (err) {
-    next(err);
-  }
+router.post('/unique', authorize, postUser, (req, res) => {
+  return res.status(201).json(req.data);
 });
 
-router.post('/', authorize, async (req, res, next) => {
-  try {
-    const userExists = await findUserByEmail(req.body.email);
-    if (userExists) {
-      return res.status(200).end('User exists');
-    }
-    const userDetails = validateNewUser(req.body);
-    const newRow = await addUser(userDetails);
-    return res.status(201).json(newRow);
-  } catch (err) {
-    next(err);
-  }
+router.post('/', postUser, (req, res) => {
+  return res.status(201).json(req.data);
 });
 
 router.get('/', async (req, res) => {

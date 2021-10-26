@@ -11,41 +11,6 @@ const resetDb = async (next) => {
   }
 };
 
-const addUser = async (userDetails) => {
-  try {
-    const addUser = await fs.readFile('./sql/users_add.sql');
-    const res = await db.query(addUser.toString(), [
-      userDetails.u_id,
-      userDetails.full_name,
-      userDetails.first_name,
-      userDetails.last_name,
-      userDetails.email,
-      userDetails.u_details,
-    ]);
-    return res.rows;
-  } catch (err) {
-    return next(err);
-  }
-};
-
-const editUser = async (userDetails) => {
-  try {
-    const editUser = await fs.readFile('./sql/users_edit.sql');
-    const res = await db.query(editUser.toString(), [
-      userDetails.full_name,
-      userDetails.first_name,
-      userDetails.last_name,
-      userDetails.u_details,
-      userDetails.u_id,
-    ]);
-    return res.rows;
-  } catch (err) {
-    return next(err);
-  }
-};
-
 module.exports = {
-  addUser,
-  editUser,
   resetDb,
 };

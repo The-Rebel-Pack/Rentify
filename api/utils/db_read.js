@@ -21,19 +21,7 @@ const getUser = async (id, next) => {
   }
 };
 
-const findUserByEmail = async (email, next) => {
-  try {
-    const getUserByEmail = await fs.readFile('./sql/users_get_by_email.sql');
-    const res = await db.query(getUserByEmail.toString(), [email]);
-    if (res) return res.rowCount;
-    return 0;
-  } catch (err) {
-    return next(err);
-  }
-};
-
 module.exports = {
   getAllUsers,
   getUser,
-  findUserByEmail,
 };
