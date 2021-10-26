@@ -1,7 +1,6 @@
 const createHttpError = (code, message) => {
   const err = new Error(message);
   err.status = code || 500;
-  console.log(err)
   return err;
 };
 
@@ -17,38 +16,40 @@ const validateNewUser = (userInput) => {
   userDetails.email = email;
   userDetails.u_details = {};
   return userDetails;
-}
+};
 
 const validateUser = (id, userInput) => {
   const { name, first_name, last_name, details } = userInput;
-  if (name.trim() === '' || first_name.trim() === '' || last_name.trim() === '') throw createHttpError(400, 'Invalid name');
+  if (name.trim() === '' || first_name.trim() === '' || last_name.trim() === '')
+    throw createHttpError(400, 'Invalid name');
   const userDetails = {};
   userDetails.u_id = id;
   userDetails.first_name = first_name;
   userDetails.last_name = last_name;
   userDetails.u_details = JSON.stringify(details);
   return userDetails;
-}
+};
 
 const isValidNumber = (input) => {
   if (isFinite(input)) return true;
   if (input > 0) return true;
   return false;
-}
+};
 
 const validateListing = (userInput) => {
   let { category, title, details, price, u_id } = userInput;
   if (!details.images) {
     details = {
       ...details,
-      images: []
-    }
-  };
+      images: [],
+    };
+  }
   category = Number(category);
   price.day = Number(price.day);
   if (title.trim() === '') throw createHttpError(400, 'Invalid title');
   if (!isValidNumber(category)) throw createHttpError(400, 'Invalid category');
-  if (!isValidNumber(price.day)) throw createHttpError(400, 'Invalid price per day');
+  if (!isValidNumber(price.day))
+    throw createHttpError(400, 'Invalid price per day');
   const listingDetails = {};
   listingDetails.c_id = Number(category);
   listingDetails.title = title;
@@ -56,20 +57,18 @@ const validateListing = (userInput) => {
   listingDetails.price = JSON.stringify(price);
   listingDetails.u_id = u_id;
   return listingDetails;
-}
+};
 
 const validateCategoriesStrToArr = (categories) => {
   return categories
     .split(',')
     .map(Number)
-    .filter(c => isValidNumber(c));
-}
+    .filter((c) => isValidNumber(c));
+};
 
 const validateSearchStrToArr = (search) => {
-  return search
-    .split(' ')
-    .filter(s => s.length > 1)
-}
+  return search.split(' ').filter((s) => s.length > 1);
+};
 
 module.exports = {
   createHttpError,
@@ -77,5 +76,5 @@ module.exports = {
   validateNewUser,
   validateListing,
   validateCategoriesStrToArr,
-  validateSearchStrToArr
-}
+  validateSearchStrToArr,
+};

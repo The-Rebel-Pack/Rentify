@@ -3,7 +3,7 @@ const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 5000;
-const { resetDb } = require('./utils/db_create');
+const resetSeedDatabase = require('./middleware/resetSeedDatabase');
 const { createHttpError } = require('./utils/validation');
 const logger = require('./middleware/logger');
 
@@ -15,14 +15,7 @@ app.use(logger);
 
 app.get('/', (req, res) => res.send('Hello World!'));
 
-app.get('/db/reset', async (req, res, next) => {
-  try {
-    const rows = await resetDb(next);
-    res.status(201).json(rows);
-  } catch (err) {
-    return next(err);
-  }
-});
+app.get('/db/reset', resetSeedDatabase);
 
 app.use('/api/users', require('./routers/users'));
 
@@ -35,7 +28,7 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-  console.log(err);
+  console.log(err.status || 500, err.message || 'Oops, something went wrong');
   res.status(err.status || 500);
   res.send(err.message || 'Oops, something went wrong');
 });
