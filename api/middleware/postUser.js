@@ -43,8 +43,7 @@ const postUser = async (req, res, next) => {
         userDetails.u_details,
       ]);
     }
-    req.data = result.rows;
-    next();
+    return res.status(201).json(result.rows);
   } catch (err) {
     return next(err);
   }
